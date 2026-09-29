@@ -1,108 +1,177 @@
 import * as THREE from 'https://esm.sh/three@0.180.0';
 import { GLTFLoader } from 'https://esm.sh/three@0.180.0/examples/jsm/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'https://esm.sh/three@0.180.0/examples/jsm/environments/RoomEnvironment.js';
 
 const canvas = document.querySelector('#planet-canvas');
 const stage = document.querySelector('.planet-stage');
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 100);
-camera.position.set(0, 0.1, 7.6);
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
+camera.position.set(0, 0.2, -7.8);
+camera.lookAt(0, -0.65, 0);
 
-const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: 'high-performance' });
+const renderer = new THREE.WebGLRenderer({
+  canvas,
+  alpha: true,
+  antialias: true,
+  powerPreference: 'high-performance',
+});
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setClearColor(0xf4f4ef, 0);
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
+renderer.toneMappingExposure = 0.96;
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
+const environmentGenerator = new THREE.PMREMGenerator(renderer);
+scene.environment = environmentGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
+scene.environmentIntensity = 0.34;
+environmentGenerator.dispose();
+
 const world = new THREE.Group();
-world.rotation.set(-0.18, -0.34, 0.06);
 scene.add(world);
 
-scene.add(new THREE.HemisphereLight(0xffffff, 0x6e7165, 2.2));
-const keyLight = new THREE.DirectionalLight(0xffffff, 5.2);
-keyLight.position.set(-4, 5, 6);
+scene.add(new THREE.HemisphereLight(0xeaf5ff, 0x596451, 0.5));
+
+const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.02);
+keyLight.position.set(-3.2, 6.5, -8.5);
+keyLight.target.position.set(0, -2.8, 0);
 keyLight.castShadow = true;
-scene.add(keyLight);
-const rimLight = new THREE.DirectionalLight(0xcfff58, 4.8);
-rimLight.position.set(5, -1, 2);
+keyLight.shadow.mapSize.set(2048, 2048);
+keyLight.shadow.camera.near = 0.1;
+keyLight.shadow.camera.far = 32;
+keyLight.shadow.camera.left = -9;
+keyLight.shadow.camera.right = 9;
+keyLight.shadow.camera.top = 9;
+keyLight.shadow.camera.bottom = -9;
+keyLight.shadow.bias = -0.00025;
+keyLight.shadow.normalBias = 0.035;
+keyLight.shadow.radius = 7;
+keyLight.shadow.blurSamples = 16;
+scene.add(keyLight, keyLight.target);
+
+const frontLight = new THREE.RectAreaLight(0xf3f8ff, 0.58, 7, 5);
+frontLight.position.set(1.8, 2.6, -6.5);
+frontLight.lookAt(0, -2.4, 0);
+scene.add(frontLight);
+
+const rimLight = new THREE.DirectionalLight(0xcddfff, 0.13);
+rimLight.position.set(5, 4, 3);
 scene.add(rimLight);
-const fillLight = new THREE.PointLight(0xd8e3ff, 2.8, 15);
-fillLight.position.set(0, -4, 4);
-scene.add(fillLight);
-
-function createFallbackPlanet() {
-  const geometry = new THREE.IcosahedronGeometry(2.15, 18);
-  const position = geometry.attributes.position;
-  const vertex = new THREE.Vector3();
-  for (let i = 0; i < position.count; i += 1) {
-    vertex.fromBufferAttribute(position, i);
-    const wave = Math.sin(vertex.x * 3.7) * Math.cos(vertex.y * 4.3) * Math.sin(vertex.z * 3.1);
-    vertex.multiplyScalar(1 + wave * 0.018);
-    position.setXYZ(i, vertex.x, vertex.y, vertex.z);
-  }
-  geometry.computeVertexNormals();
-  const material = new THREE.MeshPhysicalMaterial({
-    color: 0x20221d,
-    roughness: 0.72,
-    metalness: 0.04,
-    clearcoat: 0.08,
-    clearcoatRoughness: 0.85,
-  });
-  const mesh = new THREE.Mesh(geometry, material);
-  mesh.castShadow = true;
-  mesh.receiveShadow = true;
-  mesh.userData.fallback = true;
-  world.add(mesh);
-
-  const orbit = new THREE.Mesh(
-    new THREE.TorusGeometry(2.62, 0.018, 12, 220),
-    new THREE.MeshBasicMaterial({ color: 0x8f9188, transparent: true, opacity: 0.38 })
-  );
-  orbit.rotation.set(1.18, 0.25, -0.2);
-  world.add(orbit);
-}
-
-createFallbackPlanet();
 
 const clock = new THREE.Clock();
 let mixer = null;
+let leftFoot = null;
+let rightFoot = null;
+let contactShadow = null;
+
+const footPositions = {
+  left: new THREE.Vector3(),
+  right: new THREE.Vector3(),
+};
+const shadowTarget = new THREE.Vector3();
+
+function makeSoftTexture(innerColor, outerColor) {
+  const textureCanvas = document.createElement('canvas');
+  textureCanvas.width = 128;
+  textureCanvas.height = 128;
+  const context = textureCanvas.getContext('2d');
+  const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
+  gradient.addColorStop(0, innerColor);
+  gradient.addColorStop(0.35, innerColor);
+  gradient.addColorStop(1, outerColor);
+  context.fillStyle = gradient;
+  context.fillRect(0, 0, 128, 128);
+  const texture = new THREE.CanvasTexture(textureCanvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  return texture;
+}
+
+const shadowTexture = makeSoftTexture('rgba(28, 29, 25, .48)', 'rgba(28, 29, 25, 0)');
+
+function updateGroundEffects(delta) {
+  if (!leftFoot || !rightFoot || !contactShadow) return;
+
+  leftFoot.getWorldPosition(footPositions.left);
+  rightFoot.getWorldPosition(footPositions.right);
+
+  shadowTarget.set(
+    (footPositions.left.x + footPositions.right.x) * 0.5,
+    Math.min(footPositions.left.y, footPositions.right.y) - 0.06,
+    (footPositions.left.z + footPositions.right.z) * 0.5 - 0.055,
+  );
+  const smoothing = 1 - Math.exp(-delta * 18);
+  contactShadow.position.lerp(shadowTarget, smoothing);
+  const footSpread = Math.min(Math.abs(footPositions.left.x - footPositions.right.x), 0.42);
+  contactShadow.scale.set(0.58 + footSpread, 0.15 + footSpread * 0.08, 1);
+}
+
 const loader = new GLTFLoader();
-const planetModelUrl = new URL('../public/models/planet.glb', import.meta.url).href;
-loader.load(planetModelUrl, (gltf) => {
-  world.clear();
+
+const modelUrl = new URL('../public/FINAL.glb', import.meta.url).href;
+loader.load(modelUrl, (gltf) => {
   const model = gltf.scene;
-  const box = new THREE.Box3().setFromObject(model);
-  const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
-  const scale = 4.3 / Math.max(size.x, size.y, size.z);
-  model.position.sub(center.multiplyScalar(scale));
-  model.scale.setScalar(scale);
+  world.add(model);
+  model.rotation.y = -Math.PI / 2;
+
+  if (gltf.animations.length) {
+    mixer = new THREE.AnimationMixer(model);
+    gltf.animations.forEach((clip) => {
+      const action = mixer.clipAction(clip);
+      action.setLoop(THREE.LoopRepeat, Infinity);
+      action.play();
+    });
+    mixer.update(0);
+  }
+
   model.traverse((node) => {
     if (node.isMesh) {
       node.castShadow = true;
       node.receiveShadow = true;
+      const materials = Array.isArray(node.material) ? node.material : [node.material];
+      materials.forEach((material) => {
+        if (!material?.isMeshStandardMaterial) return;
+        material.envMapIntensity = 0.42;
+        material.roughness = THREE.MathUtils.clamp(material.roughness, 0.38, 0.92);
+        material.needsUpdate = true;
+      });
     }
+    if (/mixamorig.*LeftFoot$/i.test(node.name)) leftFoot = node;
+    if (/mixamorig.*RightFoot$/i.test(node.name)) rightFoot = node;
   });
-  world.add(model);
-  if (gltf.animations.length) {
-    mixer = new THREE.AnimationMixer(model);
-    gltf.animations.forEach((clip) => mixer.clipAction(clip).play());
-  }
-}, undefined, () => {
-  // The sculpted fallback remains visible until a custom planet.glb is supplied.
-});
 
-const pointer = new THREE.Vector2();
-const target = new THREE.Vector2(-0.34, -0.18);
-stage.addEventListener('pointermove', (event) => {
-  const rect = stage.getBoundingClientRect();
-  pointer.x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
-  pointer.y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-  target.x = -0.34 + pointer.x * 0.22;
-  target.y = -0.18 + pointer.y * 0.14;
+  model.scale.setScalar(1);
+  model.position.set(0, -9.5, 0);
+  model.updateMatrixWorld(true);
+
+  let head = null;
+  model.traverse((node) => {
+    if (/mixamorig.*Head$/i.test(node.name)) head = node;
+  });
+  if (head) {
+    const headPosition = new THREE.Vector3();
+    head.getWorldPosition(headPosition);
+    model.position.x -= headPosition.x;
+  }
+  model.updateMatrixWorld(true);
+
+  const shadowMaterial = new THREE.SpriteMaterial({
+    map: shadowTexture,
+    transparent: true,
+    opacity: 0.11,
+    depthWrite: false,
+    depthTest: false,
+    toneMapped: false,
+  });
+  contactShadow = new THREE.Sprite(shadowMaterial);
+  contactShadow.renderOrder = 3;
+  contactShadow.scale.set(0.68, 0.18, 1);
+  scene.add(contactShadow);
+  updateGroundEffects(1 / 60);
+
+}, undefined, (error) => {
+  console.error('WEB_FULL_LOOP.glb failed to load', error);
 });
-stage.addEventListener('pointerleave', () => target.set(-0.34, -0.18));
 
 function resize() {
   const { width, height } = stage.getBoundingClientRect();
@@ -114,16 +183,11 @@ function resize() {
 const observer = new ResizeObserver(resize);
 observer.observe(stage);
 
-let elapsed = 0;
 function animate() {
   const delta = Math.min(clock.getDelta(), 0.04);
-  elapsed += delta;
   mixer?.update(delta);
-  world.rotation.y += delta * 0.1;
-  world.rotation.x += (target.y - world.rotation.x) * 0.035;
-  const desiredY = target.x + elapsed * 0.1;
-  world.rotation.y += (desiredY - world.rotation.y) * 0.02;
-  world.position.y = Math.sin(elapsed * 0.75) * 0.08;
+  updateGroundEffects(delta);
+
   renderer.render(scene, camera);
   requestAnimationFrame(animate);
 }
