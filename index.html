@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Портфолио продуктового дизайнера Леонида Зуева." />
+    <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
+    <link rel="stylesheet" href="./src/style.css?v=8" />
+    <title>Зуев Леонид — продуктовый дизайнер</title>
+  </head>
+  <body>
+    <div id="app">
+      <header class="site-header" aria-label="Основная навигация">
+        <nav class="nav" aria-label="Разделы портфолио">
+          <a href="#works">Работы</a>
+          <a href="#top">Обо мне</a>
+          <a href="mailto:hello@example.com">Контакты</a>
+        </nav>
+      </header>
+
+      <main id="top" class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="identity">Зуев Леонид · продуктовый дизайнер</p>
+          <h1 id="hero-title">Создаю продукты,<br /><em>которыми хочется пользоваться.</em></h1>
+          <a class="button" id="works" href="#works">Смотреть работы <span aria-hidden="true">↘</span></a>
+        </div>
+
+        <div class="planet-stage" aria-label="Интерактивный вращающийся 3D-объект">
+          <canvas id="planet-canvas"></canvas>
+          <svg class="wind-lines" viewBox="0 0 1200 420" preserveAspectRatio="none" aria-hidden="true">
+            <path class="wind-line wind-line--one" d="M-90 344 C180 224 430 206 690 280" />
+            <path class="wind-line wind-line--two" d="M250 372 C520 238 840 224 1260 330" />
+            <path class="wind-line wind-line--three" d="M-140 390 C130 286 380 274 620 326" />
+            <path class="wind-line wind-line--four" d="M610 386 C820 294 1030 286 1320 364" />
+          </svg>
+        </div>
+      </main>
+    </div>
+    <script type="module" src="./src/main.js?v=7"></script>
+  </body>
+</html>
