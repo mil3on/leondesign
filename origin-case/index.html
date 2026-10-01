@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Origin — кейс продуктового дизайна Леонида Зуева: геймифицированный лайф-трекер целей." />
+  <meta name="theme-color" content="#f3f3f1" />
+  <title>Origin — продуктовый кейс Леонида Зуева</title>
+  <link rel="icon" type="image/png" href="./assets/origin-logo.png" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="scroll-progress" aria-hidden="true"><span></span></div>
+
+  <header class="topbar">
+    <a class="back-link" href="#top" aria-label="К началу страницы"><span>←</span> К началу</a>
+    <nav class="case-switcher" aria-label="Переключение кейсов">
+      <a class="active" href="./" aria-current="page">Origin</a>
+      <a href="../b2b-case/">B2B кабинет</a>
+      <span class="case-track"><i></i></span>
+    </nav>
+    <div class="case-count">01 / 02</div>
+  </header>
+
+  <main id="top">
+    <section class="hero page-shell" aria-labelledby="case-title">
+      <div class="hero-card reveal">
+        <div class="hero-copy">
+          <div class="brand-lockup">
+            <img class="brand-mark" src="./assets/origin-logo.png" alt="" aria-hidden="true" />
+            <span>origin</span>
+          </div>
+          <p class="eyebrow">Геймифицированный лайф-трекер · 2025</p>
+          <h1 id="case-title">Origin</h1>
+          <p class="hero-lead">Пространство, которое помогает превратить личное «хочу» в первый посильный шаг.</p>
+        </div>
+        <figure class="hero-media" aria-label="Два экрана мобильного приложения Origin">
+          <div class="phone-group">
+            <img class="hero-phone hero-phone-home" src="./assets/hero-phone-home.png" alt="Домашний экран Origin" fetchpriority="high" />
+            <img class="hero-phone hero-phone-goals" src="./assets/hero-phone-goals.png" alt="Карта целей Origin" fetchpriority="high" />
+          </div>
+        </figure>
+      </div>
+
+      <dl class="project-meta stagger">
+        <div class="meta-card reveal"><dt>Роль</dt><dd>Продуктовый дизайнер</dd></div>
+        <div class="meta-card reveal"><dt>Формат</dt><dd>Самостоятельный дипломный проект</dd></div>
+        <div class="meta-card reveal"><dt>Исследование</dt><dd>25 конкурентов · 8 интервью</dd></div>
+        <div class="meta-card reveal"><dt>Результат</dt><dd>MVP-прототип · 13 тестов</dd></div>
+      </dl>
+
+      <div class="impact-grid stagger" aria-label="Ключевые результаты">
+        <article class="impact-card reveal"><strong>4</strong><span>ключевых сценария в интерактивном прототипе</span></article>
+        <article class="impact-card reveal"><strong>9</strong><span>динамических состояний в модели пути пользователя</span></article>
+        <article class="impact-card reveal"><strong>13</strong><span>участников завершили тестовый сценарий</span></article>
+        <article class="impact-card reveal"><strong>3:36</strong><span>среднее время прохождения сценария</span></article>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="brief" data-label="Коротко">
+      <aside class="section-label"><span>01</span><p>Коротко</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">Задача</p>
+          <h2>Не ещё один трекер задач, а пространство для важной цели</h2>
+        </header>
+        <div class="split-copy reveal">
+          <p class="lead">Людям бывает сложно сформулировать личную цель, перейти от намерения к действию и вернуться к планам после перерыва.</p>
+          <div>
+            <p>В привычных приложениях задачи, привычки и цифры прогресса быстро становятся самоцелью. Связь ежедневных действий с личным смыслом постепенно теряется.</p>
+            <p>Origin объединяет цель, личное «зачем», план, действия и рефлексию в одном сценарии. Пользователь сам выбирает нагрузку и может адаптировать путь к меняющимся обстоятельствам.</p>
+          </div>
+        </div>
+        <div class="feature-cards stagger">
+          <article class="soft-card reveal"><span>01</span><h3>Сформулировать</h3><p>Понять, чего хочется и почему это действительно важно.</p></article>
+          <article class="soft-card reveal"><span>02</span><h3>Начать</h3><p>Разложить большую цель и выбрать посильное первое действие.</p></article>
+          <article class="soft-card reveal"><span>03</span><h3>Продолжить</h3><p>Менять приоритеты, делать паузу и возвращаться без обнуления пути.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="hypothesis" data-label="Гипотеза">
+      <aside class="section-label"><span>02</span><p>Гипотеза</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">Продуктовая гипотеза</p>
+          <h2>Личное «зачем» и первый шаг сокращают путь к действию</h2>
+        </header>
+        <blockquote class="statement reveal">Если после перерыва история сохраняется, а нагрузку можно пересмотреть, человеку проще продолжить движение — без ощущения, что всё нужно начинать заново.</blockquote>
+        <div class="metric-table reveal">
+          <div class="table-row table-head"><span>Этап</span><span>Метрика</span><span>Что проверяет</span></div>
+          <div class="table-row"><span>Активация</span><strong>Создание первой цели</strong><span>Понятен ли первоначальный сценарий</span></div>
+          <div class="table-row"><span>Первая ценность</span><strong>Первое действие за 24 часа</strong><span>Помогает ли продукт начать</span></div>
+          <div class="table-row"><span>Удержание</span><strong>D7 / D30</strong><span>Возвращается ли пользователь</span></div>
+          <div class="table-row"><span>Возвращение</span><strong>Возобновление после паузы</strong><span>Помогает ли не бросить путь</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="discovery" data-label="Дискавери">
+      <aside class="section-label"><span>03</span><p>Дискавери</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">Исследование</p>
+          <h2>Теория объяснила мотивацию, интервью — реальное поведение</h2>
+        </header>
+        <div class="research-summary stagger">
+          <article class="research-card reveal"><em>01</em><h3>Психологическая теория</h3><p>Автономия, компетентность и связанность стали основой решений о выборе, прогрессе и поддержке.</p></article>
+          <article class="research-card reveal"><em>02</em><h3>25 конкурентов</h3><p>Большинство продуктов измеряют действия, но редко удерживают связь с личным смыслом цели.</p></article>
+          <article class="research-card reveal"><em>03</em><h3>8 интервью</h3><p>Мотивация оказалась нелинейной: ресурсы, приоритеты и желание действовать постоянно меняются.</p></article>
+        </div>
+        <figure class="media-card reveal" data-zoom>
+          <img src="./assets/competitive-analysis.jpg" alt="Сравнительный анализ функциональности конкурентов" loading="lazy" />
+          <figcaption>Сравнение конкурентов по шести категориям функций</figcaption>
+        </figure>
+        <div class="insight-list reveal">
+          <article><span>01</span><h3>Масштаб цели затрудняет начало</h3><p>Предложить одно быстрое действие вместо полного плана.</p></article>
+          <article><span>02</span><h3>Приоритеты меняются вместе с жизнью</h3><p>Дать человеку пересобирать фокус в моменте.</p></article>
+          <article><span>03</span><h3>Перерыв ощущается как провал</h3><p>Сохранить историю и сделать возвращение частью сценария.</p></article>
+          <article><span>04</span><h3>Игровые очки не равны прогрессу</h3><p>Разделить эмоциональную награду и реальные действия.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="synthesis" data-label="Синтез">
+      <aside class="section-label"><span>04</span><p>Синтез</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">От наблюдений к продукту</p>
+          <h2>Девять состояний вместо линейного пути пользователя</h2>
+        </header>
+        <p class="large-copy reveal">Поиск цели → зажигание → страх → планирование → действие → фрустрация → пауза → возвращение → финиш. Пользователь может войти в цикл из разных точек и вернуться назад.</p>
+        <figure class="media-card reveal" data-zoom>
+          <img src="./assets/state-model.jpg" alt="Модель динамических состояний пользователя" loading="lazy" />
+          <figcaption>Модель состояний превратила исследование в рабочую архитектуру сценариев</figcaption>
+        </figure>
+        <details class="expandable reveal">
+          <summary><span>Связка JTBD + HMW</span><i>Открыть исследовательскую карту</i></summary>
+          <div class="tall-image"><img src="./assets/jtbd-hmw.png" alt="Карта JTBD и HMW" loading="lazy" /></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="flow" data-label="Проектирование">
+      <aside class="section-label"><span>05</span><p>Проектирование</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">User flow</p>
+          <h2>Сценарий меняется вместе с ситуацией пользователя</h2>
+        </header>
+        <p class="large-copy reveal">На каждом шаге приложение проверяет контекст: есть ли цель, есть ли план, хватает ли энергии сегодня. Дальше предлагает действие, пересмотр нагрузки или паузу.</p>
+        <figure class="media-card reveal" data-zoom>
+          <img src="./assets/userflow.png" alt="Базовый User Flow приложения Origin" loading="lazy" />
+          <figcaption>Основной поток — дерево решений, а не линейная воронка</figcaption>
+        </figure>
+        <div class="decision-grid stagger">
+          <article class="reveal"><b>01</b><h3>Регистрация после знакомства</h3><p>Сначала человек понимает ценность и создаёт первую цель, затем сохраняет результат.</p></article>
+          <article class="reveal"><b>02</b><h3>Экран подсказывает следующий шаг</h3><p>Пустое состояние меняется в зависимости от того, что уже сделано.</p></article>
+          <article class="reveal"><b>03</b><h3>Цель — главный объект</h3><p>Личное «зачем», план и действия находятся рядом, а не в разных разделах.</p></article>
+          <article class="reveal"><b>04</b><h3>Пауза не обнуляет путь</h3><p>Пропуск не превращается в наказание и не требует наверстывать.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="visual" data-label="Концепт">
+      <aside class="section-label"><span>06</span><p>Концепт</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">Визуальное направление</p>
+          <h2>Личный цифровой мир вместо менеджера задач</h2>
+        </header>
+        <div class="split-copy reveal">
+          <p class="lead">3D-иллюстрации создают эмоциональный слой и показывают развитие пространства.</p>
+          <p>Монохромные компоненты остаются спокойными и предсказуемыми. Цвет появляется в целях, ценностях и прогрессе — там, где человеку важно заметить личное изменение.</p>
+        </div>
+        <div class="visual-gallery">
+          <figure class="media-card wide reveal" data-zoom><img src="./assets/visual-concept.png" alt="Визуальный концепт Origin" loading="lazy" /><figcaption>Образ мира и персонажа</figcaption></figure>
+          <figure class="media-card reveal" data-zoom><img src="./assets/iconography.png" alt="Иконки Origin" loading="lazy" /><figcaption>Мягкая иконографика</figcaption></figure>
+          <figure class="media-card reveal" data-zoom><img src="./assets/components.png" alt="Компоненты интерфейса Origin" loading="lazy" /><figcaption>Функциональные компоненты</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="scenarios" data-label="Сценарии">
+      <aside class="section-label"><span>07</span><p>Сценарии</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">MVP-прототип</p>
+          <h2>Четыре сценария: от знакомства до ежедневной адаптации</h2>
+        </header>
+        <article class="scenario reveal">
+          <div class="scenario-copy"><span>01</span><h3>Онбординг и первая цель</h3><p>Знакомство с идеей приложения, создание персонажа и переход к личной цели.</p></div>
+          <figure data-zoom><img src="./assets/onboarding.png" alt="Экраны онбординга Origin" loading="lazy" /></figure>
+        </article>
+        <article class="scenario reveal">
+          <div class="scenario-copy"><span>02</span><h3>Создание цели</h3><p>Человек фиксирует личное «зачем», ресурсы и первое выполнимое действие.</p></div>
+          <figure data-zoom><img src="./assets/goal-creation.png" alt="Сценарий создания цели" loading="lazy" /></figure>
+        </article>
+        <article class="scenario reveal">
+          <div class="scenario-copy"><span>03</span><h3>Чекин состояния</h3><p>Пользователь сам сообщает о своём состоянии и выбирает подходящую нагрузку.</p></div>
+          <figure data-zoom><img src="./assets/state-checkin.png" alt="Сценарий чекина состояния" loading="lazy" /></figure>
+        </article>
+        <article class="scenario reveal">
+          <div class="scenario-copy"><span>04</span><h3>Пересмотр приоритетов</h3><p>Фокус можно изменить без потери целей и пройденного пути.</p></div>
+          <figure data-zoom><img src="./assets/priority-checkin.png" alt="Сценарий пересмотра приоритетов" loading="lazy" /></figure>
+        </article>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="testing" data-label="Тестирование">
+      <aside class="section-label"><span>08</span><p>Тестирование</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">Юзабилити</p>
+          <h2>13 из 13 участников завершили сценарий за 3:36</h2>
+        </header>
+        <div class="test-stats stagger">
+          <article class="reveal"><strong>13 / 13</strong><span>завершили онбординг и создание цели</span></article>
+          <article class="reveal"><strong>3:36</strong><span>среднее время прохождения</span></article>
+          <article class="reveal"><strong>1</strong><span>участник отметил перегруженность текстом</span></article>
+        </div>
+        <figure class="media-card reveal" data-zoom><img src="./assets/testing-overview.png" alt="Обзор результатов юзабилити-тестирования" loading="lazy" /><figcaption>Проверка понятности первоначального взаимодействия</figcaption></figure>
+        <div class="before-after reveal">
+          <div><span>До</span><img src="./assets/test-before.png" alt="Экран до изменений" loading="lazy" /></div>
+          <div><span>После</span><img src="./assets/test-after.png" alt="Экран после изменений" loading="lazy" /></div>
+        </div>
+        <p class="note reveal">Тестирование подтвердило понятность сценария, но не доказывает влияние продукта на долгосрочную мотивацию — для этого нужен запуск и продуктовая аналитика.</p>
+      </div>
+    </section>
+
+    <section class="case-section page-shell" id="analytics" data-label="Проверка">
+      <aside class="section-label"><span>09</span><p>Проверка</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">После запуска</p>
+          <h2>Главный эксперимент измеряет совершённое действие</h2>
+        </header>
+        <div class="experiment reveal">
+          <div class="experiment-number">A/B</div>
+          <div><h3>Вопросы против минимальных подсказок</h3><p>Сравнить самостоятельное создание цели с последовательными вопросами о личном «зачем», ресурсах и первом шаге.</p></div>
+          <div><small>Основной показатель</small><strong>Первое действие в течение 7 дней</strong></div>
+        </div>
+        <ul class="events reveal" aria-label="Ключевые события аналитики">
+          <li>Завершение онбординга</li><li>Создание первой цели</li><li>Выбор первого действия</li><li>Выполнение действия</li><li>Изменение приоритетов</li><li>Возвращение после паузы</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="case-section page-shell final-section" id="result" data-label="Результат">
+      <aside class="section-label"><span>10</span><p>Результат</p></aside>
+      <div class="section-body">
+        <header class="section-head reveal">
+          <p class="kicker">Что получилось</p>
+          <h2>Исследование стало архитектурой, сценариями и MVP</h2>
+        </header>
+        <div class="result-gallery reveal">
+          <figure data-zoom><img src="./assets/mockup-hand.png" alt="Приложение Origin в руке" loading="lazy" /></figure>
+          <figure data-zoom><img src="./assets/mockup-train.png" alt="Приложение Origin в поездке" loading="lazy" /></figure>
+          <figure data-zoom><img src="./assets/mockup-city.png" alt="Экран цели Origin" loading="lazy" /></figure>
+        </div>
+        <div class="result-copy reveal">
+          <h3>Главный вывод</h3>
+          <p>Качественное исследование становится ценным только тогда, когда меняет продукт. Модель девяти состояний помогла уйти от идеального линейного пути и заложить в опыт страх начала, смену приоритетов, паузу и возвращение.</p>
+        </div>
+        <a class="prototype-link reveal" href="https://www.figma.com/proto/HFdAIEPEgICHPnMZLpaOaJ/%D0%92%D0%9A%D0%A0-%D0%97%D1%83%D0%B5%D0%B2-%D0%9B%D0%B5%D0%BE%D0%BD%D0%B8%D0%B4-%7C-Origin?node-id=721-21673&scaling=scale-down&content-scaling=fixed&starting-point-node-id=721%3A21673&page-id=1%3A3" target="_blank" rel="noreferrer"><span>Открыть прототип в Figma</span><b>↗</b></a>
+      </div>
+    </section>
+
+    <footer class="page-shell footer">
+      <span>Origin · Product Design Case</span>
+      <a href="#top">Наверх ↑</a>
+    </footer>
+  </main>
+
+  <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel">
+    <span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i>
+  </button>
+  <nav class="contents-panel" id="contents-panel" aria-label="Содержание">
+    <div class="contents-head"><span>Содержание</span><button type="button" aria-label="Закрыть содержание">×</button></div>
+    <ol>
+      <li><a href="#brief"><span>01</span>Коротко</a></li><li><a href="#hypothesis"><span>02</span>Гипотеза</a></li><li><a href="#discovery"><span>03</span>Дискавери</a></li><li><a href="#synthesis"><span>04</span>Синтез</a></li><li><a href="#flow"><span>05</span>Проектирование</a></li><li><a href="#visual"><span>06</span>Концепт</a></li><li><a href="#scenarios"><span>07</span>Сценарии</a></li><li><a href="#testing"><span>08</span>Тестирование</a></li><li><a href="#analytics"><span>09</span>Проверка</a></li><li><a href="#result"><span>10</span>Результат</a></li>
+    </ol>
+  </nav>
+
+  <dialog class="image-modal" aria-label="Просмотр изображения">
+    <button type="button" aria-label="Закрыть изображение">×</button>
+    <img src="" alt="" />
+  </dialog>
+
+  <script src="./case.js"></script>
+</body>
+</html>

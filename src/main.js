@@ -1,196 +1,303 @@
-import * as THREE from 'https://esm.sh/three@0.180.0';
-import { GLTFLoader } from 'https://esm.sh/three@0.180.0/examples/jsm/loaders/GLTFLoader.js';
-import { RoomEnvironment } from 'https://esm.sh/three@0.180.0/examples/jsm/environments/RoomEnvironment.js';
+import * as THREE from './vendor/three.module.min.js?v=1';
+import { GLTFLoader } from './vendor/loaders/GLTFLoader.js?v=2';
+import { RoomEnvironment } from './vendor/environments/RoomEnvironment.js?v=2';
 
-const canvas = document.querySelector('#planet-canvas');
-const stage = document.querySelector('.planet-stage');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 200);
-camera.position.set(0, 0.2, -7.8);
-camera.lookAt(0, -0.65, 0);
+const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const gltfLoader = new GLTFLoader();
 
-const renderer = new THREE.WebGLRenderer({
-  canvas,
-  alpha: true,
-  antialias: true,
-  powerPreference: 'high-performance',
-});
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setClearColor(0xf4f4ef, 0);
-renderer.outputColorSpace = THREE.SRGBColorSpace;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 0.96;
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-const environmentGenerator = new THREE.PMREMGenerator(renderer);
-scene.environment = environmentGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
-scene.environmentIntensity = 0.34;
-environmentGenerator.dispose();
-
-const world = new THREE.Group();
-scene.add(world);
-
-scene.add(new THREE.HemisphereLight(0xeaf5ff, 0x596451, 0.5));
-
-const keyLight = new THREE.DirectionalLight(0xfff5e6, 1.02);
-keyLight.position.set(-3.2, 6.5, -8.5);
-keyLight.target.position.set(0, -2.8, 0);
-keyLight.castShadow = true;
-keyLight.shadow.mapSize.set(2048, 2048);
-keyLight.shadow.camera.near = 0.1;
-keyLight.shadow.camera.far = 32;
-keyLight.shadow.camera.left = -9;
-keyLight.shadow.camera.right = 9;
-keyLight.shadow.camera.top = 9;
-keyLight.shadow.camera.bottom = -9;
-keyLight.shadow.bias = -0.00025;
-keyLight.shadow.normalBias = 0.035;
-keyLight.shadow.radius = 7;
-keyLight.shadow.blurSamples = 16;
-scene.add(keyLight, keyLight.target);
-
-const frontLight = new THREE.RectAreaLight(0xf3f8ff, 0.58, 7, 5);
-frontLight.position.set(1.8, 2.6, -6.5);
-frontLight.lookAt(0, -2.4, 0);
-scene.add(frontLight);
-
-const rimLight = new THREE.DirectionalLight(0xcddfff, 0.13);
-rimLight.position.set(5, 4, 3);
-scene.add(rimLight);
-
-const clock = new THREE.Clock();
-let mixer = null;
-let leftFoot = null;
-let rightFoot = null;
-let contactShadow = null;
-
-const footPositions = {
-  left: new THREE.Vector3(),
-  right: new THREE.Vector3(),
-};
-const shadowTarget = new THREE.Vector3();
-
-function makeSoftTexture(innerColor, outerColor) {
-  const textureCanvas = document.createElement('canvas');
-  textureCanvas.width = 128;
-  textureCanvas.height = 128;
-  const context = textureCanvas.getContext('2d');
-  const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
-  gradient.addColorStop(0, innerColor);
-  gradient.addColorStop(0.35, innerColor);
-  gradient.addColorStop(1, outerColor);
-  context.fillStyle = gradient;
-  context.fillRect(0, 0, 128, 128);
-  const texture = new THREE.CanvasTexture(textureCanvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  return texture;
+function setupRenderer(canvas, alpha = true) {
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha, antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 700 ? 1.25 : 1.7));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  return renderer;
 }
 
-const shadowTexture = makeSoftTexture('rgba(28, 29, 25, .48)', 'rgba(28, 29, 25, 0)');
-
-function updateGroundEffects(delta) {
-  if (!leftFoot || !rightFoot || !contactShadow) return;
-
-  leftFoot.getWorldPosition(footPositions.left);
-  rightFoot.getWorldPosition(footPositions.right);
-
-  shadowTarget.set(
-    (footPositions.left.x + footPositions.right.x) * 0.5,
-    Math.min(footPositions.left.y, footPositions.right.y) - 0.06,
-    (footPositions.left.z + footPositions.right.z) * 0.5 - 0.055,
-  );
-  const smoothing = 1 - Math.exp(-delta * 18);
-  contactShadow.position.lerp(shadowTarget, smoothing);
-  const footSpread = Math.min(Math.abs(footPositions.left.x - footPositions.right.x), 0.42);
-  contactShadow.scale.set(0.58 + footSpread, 0.15 + footSpread * 0.08, 1);
-}
-
-const loader = new GLTFLoader();
-
-const modelUrl = new URL('../public/FINAL.glb', import.meta.url).href;
-loader.load(modelUrl, (gltf) => {
-  const model = gltf.scene;
-  world.add(model);
-  model.rotation.y = -Math.PI / 2;
-
-  if (gltf.animations.length) {
-    mixer = new THREE.AnimationMixer(model);
-    gltf.animations.forEach((clip) => {
-      const action = mixer.clipAction(clip);
-      action.setLoop(THREE.LoopRepeat, Infinity);
-      action.play();
+function softenMaterials(root, intensity = .45) {
+  root.traverse((node) => {
+    if (!node.isMesh) return;
+    node.castShadow = true;
+    node.receiveShadow = true;
+    const materials = Array.isArray(node.material) ? node.material : [node.material];
+    materials.forEach((material) => {
+      if (!material?.isMeshStandardMaterial) return;
+      material.envMapIntensity = intensity;
+      material.roughness = THREE.MathUtils.clamp(material.roughness ?? .6, .34, .94);
+      material.needsUpdate = true;
     });
-    mixer.update(0);
-  }
-
-  model.traverse((node) => {
-    if (node.isMesh) {
-      node.castShadow = true;
-      node.receiveShadow = true;
-      const materials = Array.isArray(node.material) ? node.material : [node.material];
-      materials.forEach((material) => {
-        if (!material?.isMeshStandardMaterial) return;
-        material.envMapIntensity = 0.42;
-        material.roughness = THREE.MathUtils.clamp(material.roughness, 0.38, 0.92);
-        material.needsUpdate = true;
-      });
-    }
-    if (/mixamorig.*LeftFoot$/i.test(node.name)) leftFoot = node;
-    if (/mixamorig.*RightFoot$/i.test(node.name)) rightFoot = node;
   });
+}
 
-  model.scale.setScalar(1);
-  model.position.set(0, -9.5, 0);
-  model.updateMatrixWorld(true);
+// Main animated planet, preserved from the previous site build.
+const planetCanvas = document.querySelector('#planet-canvas');
+const planetStage = document.querySelector('.planet-stage');
+const planetScene = new THREE.Scene();
+const planetCamera = new THREE.PerspectiveCamera(31, 1, .1, 220);
+planetCamera.position.set(0, .4, -15.5);
+planetCamera.lookAt(0, -1.1, 0);
+const planetRenderer = setupRenderer(planetCanvas);
+planetRenderer.setClearColor(0xffffff, 0);
+planetRenderer.toneMappingExposure = .96;
 
+const pmrem = new THREE.PMREMGenerator(planetRenderer);
+planetScene.environment = pmrem.fromScene(new RoomEnvironment(), .04).texture;
+planetScene.environmentIntensity = .34;
+pmrem.dispose();
+planetScene.add(new THREE.HemisphereLight(0xeaf5ff, 0x596451, .5));
+const planetKey = new THREE.DirectionalLight(0xfff3df, 1.05);
+planetKey.position.set(-3.2, 6.5, -8.5);
+planetKey.target.position.set(0, -2.8, 0);
+planetKey.castShadow = true;
+planetKey.shadow.mapSize.set(2048, 2048);
+planetKey.shadow.camera.near = .1;
+planetKey.shadow.camera.far = 32;
+planetKey.shadow.camera.left = -9;
+planetKey.shadow.camera.right = 9;
+planetKey.shadow.camera.top = 9;
+planetKey.shadow.camera.bottom = -9;
+planetKey.shadow.bias = -.00025;
+planetKey.shadow.normalBias = .035;
+planetKey.shadow.radius = 7;
+planetScene.add(planetKey, planetKey.target);
+const planetFill = new THREE.RectAreaLight(0xf4f8ff, .56, 8, 6);
+planetFill.position.set(1.8, 2.6, -6.5);
+planetFill.lookAt(0, -2.4, 0);
+planetScene.add(planetFill);
+
+let planetMixer = null;
+let trackedHand = null;
+const planetWorld = new THREE.Group();
+planetScene.add(planetWorld);
+
+gltfLoader.load(new URL('../public/FINAL.glb', import.meta.url).href, (gltf) => {
+  const model = gltf.scene;
+  const normalized = new THREE.Group();
+  normalized.add(model);
+  planetWorld.add(normalized);
+  model.rotation.y = -Math.PI / 2;
+  softenMaterials(model, .42);
   let head = null;
+  let characterRoot = null;
   model.traverse((node) => {
+    if (/mixamorig.*RightHand$/i.test(node.name)) trackedHand = node;
     if (/mixamorig.*Head$/i.test(node.name)) head = node;
+    if (!node.isBone && /^Armature/i.test(node.name)) characterRoot = node;
   });
+  characterRoot?.scale.setScalar(1.5);
+  if (gltf.animations.length) {
+    planetMixer = new THREE.AnimationMixer(model);
+    gltf.animations.forEach((clip) => planetMixer.clipAction(clip).setLoop(THREE.LoopRepeat, Infinity).play());
+    planetMixer.update(0);
+  }
+  model.updateMatrixWorld(true);
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  model.position.sub(center);
+  normalized.scale.setScalar(18 / Math.max(size.x, size.y, size.z));
+  normalized.updateMatrixWorld(true);
   if (head) {
     const headPosition = new THREE.Vector3();
     head.getWorldPosition(headPosition);
-    model.position.x -= headPosition.x;
+    normalized.position.x -= headPosition.x;
+    normalized.position.y += 1.2 - headPosition.y;
+  } else {
+    normalized.position.y = -2.7;
   }
+}, undefined, (error) => console.error('Не удалось загрузить планету', error));
+
+const planetResize = new ResizeObserver(() => {
+  const { width, height } = planetStage.getBoundingClientRect();
+  planetRenderer.setSize(width, height, false);
+  planetCamera.aspect = width / height;
+  planetCamera.updateProjectionMatrix();
+});
+planetResize.observe(planetStage);
+
+const hotspot = document.querySelector('#bag-hotspot');
+const trackedPosition = new THREE.Vector3();
+function placeHotspot() {
+  if (!trackedHand || innerWidth < 641) return;
+  trackedHand.getWorldPosition(trackedPosition);
+  trackedPosition.project(planetCamera);
+  const box = planetStage.getBoundingClientRect();
+  hotspot.style.left = `${box.left + (trackedPosition.x * .5 + .5) * box.width}px`;
+  hotspot.style.top = `${box.top + (-trackedPosition.y * .5 + .5) * box.height}px`;
+}
+
+// Footer character exported from Official Leon.blend.
+const leonCanvas = document.querySelector('#leon-canvas');
+const leonStage = document.querySelector('.leon-stage');
+const leonScene = new THREE.Scene();
+const leonCamera = new THREE.PerspectiveCamera(28, 1, .01, 100);
+const leonRenderer = setupRenderer(leonCanvas);
+leonRenderer.setClearColor(0xffffff, 0);
+leonRenderer.toneMappingExposure = 1.03;
+const leonPmrem = new THREE.PMREMGenerator(leonRenderer);
+leonScene.environment = leonPmrem.fromScene(new RoomEnvironment(), .03).texture;
+leonPmrem.dispose();
+leonScene.add(new THREE.HemisphereLight(0xf7fbff, 0x68655f, 1.25));
+const leonKey = new THREE.DirectionalLight(0xfff2e1, 2.35);
+leonKey.position.set(-4, 5, 6);
+leonKey.castShadow = true;
+leonKey.shadow.mapSize.set(1024, 1024);
+leonScene.add(leonKey);
+const leonFill = new THREE.RectAreaLight(0xeef6ff, 2.2, 5, 7);
+leonFill.position.set(3, 2, 5);
+leonScene.add(leonFill);
+const leonRim = new THREE.DirectionalLight(0xcbdcff, .65);
+leonRim.position.set(2, 5, -4);
+leonScene.add(leonRim);
+
+let leonMixer = null;
+gltfLoader.load(new URL('../public/models/official-leon.glb', import.meta.url).href, (gltf) => {
+  const model = gltf.scene;
+  leonScene.add(model);
+  softenMaterials(model, .7);
+  model.rotation.y = -.33;
   model.updateMatrixWorld(true);
-
-  const shadowMaterial = new THREE.SpriteMaterial({
-    map: shadowTexture,
-    transparent: true,
-    opacity: 0.11,
-    depthWrite: false,
-    depthTest: false,
-    toneMapped: false,
-  });
-  contactShadow = new THREE.Sprite(shadowMaterial);
-  contactShadow.renderOrder = 3;
-  contactShadow.scale.set(0.68, 0.18, 1);
-  scene.add(contactShadow);
-  updateGroundEffects(1 / 60);
-
-}, undefined, (error) => {
-  console.error('WEB_FULL_LOOP.glb failed to load', error);
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3());
+  const center = box.getCenter(new THREE.Vector3());
+  model.position.x -= center.x;
+  model.position.y -= box.min.y;
+  model.position.z -= center.z;
+  model.updateMatrixWorld(true);
+  const targetHeight = 4.7;
+  const scale = targetHeight / Math.max(size.y, .001);
+  model.scale.setScalar(scale);
+  model.position.y = -2.35;
+  leonCamera.position.set(.1, .15, 8.9);
+  leonCamera.lookAt(0, -.05, 0);
+  if (gltf.animations.length) {
+    leonMixer = new THREE.AnimationMixer(model);
+    const action = leonMixer.clipAction(gltf.animations[0]);
+    action.setLoop(THREE.LoopRepeat, Infinity);
+    action.fadeIn(.35).play();
+  }
+  leonStage.classList.add('is-loaded');
+}, (event) => {
+  if (!event.total) return;
+  const label = leonStage.querySelector('.model-loader');
+  label.textContent = `Загружаю 3D… ${Math.round(event.loaded / event.total * 100)}%`;
+}, (error) => {
+  leonStage.querySelector('.model-loader').textContent = '3D временно недоступен';
+  console.error('Не удалось загрузить Official Leon', error);
 });
 
-function resize() {
-  const { width, height } = stage.getBoundingClientRect();
-  renderer.setSize(width, height, false);
-  camera.aspect = width / height;
-  camera.updateProjectionMatrix();
-}
+const leonResize = new ResizeObserver(() => {
+  const { width, height } = leonStage.getBoundingClientRect();
+  leonRenderer.setSize(width, height, false);
+  leonCamera.aspect = width / height;
+  leonCamera.updateProjectionMatrix();
+});
+leonResize.observe(leonStage);
 
-const observer = new ResizeObserver(resize);
-observer.observe(stage);
+let leonVisible = false;
+new IntersectionObserver(([entry]) => { leonVisible = entry.isIntersecting; }, { rootMargin: '200px' }).observe(leonStage);
 
+const clock = new THREE.Clock();
 function animate() {
-  const delta = Math.min(clock.getDelta(), 0.04);
-  mixer?.update(delta);
-  updateGroundEffects(delta);
-
-  renderer.render(scene, camera);
+  const delta = Math.min(clock.getDelta(), .04);
+  planetMixer?.update(delta);
+  placeHotspot();
+  planetRenderer.render(planetScene, planetCamera);
+  if (leonVisible) {
+    leonMixer?.update(delta);
+    leonRenderer.render(leonScene, leonCamera);
+  }
   requestAnimationFrame(animate);
 }
-
-resize();
 animate();
+
+// Cases hotspot.
+const casePeek = document.querySelector('#case-peek');
+function setCases(open) {
+  casePeek.classList.toggle('is-open', open);
+  casePeek.setAttribute('aria-hidden', String(!open));
+  hotspot.setAttribute('aria-expanded', String(open));
+}
+hotspot.addEventListener('click', () => {
+  const isTouchLayout = matchMedia('(hover: none)').matches;
+  setCases(isTouchLayout ? !casePeek.classList.contains('is-open') : true);
+});
+hotspot.addEventListener('mouseenter', () => setCases(true));
+casePeek.addEventListener('mouseleave', () => setCases(false));
+document.addEventListener('click', (event) => {
+  if (!casePeek.contains(event.target) && !hotspot.contains(event.target)) setCases(false);
+});
+
+// About / skills drawer.
+const drawer = document.querySelector('#about-drawer');
+const backdrop = document.querySelector('#about-backdrop');
+const closeButton = document.querySelector('#about-close');
+let drawerReturnFocus = null;
+function setDrawer(open, trigger) {
+  if (open) drawerReturnFocus = trigger || document.activeElement;
+  drawer.classList.toggle('is-open', open);
+  drawer.setAttribute('aria-hidden', String(!open));
+  backdrop.hidden = !open;
+  document.body.classList.toggle('drawer-open', open);
+  if (open) setTimeout(() => closeButton.focus(), 40);
+  else drawerReturnFocus?.focus?.();
+}
+document.querySelectorAll('.js-about-open').forEach((button) => button.addEventListener('click', () => setDrawer(true, button)));
+closeButton.addEventListener('click', () => setDrawer(false));
+backdrop.addEventListener('click', () => setDrawer(false));
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setDrawer(false); setCases(false); } });
+
+document.querySelectorAll('[data-tab]').forEach((tab) => tab.addEventListener('click', () => {
+  document.querySelectorAll('[data-tab]').forEach((item) => {
+    const active = item === tab;
+    item.classList.toggle('is-active', active);
+    item.setAttribute('aria-selected', String(active));
+  });
+  document.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('is-active', panel.dataset.panel === tab.dataset.tab));
+}));
+
+// Procedural, very soft wind bed: starts only after direct user interaction.
+const soundButton = document.querySelector('#sound-toggle');
+let audioContext = null;
+let audioSource = null;
+let audioGain = null;
+function startAmbience() {
+  audioContext ||= new AudioContext();
+  const length = audioContext.sampleRate * 2;
+  const buffer = audioContext.createBuffer(1, length, audioContext.sampleRate);
+  const data = buffer.getChannelData(0);
+  let previous = 0;
+  for (let i = 0; i < length; i += 1) {
+    previous = previous * .985 + (Math.random() * 2 - 1) * .015;
+    data[i] = previous;
+  }
+  audioSource = audioContext.createBufferSource();
+  audioSource.buffer = buffer;
+  audioSource.loop = true;
+  const filter = audioContext.createBiquadFilter();
+  filter.type = 'lowpass';
+  filter.frequency.value = 740;
+  audioGain = audioContext.createGain();
+  audioGain.gain.value = 0;
+  audioSource.connect(filter).connect(audioGain).connect(audioContext.destination);
+  audioSource.start();
+}
+soundButton.addEventListener('click', async () => {
+  if (!audioContext) startAmbience();
+  await audioContext.resume();
+  const enabled = soundButton.getAttribute('aria-pressed') !== 'true';
+  soundButton.setAttribute('aria-pressed', String(enabled));
+  audioGain.gain.cancelScheduledValues(audioContext.currentTime);
+  audioGain.gain.linearRampToValueAtTime(enabled ? .045 : 0, audioContext.currentTime + .45);
+});
+
+const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
+  if (entry.isIntersecting) {
+    entry.target.classList.add('is-visible');
+    revealObserver.unobserve(entry.target);
+  }
+}), { threshold: .08 });
+document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
+if (reduceMotion) document.querySelectorAll('.reveal').forEach((item) => item.classList.add('is-visible'));
