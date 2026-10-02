@@ -116,11 +116,15 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=2', import.meta.url).href, (gltf)
   }
   planetStage.classList.add('is-loaded');
   planetRenderer.render(planetScene, planetCamera);
+  window.dispatchEvent(new CustomEvent('portfolio:planet-ready'));
 }, (event) => {
   if (!event.total) return;
-  planetLoader.textContent = `Загружаю планету… ${Math.round(event.loaded / event.total * 100)}%`;
+  const progress = Math.min(99, Math.max(0, Math.round(event.loaded / event.total * 100)));
+  planetLoader.textContent = `Загружаю планету… ${progress}%`;
+  window.dispatchEvent(new CustomEvent('portfolio:planet-progress', { detail: { progress } }));
 }, (error) => {
   planetLoader.textContent = 'Планета временно недоступна';
+  window.dispatchEvent(new CustomEvent('portfolio:planet-error'));
   console.error('Не удалось загрузить планету', error);
 });
 
@@ -175,40 +179,46 @@ leonRim.position.set(2, 5, -4);
 leonScene.add(leonRim);
 
 let leonMixer = null;
-gltfLoader.load(new URL('../public/models/official-leon-edited.glb?v=1', import.meta.url).href, (gltf) => {
-  const model = gltf.scene;
-  const normalized = new THREE.Group();
-  normalized.add(model);
-  leonScene.add(normalized);
-  softenMaterials(model, .38);
-  model.rotation.y = -.33;
-  model.updateMatrixWorld(true);
-  const box = new THREE.Box3().setFromObject(model);
-  const size = box.getSize(new THREE.Vector3());
-  const center = box.getCenter(new THREE.Vector3());
-  model.position.sub(center);
-  const targetHeight = 4.35;
-  const scale = targetHeight / Math.max(size.y, .001);
-  normalized.scale.setScalar(scale);
-  normalized.position.y = -.12;
-  leonCamera.position.set(.1, .15, 9.2);
-  leonCamera.lookAt(0, .12, 0);
-  if (gltf.animations.length) {
-    leonMixer = new THREE.AnimationMixer(model);
-    const action = leonMixer.clipAction(gltf.animations[0]);
-    action.setLoop(THREE.LoopRepeat, Infinity);
-    action.fadeIn(.35).play();
-  }
-  leonStage.classList.add('is-loaded');
-  leonRenderer.render(leonScene, leonCamera);
-}, (event) => {
-  if (!event.total) return;
-  const label = leonStage.querySelector('.model-loader');
-  label.textContent = `Загружаю 3D… ${Math.round(event.loaded / event.total * 100)}%`;
-}, (error) => {
-  leonStage.querySelector('.model-loader').textContent = '3D временно недоступен';
-  console.error('Не удалось загрузить Official Leon', error);
-});
+let leonLoadStarted = false;
+function loadLeonModel() {
+  if (leonLoadStarted) return;
+  leonLoadStarted = true;
+  gltfLoader.load(new URL('../public/models/official-leon-edited.glb?v=1', import.meta.url).href, (gltf) => {
+    const model = gltf.scene;
+    const normalized = new THREE.Group();
+    normalized.add(model);
+    leonScene.add(normalized);
+    softenMaterials(model, .38);
+    model.rotation.y = -.33;
+    model.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(model);
+    const size = box.getSize(new THREE.Vector3());
+    const center = box.getCenter(new THREE.Vector3());
+    model.position.sub(center);
+    const targetHeight = 4.35;
+    const scale = targetHeight / Math.max(size.y, .001);
+    normalized.scale.setScalar(scale);
+    normalized.position.y = -.12;
+    leonCamera.position.set(.1, .15, 9.2);
+    leonCamera.lookAt(0, .12, 0);
+    if (gltf.animations.length) {
+      leonMixer = new THREE.AnimationMixer(model);
+      const action = leonMixer.clipAction(gltf.animations[0]);
+      action.setLoop(THREE.LoopRepeat, Infinity);
+      action.fadeIn(.35).play();
+    }
+    leonStage.classList.add('is-loaded');
+    leonRenderer.render(leonScene, leonCamera);
+  }, (event) => {
+    if (!event.total) return;
+    const label = leonStage.querySelector('.model-loader');
+    const progress = Math.min(99, Math.max(0, Math.round(event.loaded / event.total * 100)));
+    label.textContent = `Загружаю 3D… ${progress}%`;
+  }, (error) => {
+    leonStage.querySelector('.model-loader').textContent = '3D временно недоступен';
+    console.error('Не удалось загрузить Official Leon', error);
+  });
+}
 
 function resizeLeon() {
   const { width, height } = leonStage.getBoundingClientRect();
@@ -223,15 +233,26 @@ leonResize.observe(leonStage);
 resizeLeon();
 
 let leonVisible = false;
-new IntersectionObserver(([entry]) => { leonVisible = entry.isIntersecting; }, { rootMargin: '700px' }).observe(leonStage);
+new IntersectionObserver(([entry]) => {
+  leonVisible = entry.isIntersecting;
+  if (entry.isIntersecting) loadLeonModel();
+}, { rootMargin: '900px 0px' }).observe(leonStage);
+
+let planetVisible = true;
+new IntersectionObserver(([entry]) => {
+  planetVisible = entry.isIntersecting;
+}, { rootMargin: '160px 0px' }).observe(planetStage);
 
 const clock = new THREE.Clock();
 function animate() {
   const delta = Math.min(clock.getDelta(), .04);
-  planetMixer?.update(delta);
-  placeHotspot();
-  planetRenderer.render(planetScene, planetCamera);
-  if (leonVisible) {
+  const pageVisible = document.visibilityState === 'visible';
+  if (pageVisible && planetVisible) {
+    planetMixer?.update(delta);
+    placeHotspot();
+    planetRenderer.render(planetScene, planetCamera);
+  }
+  if (pageVisible && leonVisible) {
     leonMixer?.update(delta);
     leonRenderer.render(leonScene, leonCamera);
   }
@@ -305,3 +326,11 @@ const revealObserver = new IntersectionObserver((entries) => entries.forEach((en
 }), { threshold: .08 });
 document.querySelectorAll('.reveal').forEach((item) => revealObserver.observe(item));
 if (reduceMotion) document.querySelectorAll('.reveal').forEach((item) => item.classList.add('is-visible'));
+
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    const register = () => navigator.serviceWorker.register('./sw.js').catch(() => {});
+    if ('requestIdleCallback' in window) window.requestIdleCallback(register, { timeout: 2500 });
+    else window.setTimeout(register, 1200);
+  }, { once: true });
+}

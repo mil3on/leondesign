@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Портфолио Леонида Зуева — продуктового и UX/UI-дизайнера." />
     <meta name="theme-color" content="#f6f5f1" />
-    <link rel="icon" type="image/png" href="./public/about/profile-photo.png" />
+    <link rel="icon" type="image/webp" href="./public/about/profile-photo.webp" />
+    <link rel="preload" href="./public/sky-reference.webp" as="image" type="image/webp" fetchpriority="high" />
     <link rel="preload" href="./public/fonts/PPNeueMachina-Ultrabold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="./public/fonts/UraBumBumSP.otf" as="font" type="font/otf" crossorigin />
-    <link rel="stylesheet" href="./src/style.css?v=40" />
+    <script>document.documentElement.classList.add('js');</script>
+    <style>
+      .site-loader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#f6f5f1;color:#111;transition:opacity .55s ease,visibility .55s ease}.site-loader__inner{display:grid;justify-items:center;gap:14px;width:min(280px,72vw)}.site-loader__mark{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#314b35;color:#fff;font:700 18px/1 Arial,sans-serif}.site-loader__label{font:600 14px/1.2 Arial,sans-serif}.site-loader__track{width:100%;height:3px;overflow:hidden;border-radius:99px;background:rgba(17,17,17,.12)}.site-loader__bar{display:block;width:var(--loader-progress,8%);height:100%;border-radius:inherit;background:#111;transition:width .25s ease}.site-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.js body.is-loading{overflow:hidden}@media(prefers-reduced-motion:reduce){.site-loader,.site-loader__bar{transition:none}}
+    </style>
+    <script defer src="./src/loader.js?v=1"></script>
+    <link rel="stylesheet" href="./src/style.css?v=41" />
     <title>Леонид Зуев — продуктовый дизайнер</title>
   </head>
-  <body>
+  <body class="is-loading">
+    <div class="site-loader" id="site-loader" role="status" aria-live="polite" aria-label="Загрузка сайта">
+      <div class="site-loader__inner"><span class="site-loader__mark">ЛЗ</span><span class="site-loader__label">Собираю мир…</span><span class="site-loader__track"><i class="site-loader__bar"></i></span></div>
+    </div>
     <a class="skip-link" href="#portfolio">К портфолио</a>
     <header class="site-header" aria-label="Основная навигация">
       <button class="profile-chip js-about-open" type="button" aria-label="Открыть информацию обо мне" aria-controls="about-drawer" aria-expanded="false">
-        <img class="profile-chip__avatar" src="./public/about/profile-photo.png" alt="" aria-hidden="true" />
+        <img class="profile-chip__avatar" src="./public/about/profile-photo.webp" alt="" aria-hidden="true" decoding="async" />
         <span><strong>Леонид Зуев</strong><small>Продуктовый дизайнер</small></span>
       </button>
       <nav class="header-actions" aria-label="Быстрые ссылки">
@@ -51,12 +60,12 @@
         <aside class="case-peek" id="case-peek" aria-hidden="true">
           <div class="case-peek__head"><h2>Кейс с кейсами</h2><button class="case-peek__close" id="case-peek-close" type="button" aria-label="Закрыть список кейсов"><img src="./public/icons/close.svg" alt="" /></button></div>
           <div class="case-peek__list">
-            <a href="./origin-case/"><span><strong>ORIGIN</strong><small>Лайф-трекер<br />с геймификацией</small></span><img src="./public/work/cards/origin.png?v=2" alt="" /></a>
-            <a href="./b2b-case/"><span><strong>ДОМ-ТН</strong><small>Кабинет<br />менеджера</small></span><img src="./public/work/cards/b2b.png" alt="" /></a>
-            <a href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener"><span><strong>СПбГМТУ</strong><small>Лендинг<br />абитуриентам</small></span><img src="./public/work/cards/smtu.png?v=2" alt="" /></a>
-            <a href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener"><span><strong>ИТМО НИОКТР</strong><small>Сайт научного<br />конкурса</small></span><img src="./public/work/cards/nioktr.png" alt="" /></a>
-            <a href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener"><span><strong>Dragontrans</strong><small>Логистика<br />из Китая</small></span><img src="./public/work/cards/dragontrans.png" alt="" /></a>
-            <a href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener"><span><strong>Book At Home</strong><small>Аренда<br />книг</small></span><img src="./public/work/cards/book-at-home.png" alt="" /></a>
+            <a href="./origin-case/"><span><strong>ORIGIN</strong><small>Лайф-трекер<br />с геймификацией</small></span><img src="./public/work/cards/origin.webp?v=3" alt="" loading="lazy" decoding="async" /></a>
+            <a href="./b2b-case/"><span><strong>ДОМ-ТН</strong><small>Кабинет<br />менеджера</small></span><img src="./public/work/cards/b2b.webp" alt="" loading="lazy" decoding="async" /></a>
+            <a href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener"><span><strong>СПбГМТУ</strong><small>Лендинг<br />абитуриентам</small></span><img src="./public/work/cards/smtu.webp?v=3" alt="" loading="lazy" decoding="async" /></a>
+            <a href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener"><span><strong>ИТМО НИОКТР</strong><small>Сайт научного<br />конкурса</small></span><img src="./public/work/cards/nioktr.webp" alt="" loading="lazy" decoding="async" /></a>
+            <a href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener"><span><strong>Dragontrans</strong><small>Логистика<br />из Китая</small></span><img src="./public/work/cards/dragontrans.webp" alt="" loading="lazy" decoding="async" /></a>
+            <a href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener"><span><strong>Book At Home</strong><small>Аренда<br />книг</small></span><img src="./public/work/cards/book-at-home.webp" alt="" loading="lazy" decoding="async" /></a>
           </div>
         </aside>
 
@@ -67,14 +76,14 @@
               <input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" />
             </div>
             <button class="sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку">
-              <img class="sound-cover__image" data-track-cover src="./public/audio/in%20another%20cover.png" alt="" />
+              <img class="sound-cover__image" data-track-cover src="./public/audio/in%20another%20cover.webp" alt="" decoding="async" />
               <span class="sound-cover__state" aria-hidden="true"><img data-audio-state-icon src="./public/icons/iconixto/linear/play.svg" alt="" /></span>
             </button>
             <span class="sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span>
             <button class="sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="./public/icons/iconixto/linear/forward.svg" alt="" /></button>
           </div>
-          <audio id="soundtrack" src="./public/audio/in-another.mp3?v=3" preload="metadata"></audio>
-          <button class="designer-pill js-about-open" type="button" aria-controls="about-drawer" aria-expanded="false"><img class="designer-avatar" src="./public/about/avatar-head.png" alt="" aria-hidden="true" /><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
+          <audio id="soundtrack" data-audio-base="./public/audio/" preload="none"></audio>
+          <button class="designer-pill js-about-open" type="button" aria-controls="about-drawer" aria-expanded="false"><img class="designer-avatar" src="./public/about/avatar-head.webp" alt="" aria-hidden="true" decoding="async" /><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
         </div>
 
         <section class="portfolio-panel" id="portfolio" aria-labelledby="portfolio-title">
@@ -82,24 +91,24 @@
           <div class="work-grid">
             <a class="work-card work-card--origin reveal" href="./origin-case/">
               <div class="tags"><span>MVP</span><span>Product</span><span>B2C</span><span>Discovery</span></div><h3>Пет-проект | Origin</h3><p>Пространство для достижения целей и поддержания мотивации</p>
-              <img class="card-art card-art--portfolio card-art--origin" src="./public/work/cards/origin.png?v=2" alt="Интерфейсы и персонажи лайф-трекера Origin" />
+              <img class="card-art card-art--portfolio card-art--origin" src="./public/work/cards/origin.webp?v=3" alt="Интерфейсы и персонажи лайф-трекера Origin" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--b2b reveal" href="./b2b-case/">
               <div class="tags"><span>mobile/desktop</span><span>B2B</span><span>SaaS</span></div><h3>Личный кабинет | ДОМ ТН</h3><p>Дэшборд для отслеживания и обработки заявок от клиентов</p>
-              <img class="card-art card-art--portfolio card-art--b2b" src="./public/work/cards/b2b.png" alt="Интерфейс кабинета менеджера" />
+              <img class="card-art card-art--portfolio card-art--b2b" src="./public/work/cards/b2b.webp" alt="Интерфейс кабинета менеджера" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--smu reveal" href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener">
               <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web-site</span><span>B2C</span><span>mobile/desktop</span></div><h3>Лендинг | СПбГМТУ</h3><p>Сайт университета: понятная подача поступления, науки и жизни кампуса</p>
-              <img class="card-art card-art--portfolio card-art--smu" src="./public/work/cards/smtu.png?v=2" alt="Макет сайта Санкт-Петербургского морского технического университета на ноутбуке" />
+              <img class="card-art card-art--portfolio card-art--smu" src="./public/work/cards/smtu.webp?v=3" alt="Макет сайта Санкт-Петербургского морского технического университета на ноутбуке" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--science reveal" href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener">
-              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--portfolio card-art--science" src="./public/work/cards/nioktr.png" alt="Мобильная версия сайта конкурса НИОКТР" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--portfolio card-art--science" src="./public/work/cards/nioktr.webp" alt="Мобильная версия сайта конкурса НИОКТР" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--dragon reveal" href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener">
-              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>B2C</span><span>mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Лендинг логистической компании: доставка грузов из Китая в Россию</p><img class="card-art card-art--portfolio card-art--dragon" src="./public/work/cards/dragontrans.png" alt="Сайт Dragontrans на ноутбуке" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>B2C</span><span>mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Лендинг логистической компании: доставка грузов из Китая в Россию</p><img class="card-art card-art--portfolio card-art--dragon" src="./public/work/cards/dragontrans.webp" alt="Сайт Dragontrans на ноутбуке" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--book reveal" href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener">
-              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Лендинг сервиса для подбора и аренды книг: от идеи до прототипа</p><img class="card-art card-art--portfolio card-art--book" src="./public/work/cards/book-at-home.png" alt="Сайт Book At Home на ноутбуке" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Лендинг сервиса для подбора и аренды книг: от идеи до прототипа</p><img class="card-art card-art--portfolio card-art--book" src="./public/work/cards/book-at-home.webp" alt="Сайт Book At Home на ноутбуке" loading="lazy" decoding="async" />
             </a>
           </div>
         </section>
@@ -108,7 +117,7 @@
         <aside class="about-drawer" id="about-drawer" aria-hidden="true" aria-labelledby="about-heading">
           <button class="drawer-close" id="about-close" type="button" aria-label="Закрыть"><img src="./public/icons/close.svg" alt="" /></button>
           <div class="drawer-top">
-            <div class="drawer-profile"><img class="drawer-avatar" src="./public/about/avatar-head.png" alt="" aria-hidden="true" /><div><h2 id="about-heading">Дизайнер Леонид</h2><p>Продуктовый дизайнер | 2+ года</p></div></div>
+            <div class="drawer-profile"><img class="drawer-avatar" src="./public/about/avatar-head.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" /><div><h2 id="about-heading">Дизайнер Леонид</h2><p>Продуктовый дизайнер | 2+ года</p></div></div>
             <div class="drawer-tags"><span>B2B SaaS</span><span>B2C</span><span>Research</span><span>DS</span></div>
           </div>
           <div class="drawer-tabs" role="tablist" aria-label="О Леониде"><button class="is-active" type="button" role="tab" aria-selected="true" data-tab="about">Обо мне</button><button type="button" role="tab" aria-selected="false" data-tab="skills">Скиллы</button><a href="./public/docs/Leonid-Zuev-Product-Designer.pdf" target="_blank" rel="noopener">Резюме ↗</a></div>
@@ -145,7 +154,7 @@
 
     <footer><span>© Леонид Зуев, 2026</span><a href="#top"><img class="footer-icon" src="./public/icons/arrow-up.svg" alt="" />Наверх</a></footer>
     <script src="./src/typography.js?v=1"></script>
-    <script src="./src/audio.js?v=5"></script>
-    <script type="module" src="./src/main.js?v=43"></script>
+    <script src="./src/audio.js?v=6"></script>
+    <script type="module" src="./src/main.js?v=44"></script>
   </body>
 </html>

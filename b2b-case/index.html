@@ -6,7 +6,8 @@
   <meta name="description" content="B2B-кабинет менеджера — кейс продуктового дизайна Леонида Зуева для обработки заявок и претензий." />
   <meta name="theme-color" content="#f2f2f0" />
   <title>B2B-кабинет менеджера — продуктовый кейс</title>
-  <link rel="icon" type="image/png" href="../public/about/profile-photo.png" />
+  <link rel="icon" type="image/webp" href="../public/about/profile-photo.webp" />
+  <link rel="preload" href="./assets/hero-dashboard.webp" as="image" type="image/webp" fetchpriority="high" />
   <link rel="stylesheet" href="./style.css?v=3" />
 </head>
 <body class="b2b-page">
@@ -35,7 +36,7 @@
           <p class="hero-lead">Единое рабочее пространство для заявок, претензий и аналитики строительных проектов.</p>
         </div>
         <figure class="hero-media" aria-label="Интерфейс B2B-кабинета и его компоненты">
-          <img class="hero-showcase" src="./assets/hero-dashboard.png" alt="Планшет с канбан-доской заявок" fetchpriority="high" />
+          <img class="hero-showcase" src="./assets/hero-dashboard.webp" alt="Планшет с канбан-доской заявок" fetchpriority="high" />
         </figure>
       </div>
 
@@ -103,9 +104,9 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Архитектура</p><h2>Три модуля разделяют задачи, но сохраняют общий контекст</h2></header>
         <p class="large-copy reveal">После входа менеджер работает с одним из трёх экранов: заявки, претензии или аналитика. Регистрация и настройки сознательно остались за рамками хакатона.</p>
-        <article class="scenario reveal"><div class="scenario-copy"><span>01</span><h3>Работа с заявками</h3><p>Реестр, канбан, фильтры, сайд-панель, комментарии, документы и смена статуса.</p></div><figure data-zoom><img src="./assets/flow-applications.png" alt="User flow работы с заявками" loading="lazy" /></figure></article>
-        <article class="scenario reveal"><div class="scenario-copy"><span>02</span><h3>Работа с претензиями</h3><p>Создание, материалы, связь с исходной заявкой и собственный жизненный цикл.</p></div><figure data-zoom><img src="./assets/flow-claims.png" alt="User flow работы с претензиями" loading="lazy" /></figure></article>
-        <article class="scenario reveal"><div class="scenario-copy"><span>03</span><h3>Аналитика</h3><p>Период, регион, динамика заявок, причины отказов и источники лидов.</p></div><figure data-zoom><img src="./assets/flow-analytics.png" alt="User flow аналитики" loading="lazy" /></figure></article>
+        <article class="scenario reveal"><div class="scenario-copy"><span>01</span><h3>Работа с заявками</h3><p>Реестр, канбан, фильтры, сайд-панель, комментарии, документы и смена статуса.</p></div><figure data-zoom><img src="./assets/flow-applications.webp" alt="User flow работы с заявками" loading="lazy" decoding="async" /></figure></article>
+        <article class="scenario reveal"><div class="scenario-copy"><span>02</span><h3>Работа с претензиями</h3><p>Создание, материалы, связь с исходной заявкой и собственный жизненный цикл.</p></div><figure data-zoom><img src="./assets/flow-claims.webp" alt="User flow работы с претензиями" loading="lazy" decoding="async" /></figure></article>
+        <article class="scenario reveal"><div class="scenario-copy"><span>03</span><h3>Аналитика</h3><p>Период, регион, динамика заявок, причины отказов и источники лидов.</p></div><figure data-zoom><img src="./assets/flow-analytics.webp" alt="User flow аналитики" loading="lazy" decoding="async" /></figure></article>
       </div>
     </section>
 
@@ -127,9 +128,9 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Ключевое решение</p><h2>Заявка стала единым объектом работы менеджера</h2></header>
         <div class="split-copy reveal"><p class="lead">Состояние всех заявок считывается за несколько секунд.</p><p>Менеджер видит клиента, проект, регион, дату и статус, быстро меняет представление и открывает детали, не теряя позицию в общем списке.</p></div>
-        <figure class="media-card reveal" data-zoom><img src="./assets/applications-context.png" alt="Канбан заявок с открытой карточкой клиента" loading="lazy" /><figcaption>Канбан для оперативной работы со статусами</figcaption></figure>
-        <figure class="media-card reveal" data-zoom><img src="./assets/side-panel.png" alt="Сайд-панель с полной историей заявки" loading="lazy" /><figcaption>Контактные данные, документы, запись встречи и переписка внутри заявки</figcaption></figure>
-        <figure class="media-card reveal" data-zoom><img src="./assets/table-view.png" alt="Табличное представление заявок" loading="lazy" /><figcaption>Таблица для поиска и анализа большого объёма данных</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/applications-context.webp" alt="Канбан заявок с открытой карточкой клиента" loading="lazy" decoding="async" /><figcaption>Канбан для оперативной работы со статусами</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/side-panel.webp" alt="Сайд-панель с полной историей заявки" loading="lazy" decoding="async" /><figcaption>Контактные данные, документы, запись встречи и переписка внутри заявки</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/table-view.webp" alt="Табличное представление заявок" loading="lazy" decoding="async" /><figcaption>Таблица для поиска и анализа большого объёма данных</figcaption></figure>
       </div>
     </section>
 
@@ -138,7 +139,7 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Спорные ситуации</p><h2>Претензия сохраняет связь с заявкой и получает свой статус</h2></header>
         <p class="large-copy reveal">Причина обращения, файлы, фотографии, комментарии и история статусов собраны в отдельном модуле — так конфликт не теряется в переписке и остаётся контролируемым.</p>
-        <figure class="media-card reveal" data-zoom><img src="./assets/claims.png" alt="Интерфейс списка претензий" loading="lazy" /><figcaption>Самостоятельный модуль с единым жизненным циклом претензии</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/claims.webp" alt="Интерфейс списка претензий" loading="lazy" decoding="async" /><figcaption>Самостоятельный модуль с единым жизненным циклом претензии</figcaption></figure>
       </div>
     </section>
 
@@ -146,13 +147,13 @@
       <aside class="section-label"><span>08</span><p>Система</p></aside>
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">UI-kit и адаптив</p><h2>Компоненты ускорили сборку и удержали единый язык интерфейса</h2></header>
-        <figure class="media-card reveal" data-zoom><img src="./assets/ui-kit.png" alt="UI-kit кабинета менеджера" loading="lazy" /><figcaption>Кнопки, статусы, меню, поля, фильтры и служебные компоненты</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/ui-kit.webp" alt="UI-kit кабинета менеджера" loading="lazy" decoding="async" /><figcaption>Кнопки, статусы, меню, поля, фильтры и служебные компоненты</figcaption></figure>
         <div class="mobile-strip reveal" aria-label="Мобильные экраны кабинета">
-          <figure data-zoom><img src="./assets/mobile-1.png" alt="Мобильный список заявок" loading="lazy" /></figure>
-          <figure data-zoom><img src="./assets/mobile-2.png" alt="Мобильная карточка заявки" loading="lazy" /></figure>
-          <figure data-zoom><img src="./assets/mobile-3.png" alt="Мобильная смена статуса" loading="lazy" /></figure>
-          <figure data-zoom><img src="./assets/mobile-4.png" alt="Мобильная претензия" loading="lazy" /></figure>
-          <figure data-zoom><img src="./assets/mobile-5.png" alt="Мобильная аналитика" loading="lazy" /></figure>
+          <figure data-zoom><img src="./assets/mobile-1.webp" alt="Мобильный список заявок" loading="lazy" decoding="async" /></figure>
+          <figure data-zoom><img src="./assets/mobile-2.webp" alt="Мобильная карточка заявки" loading="lazy" decoding="async" /></figure>
+          <figure data-zoom><img src="./assets/mobile-3.webp" alt="Мобильная смена статуса" loading="lazy" decoding="async" /></figure>
+          <figure data-zoom><img src="./assets/mobile-4.webp" alt="Мобильная претензия" loading="lazy" decoding="async" /></figure>
+          <figure data-zoom><img src="./assets/mobile-5.webp" alt="Мобильная аналитика" loading="lazy" decoding="async" /></figure>
         </div>
       </div>
     </section>
@@ -170,7 +171,7 @@
       <aside class="section-label"><span>10</span><p>Результат</p></aside>
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Итог</p><h2>За три дня команда собрала цельную B2B-систему и победила</h2></header>
-        <figure class="media-card result-hero reveal" data-zoom><img src="./assets/result-mockup.png" alt="Кабинет менеджера на ноутбуке" loading="lazy" /><figcaption>Финальное решение на рабочем устройстве</figcaption></figure>
+        <figure class="media-card result-hero reveal" data-zoom><img src="./assets/result-mockup.webp" alt="Кабинет менеджера на ноутбуке" loading="lazy" decoding="async" /><figcaption>Финальное решение на рабочем устройстве</figcaption></figure>
         <div class="result-copy reveal"><h3>Что осталось после проекта</h3><p>Единая модель заявки, прозрачные статусы, связанный сценарий претензий, аналитика и компонентная основа для развития продукта. Главный профессиональный вывод — в B2B на первом месте скорость считывания, доступность информации и предсказуемость процесса.</p></div>
         <a class="next-case reveal" href="../origin-case/"><small>Следующий кейс</small><span>Origin — лайф-трекер целей</span></a>
       </div>
@@ -180,10 +181,10 @@
   </main>
 
   <div class="case-dock" aria-label="Навигация и музыка">
-    <div class="case-sound-player sound-player" role="button" tabindex="0" aria-label="Включить или поставить музыку на паузу"><div class="case-sound-volume sound-volume" aria-label="Громкость"><img src="../public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" /><input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" /></div><button class="case-sound-icon sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку"><img data-track-cover src="../public/audio/in%20another%20cover.png" alt="" /><span class="case-sound-state sound-cover__state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></button><span class="case-sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span><button class="case-sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button></div>
+    <div class="case-sound-player sound-player" role="button" tabindex="0" aria-label="Включить или поставить музыку на паузу"><div class="case-sound-volume sound-volume" aria-label="Громкость"><img src="../public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" /><input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" /></div><button class="case-sound-icon sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку"><img data-track-cover src="../public/audio/in%20another%20cover.webp" alt="" /><span class="case-sound-state sound-cover__state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></button><span class="case-sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span><button class="case-sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button></div>
     <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel"><span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i></button>
   </div>
-  <audio id="soundtrack" src="../public/audio/in-another.mp3?v=3" preload="metadata"></audio>
+  <audio id="soundtrack" data-audio-base="../public/audio/" preload="none"></audio>
   <nav class="contents-panel" id="contents-panel" aria-label="Содержание">
     <div class="contents-head"><span>Содержание</span><button type="button" aria-label="Закрыть содержание">×</button></div>
     <ol>
@@ -192,7 +193,7 @@
   </nav>
   <dialog class="image-modal" aria-label="Просмотр изображения"><button type="button" aria-label="Закрыть изображение">×</button><img src="" alt="" /></dialog>
   <script src="../src/typography.js?v=1"></script>
-  <script src="../src/audio.js?v=5"></script>
+  <script src="../src/audio.js?v=6"></script>
   <script src="../origin-case/case.js"></script>
 </body>
 </html>

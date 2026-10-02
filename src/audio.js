@@ -7,7 +7,7 @@
   if (!buttons.length || !soundtrack) return;
 
   const tracks = [
-    { title: 'In Another', file: 'in-another.mp3', cover: 'in another cover.png' },
+    { title: 'In Another', file: 'in-another.mp3', cover: 'in another cover.webp' },
     { title: 'Dolphin Love', file: 'Dolphin Love.mp3', cover: 'dolphine love cover.webp' },
     { title: 'Highest In The Room', file: 'highest in the room.mp3', cover: 'highest in the room.webp' },
     { title: 'To The Ground', file: 'To The Ground.mp3', cover: 'to the ground cover.webp' },
@@ -16,11 +16,13 @@
   const STORAGE_KEY = 'portfolio-audio-state-v2';
   const WINDOW_NAME_PREFIX = 'portfolio-audio:';
   const DEFAULT_STATE = { enabled: false, trackIndex: 0, currentTime: 0, volume: 0.32, updatedAt: 0 };
-  const audioBaseUrl = new URL('.', soundtrack.src);
+  const audioBaseUrl = new URL(soundtrack.dataset.audioBase || './public/audio/', document.baseURI);
   const iconBaseUrl = new URL('../icons/iconixto/linear/', audioBaseUrl);
   let desiredEnabled = false;
   let trackIndex = 0;
   let lastSavedAt = 0;
+  let sourceLoaded = false;
+  let pendingCurrentTime = 0;
 
   function clamp(value, min, max) {
     return Math.min(max, Math.max(min, value));
@@ -116,6 +118,11 @@
 
   async function playIfWanted() {
     if (!desiredEnabled || !soundtrack.paused) return;
+    if (!sourceLoaded) {
+      loadTrack(trackIndex, { currentTime: pendingCurrentTime, autoplay: true });
+      pendingCurrentTime = 0;
+      return;
+    }
     try {
       await soundtrack.play();
       updateUi();
@@ -130,6 +137,7 @@
     trackIndex = (index + tracks.length) % tracks.length;
     const track = tracks[trackIndex];
     soundtrack.src = trackUrl(track.file);
+    sourceLoaded = true;
     soundtrack.load();
     updateUi();
 
@@ -157,10 +165,9 @@
   const navigationDelay = desiredEnabled && savedState.updatedAt
     ? Math.max(0, (Date.now() - savedState.updatedAt) / 1000)
     : 0;
-  loadTrack(savedState.trackIndex, {
-    currentTime: savedState.currentTime + navigationDelay,
-    autoplay: desiredEnabled,
-  });
+  trackIndex = savedState.trackIndex;
+  pendingCurrentTime = savedState.currentTime + navigationDelay;
+  updateUi();
 
   async function togglePlayback(source) {
     if (!soundtrack.paused) {

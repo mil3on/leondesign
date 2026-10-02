@@ -107,3 +107,11 @@ while (textWalker.nextNode()) textNodes.push(textWalker.currentNode);
 textNodes.forEach((node) => {
   node.nodeValue = node.nodeValue.replace(noBreakWords, '$1$2\u00A0');
 });
+
+if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+  window.addEventListener('load', () => {
+    const register = () => navigator.serviceWorker.register('../sw.js').catch(() => {});
+    if ('requestIdleCallback' in window) window.requestIdleCallback(register, { timeout: 2500 });
+    else window.setTimeout(register, 1200);
+  }, { once: true });
+}
