@@ -321,3 +321,52 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .case-contact-link{min-height:72px;padding:20px 24px;font-size:20px}
   .contents-panel{padding:16px}
 }
+
+/* Compact case contents popup anchored to its trigger. */
+.contents-toggle i{display:none}
+.contents-toggle .active-number{order:1}
+.contents-toggle .active-label{order:2}
+.contents-toggle .menu-glyph{
+  order:3;
+  margin-left:auto;
+  color:#fff;
+}
+.contents-panel{
+  width:220px;
+  max-height:none;
+  padding:16px;
+  overflow:visible;
+}
+.contents-head{
+  min-height:auto;
+  margin:0;
+  padding:2px 16px 12px;
+  border-radius:0;
+  background:transparent;
+}
+.contents-panel ol{
+  gap:0;
+  max-height:none;
+  overflow:visible;
+  padding:0;
+}
+.contents-panel a{
+  min-height:44px;
+  padding:10px 16px;
+}
+@media(min-width:761px){
+  .contents-panel{
+    left:calc(50% + 87px);
+    bottom:75px;
+    transform:translate(-50%,18px);
+  }
+  .contents-panel.open{transform:translate(-50%,0)}
+}
+@media(max-width:760px){
+  .contents-panel{
+    left:50%;
+    width:calc(100vw - 24px);
+    bottom:70px;
+  }
+  .contents-panel a{min-height:42px;padding:9px 16px}
+}
