@@ -391,3 +391,16 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 }
 @media(min-width:761px){.contents-panel{bottom:83px}}
 @media(max-width:760px){.contents-panel{bottom:78px}}
+
+/* Yandex Music popup shared by both case pages. */
+.sound-main{display:flex;align-items:center;gap:9px;min-width:0;padding:0;border:0;color:inherit;background:transparent;text-align:left;cursor:pointer}
+.case-sound-main{min-width:0}
+.yandex-player-popup{position:absolute;z-index:20;left:50%;bottom:calc(100% + 8px);width:min(390px,calc(100vw - 24px));padding:10px;border-radius:24px;background:#fff;color:#171717;box-shadow:0 24px 70px rgba(0,0,0,.26);opacity:0;visibility:hidden;pointer-events:none;transform:translate(-50%,10px);transition:opacity .22s ease,transform .22s ease,visibility .22s ease}
+.sound-player.yandex-open .yandex-player-popup{opacity:1;visibility:visible;pointer-events:auto;transform:translate(-50%,0)}
+.yandex-player-head{display:flex;align-items:center;gap:10px;padding:2px 4px 10px}
+.yandex-player-logo{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:#ffcc00;color:#171717;font-weight:700}
+.yandex-player-head strong{font-size:14px;color:#171717}
+.yandex-player-head button{margin-left:auto;width:34px;height:34px;padding:0;border:0;border-radius:50%;background:#f1f1f1;color:#333;font-size:24px;line-height:1;cursor:pointer}
+.yandex-player-popup iframe{display:block;width:100%;height:180px;border:0;border-radius:16px;background:#fff}
+@media(max-width:640px){.yandex-player-popup{width:min(360px,calc(100vw - 24px))}}
+@media(prefers-reduced-motion:reduce){.yandex-player-popup{transition:none}}
