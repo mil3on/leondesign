@@ -159,3 +159,40 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .contents-toggle{flex:1;min-width:0;height:58px;padding:0 14px}
   .contents-toggle b,.contents-toggle .active-label{font-size:14px}
 }
+
+/* Updated case heroes, stronger project names and full music controls. */
+.case-switcher a{font-weight:800}
+.hero h1{font-weight:800}
+.hero-media .hero-showcase{position:absolute;z-index:3;left:50%;bottom:-12%;width:auto;height:116%;max-width:none;object-fit:contain;object-position:center;filter:drop-shadow(0 26px 34px rgba(8,18,28,.28));transform:translateX(-50%);will-change:auto}
+.case-sound-player{position:relative;display:flex;align-items:center;gap:9px;min-width:166px;height:55px;padding:5px 10px 5px 6px;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(25,25,25,.91);color:#fff;text-align:left;box-shadow:0 12px 36px rgba(0,0,0,.18);backdrop-filter:blur(12px);cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .12s ease}
+.case-sound-player:hover,.case-sound-player:focus-within{border-color:rgba(255,255,255,.22);background:rgba(48,48,48,.96)}
+.case-sound-player:active{transform:translateY(1px)}
+.case-sound-icon{position:relative;width:43px;height:43px;flex:0 0 43px;padding:0;border:0;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.94);overflow:hidden;cursor:pointer}
+.case-sound-icon>img{width:100%;height:100%;object-fit:cover}
+.case-sound-state{position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.48);opacity:0;transition:opacity .18s ease}
+.case-sound-state img{width:21px;height:21px}
+.case-sound-icon:hover .case-sound-state,.case-sound-icon:focus-visible .case-sound-state,.case-sound-player.audio-feedback .case-sound-state{opacity:1}
+.case-sound-player.audio-feedback .case-sound-state{animation:case-audio-feedback .42s ease}
+@keyframes case-audio-feedback{0%{transform:scale(.76);opacity:0}35%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+.case-sound-copy{display:grid;min-width:0;line-height:1.15}
+.case-sound-copy strong{font-size:12px;white-space:nowrap}
+.case-sound-copy small{margin-top:3px;font-size:10px;color:rgba(255,255,255,.55);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.case-sound-next{display:grid;place-items:center;width:0;height:32px;margin-left:-9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.08);opacity:0;overflow:hidden;pointer-events:none;cursor:pointer;transition:width .22s ease,margin .22s ease,opacity .16s ease,background .18s ease}
+.case-sound-next img{width:20px;height:20px}
+.case-sound-player:hover .case-sound-next,.case-sound-next:focus-visible{width:32px;margin-left:0;opacity:1;pointer-events:auto}
+.case-sound-next:hover{background:rgba(255,255,255,.16)}
+.case-sound-volume{--volume-percent:32%;position:absolute;left:0;bottom:calc(100% + 5px);display:flex;align-items:center;gap:9px;width:100%;min-width:190px;padding:10px 12px;border-radius:16px;background:rgba(25,25,25,.96);box-shadow:0 12px 30px rgba(0,0,0,.2);opacity:0;transform:translateY(5px);pointer-events:none;transition:opacity .18s ease .12s,transform .18s ease .12s}
+.case-sound-player:hover .case-sound-volume,.case-sound-volume:focus-within{opacity:1;transform:none;pointer-events:auto;transition-delay:0s}
+.case-sound-volume img{width:21px;height:21px;flex:0 0 21px}
+.case-sound-volume input{width:100%;height:16px;margin:0;cursor:pointer;appearance:none;background:transparent}
+.case-sound-volume input::-webkit-slider-runnable-track{height:3px;border-radius:99px;background:linear-gradient(to right,#fff 0 var(--volume-percent),rgba(255,255,255,.3) var(--volume-percent) 100%)}
+.case-sound-volume input::-webkit-slider-thumb{width:14px;height:14px;margin-top:-5.5px;border:0;border-radius:50%;background:#fff;appearance:none}
+.case-sound-volume input::-moz-range-track{height:3px;border-radius:99px;background:rgba(255,255,255,.3)}
+.case-sound-volume input::-moz-range-progress{height:3px;border-radius:99px;background:#fff}
+.case-sound-volume input::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:#fff}
+@media(max-width:760px){
+  .case-sound-player{width:156px;min-width:156px;height:58px;padding:6px 10px 6px 6px}
+  .case-sound-copy strong,.case-sound-copy small{font-size:14px}
+  .case-sound-volume{width:190px}
+}
+@media(prefers-reduced-motion:reduce){.hero-media .hero-showcase{transform:translateX(-50%)!important}.case-sound-player,.case-sound-next{transition:none}}

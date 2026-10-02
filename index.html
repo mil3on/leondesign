@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="./public/about/profile-photo.png" />
     <link rel="preload" href="./public/fonts/PPNeueMachina-Ultrabold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="./public/fonts/UraBumBumSP.otf" as="font" type="font/otf" crossorigin />
-    <link rel="stylesheet" href="./src/style.css?v=39" />
+    <link rel="stylesheet" href="./src/style.css?v=40" />
     <title>Леонид Зуев — продуктовый дизайнер</title>
   </head>
   <body>
@@ -50,8 +50,14 @@
         <button class="bag-hotspot" id="bag-hotspot" type="button" aria-expanded="false" aria-controls="case-peek" aria-label="Показать кейсы"><span></span></button>
         <aside class="case-peek" id="case-peek" aria-hidden="true">
           <div class="case-peek__head"><h2>Кейс с кейсами</h2><button class="case-peek__close" id="case-peek-close" type="button" aria-label="Закрыть список кейсов"><img src="./public/icons/close.svg" alt="" /></button></div>
-          <a href="./origin-case/"><span><strong>ORIGIN</strong><small>Лайф-трекер</small></span><img src="./origin-case/assets/hero-phone-home.png" alt="" /></a>
-          <a href="./b2b-case/"><span><strong>ДОМ-ТН</strong><small>Кабинет</small></span><img src="./b2b-case/assets/hero-tablet.png" alt="" /></a>
+          <div class="case-peek__list">
+            <a href="./origin-case/"><span><strong>ORIGIN</strong><small>Лайф-трекер<br />с геймификацией</small></span><img src="./public/work/cards/origin.png?v=2" alt="" /></a>
+            <a href="./b2b-case/"><span><strong>ДОМ-ТН</strong><small>Кабинет<br />менеджера</small></span><img src="./public/work/cards/b2b.png" alt="" /></a>
+            <a href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener"><span><strong>СПбГМТУ</strong><small>Лендинг<br />абитуриентам</small></span><img src="./public/work/cards/smtu.png?v=2" alt="" /></a>
+            <a href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener"><span><strong>ИТМО НИОКТР</strong><small>Сайт научного<br />конкурса</small></span><img src="./public/work/cards/nioktr.png" alt="" /></a>
+            <a href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener"><span><strong>Dragontrans</strong><small>Логистика<br />из Китая</small></span><img src="./public/work/cards/dragontrans.png" alt="" /></a>
+            <a href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener"><span><strong>Book At Home</strong><small>Аренда<br />книг</small></span><img src="./public/work/cards/book-at-home.png" alt="" /></a>
+          </div>
         </aside>
 
         <div class="sound-controls">
@@ -76,24 +82,24 @@
           <div class="work-grid">
             <a class="work-card work-card--origin reveal" href="./origin-case/">
               <div class="tags"><span>MVP</span><span>Product</span><span>B2C</span><span>Discovery</span></div><h3>Пет-проект | Origin</h3><p>Пространство для достижения целей и поддержания мотивации</p>
-              <div class="origin-phones" aria-hidden="true"><img src="./origin-case/assets/hero-phone-home.png" alt="" /><img src="./origin-case/assets/hero-phone-goals.png" alt="" /></div>
+              <img class="card-art card-art--portfolio card-art--origin" src="./public/work/cards/origin.png?v=2" alt="Интерфейсы и персонажи лайф-трекера Origin" />
             </a>
             <a class="work-card work-card--b2b reveal" href="./b2b-case/">
               <div class="tags"><span>mobile/desktop</span><span>B2B</span><span>SaaS</span></div><h3>Личный кабинет | ДОМ ТН</h3><p>Дэшборд для отслеживания и обработки заявок от клиентов</p>
-              <img class="card-art card-art--tablet" src="./b2b-case/assets/hero-tablet.png" alt="Интерфейс кабинета менеджера" />
+              <img class="card-art card-art--portfolio card-art--b2b" src="./public/work/cards/b2b.png" alt="Интерфейс кабинета менеджера" />
             </a>
             <a class="work-card work-card--smu reveal" href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener">
               <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web-site</span><span>B2C</span><span>mobile/desktop</span></div><h3>Лендинг | СПбГМТУ</h3><p>Сайт университета: понятная подача поступления, науки и жизни кампуса</p>
-              <img class="card-art card-art--project card-art--smu" src="./public/work/smtu-mockup.png" alt="Макет сайта Санкт-Петербургского морского технического университета на ноутбуке" />
+              <img class="card-art card-art--portfolio card-art--smu" src="./public/work/cards/smtu.png?v=2" alt="Макет сайта Санкт-Петербургского морского технического университета на ноутбуке" />
             </a>
             <a class="work-card work-card--science reveal" href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener">
-              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--project card-art--science" src="./public/work/science-mockup.png" alt="Мобильная версия сайта конкурса НИОКТР" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--portfolio card-art--science" src="./public/work/cards/nioktr.png" alt="Мобильная версия сайта конкурса НИОКТР" />
             </a>
             <a class="work-card work-card--dragon reveal" href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener">
-              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>B2C</span><span>mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Лендинг логистической компании: доставка грузов из Китая в Россию</p><img class="card-art card-art--project card-art--dragon" src="./public/work/dragontrans-mockup.png" alt="Сайт Dragontrans на ноутбуке" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>B2C</span><span>mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Лендинг логистической компании: доставка грузов из Китая в Россию</p><img class="card-art card-art--portfolio card-art--dragon" src="./public/work/cards/dragontrans.png" alt="Сайт Dragontrans на ноутбуке" />
             </a>
             <a class="work-card work-card--book reveal" href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener">
-              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Лендинг сервиса для подбора и аренды книг: от идеи до прототипа</p><img class="card-art card-art--project card-art--book" src="./public/work/book-at-home-mockup.png" alt="Сайт Book At Home на ноутбуке" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Лендинг сервиса для подбора и аренды книг: от идеи до прототипа</p><img class="card-art card-art--portfolio card-art--book" src="./public/work/cards/book-at-home.png" alt="Сайт Book At Home на ноутбуке" />
             </a>
           </div>
         </section>

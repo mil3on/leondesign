@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f2f2f0" />
   <title>B2B-кабинет менеджера — продуктовый кейс</title>
   <link rel="icon" type="image/png" href="../public/about/profile-photo.png" />
-  <link rel="stylesheet" href="./style.css?v=2" />
+  <link rel="stylesheet" href="./style.css?v=3" />
 </head>
 <body class="b2b-page">
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -35,9 +35,7 @@
           <p class="hero-lead">Единое рабочее пространство для заявок, претензий и аналитики строительных проектов.</p>
         </div>
         <figure class="hero-media" aria-label="Интерфейс B2B-кабинета и его компоненты">
-          <img class="b2b-float b2b-tablet" src="./assets/hero-tablet.png" alt="Планшет с канбан-доской заявок" fetchpriority="high" />
-          <img class="b2b-float b2b-calendar" src="./assets/hero-calendar.png" alt="Компонент календаря" fetchpriority="high" />
-          <img class="b2b-float b2b-statuses" src="./assets/hero-statuses.png" alt="Статусы заявок" fetchpriority="high" />
+          <img class="hero-showcase" src="./assets/hero-dashboard.png" alt="Планшет с канбан-доской заявок" fetchpriority="high" />
         </figure>
       </div>
 
@@ -182,7 +180,7 @@
   </main>
 
   <div class="case-dock" aria-label="Навигация и музыка">
-    <button class="case-sound-toggle" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить или выключить музыку"><span class="case-sound-icon" aria-hidden="true"><img data-track-cover src="../public/audio/in%20another%20cover.png" alt="" /><span class="case-sound-state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></span><span><strong>Моя волна</strong><small data-track-title>In Another</small></span></button>
+    <div class="case-sound-player sound-player" role="button" tabindex="0" aria-label="Включить или поставить музыку на паузу"><div class="case-sound-volume sound-volume" aria-label="Громкость"><img src="../public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" /><input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" /></div><button class="case-sound-icon sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку"><img data-track-cover src="../public/audio/in%20another%20cover.png" alt="" /><span class="case-sound-state sound-cover__state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></button><span class="case-sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span><button class="case-sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button></div>
     <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel"><span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i></button>
   </div>
   <audio id="soundtrack" src="../public/audio/in-another.mp3?v=3" preload="metadata"></audio>

@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f3f3f1" />
   <title>Origin — продуктовый кейс Леонида Зуева</title>
   <link rel="icon" type="image/png" href="../public/about/profile-photo.png" />
-  <link rel="stylesheet" href="./style.css?v=2" />
+  <link rel="stylesheet" href="./style.css?v=3" />
 </head>
 <body>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -32,15 +32,12 @@
           <div class="brand-lockup">
             <img class="brand-mark" src="./assets/origin-logo.png" alt="" aria-hidden="true" />
           </div>
-          <p class="eyebrow">Геймифицированный лайф-трекер · 2025</p>
+          <p class="eyebrow">Геймифицированный лайф-трекер · 2026</p>
           <h1 id="case-title">Origin</h1>
           <p class="hero-lead">Пространство, которое помогает превратить личное «хочу» в первый посильный шаг.</p>
         </div>
         <figure class="hero-media" aria-label="Два экрана мобильного приложения Origin">
-          <div class="phone-group">
-            <img class="hero-phone hero-phone-home" src="./assets/hero-phone-home.png" alt="Домашний экран Origin" fetchpriority="high" />
-            <img class="hero-phone hero-phone-goals" src="./assets/hero-phone-goals.png" alt="Карта целей Origin" fetchpriority="high" />
-          </div>
+          <img class="hero-showcase" src="./assets/hero-showcase.png" alt="Два экрана мобильного приложения Origin" fetchpriority="high" />
         </figure>
       </div>
 
@@ -275,10 +272,12 @@
   </main>
 
   <div class="case-dock" aria-label="Навигация и музыка">
-    <button class="case-sound-toggle" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить или выключить музыку">
-      <span class="case-sound-icon" aria-hidden="true"><img data-track-cover src="../public/audio/in%20another%20cover.png" alt="" /><span class="case-sound-state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></span>
-      <span><strong>Моя волна</strong><small data-track-title>In Another</small></span>
-    </button>
+    <div class="case-sound-player sound-player" role="button" tabindex="0" aria-label="Включить или поставить музыку на паузу">
+      <div class="case-sound-volume sound-volume" aria-label="Громкость"><img src="../public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" /><input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" /></div>
+      <button class="case-sound-icon sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку"><img data-track-cover src="../public/audio/in%20another%20cover.png" alt="" /><span class="case-sound-state sound-cover__state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></button>
+      <span class="case-sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span>
+      <button class="case-sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button>
+    </div>
     <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel">
       <span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i>
     </button>
