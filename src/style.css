@@ -96,3 +96,34 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
   .drawer-close{top:-48px}
   .drawer-profile p,.drawer-tags span,.drawer-tabs button,.drawer-tabs a,.drawer-panel p,.drawer-panel h3{font-size:14px}
 }
+
+/* About and skills drawer: fixed viewport, internal scroll and collision-free layout. */
+.about-drawer{top:600px;height:520px;max-height:520px;display:flex;flex-direction:column;overflow:visible}
+.drawer-top,.drawer-tabs{flex:0 0 auto}
+.drawer-panel{min-height:0}
+.drawer-panel.is-active{display:block;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.42) transparent}
+.drawer-panel.is-active::-webkit-scrollbar{width:5px}
+.drawer-panel.is-active::-webkit-scrollbar-thumb{border-radius:99px;background:rgba(255,255,255,.42)}
+.drawer-panel--skills{padding:14px 0 4px}
+.skill-stack{display:grid;gap:10px}
+.skill-card{min-width:0;padding:14px;border-radius:18px;background:#fff;color:#242523}
+.skill-card h3{display:flex;align-items:center;gap:8px;margin:0 0 12px;font:600 15px/1.2 Manrope,sans-serif;letter-spacing:-.01em}
+.skill-card h3 img{width:18px;height:18px;flex:0 0 18px;object-fit:contain}
+.skill-tags{display:flex;flex-wrap:wrap;gap:6px}
+.skill-tags span{padding:7px 9px;border-radius:10px;background:#f1f1f1;color:#393a38;font-size:13px;line-height:1.2}
+.skill-tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.skill-tool-grid .skill-card{padding:12px}
+.skill-icon-grid{display:flex;flex-wrap:wrap;gap:7px}
+.skill-icon-grid img{width:39px;height:39px;padding:5px;border-radius:10px;background:#f3f3f3;object-fit:contain}
+
+@media(min-width:901px){body.about-open .world{min-height:2380px}body.about-open .portfolio-panel{top:1160px}}
+@media(min-width:761px) and (max-width:900px){.about-drawer{top:560px}body.about-open .world{min-height:2820px}body.about-open .portfolio-panel{top:1150px}}
+@media(max-width:760px){
+  .about-drawer{top:820px;height:520px;max-height:520px}
+  body.about-open .world{min-height:4680px}
+  body.about-open .portfolio-panel{top:1370px}
+  .drawer-panel--skills{padding-top:12px}
+  .skill-card{padding:13px}
+  .skill-card h3,.skill-tags span{font-size:13px}
+  .skill-icon-grid img{width:42px;height:42px}
+}

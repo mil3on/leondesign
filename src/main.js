@@ -265,18 +265,30 @@ document.addEventListener('click', (event) => {
 const drawer = document.querySelector('#about-drawer');
 const backdrop = document.querySelector('#about-backdrop');
 const closeButton = document.querySelector('#about-close');
+const drawerTriggers = [...document.querySelectorAll('.js-about-open')];
 let drawerReturnFocus = null;
-function setDrawer(open, trigger) {
+function setDrawer(open, trigger, restoreFocus = true) {
   if (open) drawerReturnFocus = trigger || document.activeElement;
   drawer.classList.toggle('is-open', open);
   drawer.setAttribute('aria-hidden', String(!open));
+  document.body.classList.toggle('about-open', open);
+  drawerTriggers.forEach((button) => button.setAttribute('aria-expanded', String(open)));
   backdrop.hidden = true;
   if (open) setTimeout(() => closeButton.focus(), 40);
-  else drawerReturnFocus?.focus?.();
+  else if (restoreFocus) drawerReturnFocus?.focus?.();
 }
-document.querySelectorAll('.js-about-open').forEach((button) => button.addEventListener('click', () => setDrawer(true, button)));
+drawerTriggers.forEach((button) => button.addEventListener('click', (event) => {
+  event.stopPropagation();
+  setCases(false);
+  const nextOpen = !drawer.classList.contains('is-open');
+  setDrawer(nextOpen, button, nextOpen);
+}));
+drawer.addEventListener('click', (event) => event.stopPropagation());
 closeButton.addEventListener('click', () => setDrawer(false));
 backdrop.addEventListener('click', () => setDrawer(false));
+document.addEventListener('click', (event) => {
+  if (drawer.classList.contains('is-open') && !drawer.contains(event.target) && !event.target.closest('.js-about-open')) setDrawer(false, null, false);
+});
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setDrawer(false); setCases(false); } });
 
 document.querySelectorAll('[data-tab]').forEach((tab) => tab.addEventListener('click', () => {

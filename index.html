@@ -8,13 +8,13 @@
     <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
     <link rel="preload" href="./public/fonts/PPNeueMachina-Ultrabold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="./public/fonts/UraBumBumSP.otf" as="font" type="font/otf" crossorigin />
-    <link rel="stylesheet" href="./src/style.css?v=37" />
+    <link rel="stylesheet" href="./src/style.css?v=38" />
     <title>Леонид Зуев — продуктовый дизайнер</title>
   </head>
   <body>
     <a class="skip-link" href="#portfolio">К портфолио</a>
     <header class="site-header" aria-label="Основная навигация">
-      <button class="profile-chip js-about-open" type="button" aria-label="Открыть информацию обо мне">
+      <button class="profile-chip js-about-open" type="button" aria-label="Открыть информацию обо мне" aria-controls="about-drawer" aria-expanded="false">
         <img class="profile-chip__avatar" src="./public/about/profile-photo.png" alt="" aria-hidden="true" />
         <span><strong>Леонид Зуев</strong><small>Продуктовый дизайнер</small></span>
       </button>
@@ -33,7 +33,7 @@
           <svg class="hero-underline" viewBox="0 0 500 30" aria-hidden="true"><path d="M7 7c128 5 255 0 481-2-80 5-147 10-205 20" /></svg>
           <div class="hero-actions">
             <a class="button button--dark" href="#portfolio">К портфолио <img class="button-icon" src="./public/icons/arrow-bottom-right.svg" alt="" /></a>
-            <button class="button button--plain js-about-open" type="button">Опыт и скиллы</button>
+            <button class="button button--plain js-about-open" type="button" aria-controls="about-drawer" aria-expanded="false">Опыт и скиллы</button>
           </div>
         </div>
 
@@ -68,7 +68,7 @@
             <button class="sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="./public/icons/iconixto/linear/forward.svg" alt="" /></button>
           </div>
           <audio id="soundtrack" src="./public/audio/in-another.mp3?v=3" preload="metadata"></audio>
-          <button class="designer-pill js-about-open" type="button"><img class="designer-avatar" src="./public/about/avatar-head.png" alt="" aria-hidden="true" /><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
+          <button class="designer-pill js-about-open" type="button" aria-controls="about-drawer" aria-expanded="false"><img class="designer-avatar" src="./public/about/avatar-head.png" alt="" aria-hidden="true" /><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
         </div>
 
         <section class="portfolio-panel" id="portfolio" aria-labelledby="portfolio-title">
@@ -107,7 +107,23 @@
           </div>
           <div class="drawer-tabs" role="tablist" aria-label="О Леониде"><button class="is-active" type="button" role="tab" aria-selected="true" data-tab="about">Обо мне</button><button type="button" role="tab" aria-selected="false" data-tab="skills">Скиллы</button><a href="./public/docs/Leonid-Zuev-Product-Designer.pdf" target="_blank" rel="noopener">Резюме ↗</a></div>
           <div class="drawer-panel is-active" data-panel="about"><p>Санкт-Петербург, любой формат, релокация</p><p>Полный цикл проектирования цифровых продуктов — от глубокого discovery и гипотез до UI, прототипирования и внедрения.</p><p>Учусь продуктовому дизайну в магистратуре ИТМО. Соединяю потребности людей, продуктовые метрики и цельный визуальный язык.</p><p>Использую ИИ в дизайне и исследованиях — от аналитики до вайбкод-прототипов.</p></div>
-          <div class="drawer-panel" data-panel="skills"><h3>Проектирование</h3><p>Desktop UI, mobile UI, адаптивы, дизайн-системы, автолэйауты, токены и стили.</p><h3>Исследования</h3><p>Глубинные интервью, анализ конкурентов, JTBD, User stories, CJM, юзабилити-тесты.</p><h3>Инструменты</h3><p>Figma, Photoshop, Illustrator, After Effects, Tilda, VS Code, AI-инструменты.</p></div>
+          <div class="drawer-panel drawer-panel--skills" data-panel="skills">
+            <div class="skill-stack">
+              <section class="skill-card skill-card--wide">
+                <h3><img src="./public/about/skills/figma.svg" alt="" aria-hidden="true" />Figma</h3>
+                <div class="skill-tags"><span>desktop UI</span><span>mobile UI</span><span>адаптивный дизайн</span><span>атомарный подход</span><span>анимация/прототипы</span><span>создание дизайн-системы</span><span>автолэйауты</span><span>мудборды и референсы</span><span>токены и стили</span><span>сетка</span><span>UX эвристики</span><span>вайбкодинг</span><span>подготовка к верстке</span></div>
+              </section>
+              <section class="skill-card skill-card--wide">
+                <h3><img src="./public/about/skills/research.svg" alt="" aria-hidden="true" />Исследования</h3>
+                <div class="skill-tags"><span>Глуб. интервью</span><span>Анализ конкурентов</span><span>UX гипотезы</span><span>JTBD | User stories</span><span>CJM</span><span>Userflow</span><span>Юзабилити тесты</span><span>Кластеризация инсайтов и аналитика с помощью ИИ</span></div>
+              </section>
+              <div class="skill-tool-grid">
+                <section class="skill-card"><h3><img src="./public/about/skills/ai-tools.svg" alt="" aria-hidden="true" />ИИ</h3><div class="skill-icon-grid"><img src="./public/about/skills/codex.png" alt="Codex" /><img src="./public/about/skills/claude.png" alt="Claude" /><img src="./public/about/skills/gpt.png" alt="ChatGPT" /><img src="./public/about/skills/gemini.png" alt="Gemini" /></div></section>
+                <section class="skill-card"><h3><img src="./public/about/skills/code.svg" alt="" aria-hidden="true" />Верстка</h3><div class="skill-icon-grid"><img src="./public/about/skills/tilda.png" alt="Tilda" /><img src="./public/about/skills/vscode.png" alt="VS Code" /></div></section>
+                <section class="skill-card"><h3><img src="./public/about/skills/graphics.svg" alt="" aria-hidden="true" />Графика</h3><div class="skill-icon-grid"><img src="./public/about/skills/photoshop.png" alt="Photoshop" /><img src="./public/about/skills/illustrator.png" alt="Illustrator" /><img src="./public/about/skills/after-effects.png" alt="After Effects" /><img src="./public/about/skills/blender.png" alt="Blender" /></div></section>
+              </div>
+            </div>
+          </div>
         </aside>
       </section>
 
@@ -123,6 +139,6 @@
 
     <footer><span>© Леонид Зуев, 2026</span><a href="#top"><img class="footer-icon" src="./public/icons/arrow-up.svg" alt="" />Наверх</a></footer>
     <script src="./src/audio.js?v=4"></script>
-  <script type="module" src="./src/main.js?v=41"></script>
+  <script type="module" src="./src/main.js?v=42"></script>
   </body>
 </html>
