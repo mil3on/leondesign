@@ -7,7 +7,8 @@ const gltfLoader = new GLTFLoader();
 
 function setupRenderer(canvas, alpha = true) {
   const renderer = new THREE.WebGLRenderer({ canvas, alpha, antialias: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, innerWidth < 700 ? 1.25 : 1.7));
+  const pixelRatioLimit = innerWidth >= 1600 ? 1.2 : innerWidth < 700 ? 1.1 : 1.4;
+  renderer.setPixelRatio(Math.min(devicePixelRatio, pixelRatioLimit));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1;
@@ -34,6 +35,7 @@ function softenMaterials(root, intensity = .45) {
 // Main animated planet, preserved from the previous site build.
 const planetCanvas = document.querySelector('#planet-canvas');
 const planetStage = document.querySelector('.planet-stage');
+const planetLoader = planetStage.querySelector('.planet-loader');
 const planetScene = new THREE.Scene();
 const planetCamera = new THREE.PerspectiveCamera(31, 1, .1, 220);
 planetCamera.position.set(0, .4, -15.5);
@@ -51,7 +53,7 @@ const planetKey = new THREE.DirectionalLight(0xfff3df, 1.05);
 planetKey.position.set(-3.2, 6.5, -8.5);
 planetKey.target.position.set(0, -2.8, 0);
 planetKey.castShadow = true;
-planetKey.shadow.mapSize.set(2048, 2048);
+planetKey.shadow.mapSize.set(1024, 1024);
 planetKey.shadow.camera.near = .1;
 planetKey.shadow.camera.far = 32;
 planetKey.shadow.camera.left = -9;
@@ -72,7 +74,7 @@ let trackedHand = null;
 const planetWorld = new THREE.Group();
 planetScene.add(planetWorld);
 
-gltfLoader.load(new URL('../public/FINAL.glb', import.meta.url).href, (gltf) => {
+gltfLoader.load(new URL('../public/FINAL.glb?v=2', import.meta.url).href, (gltf) => {
   const model = gltf.scene;
   const normalized = new THREE.Group();
   normalized.add(model);
@@ -86,7 +88,7 @@ gltfLoader.load(new URL('../public/FINAL.glb', import.meta.url).href, (gltf) => 
     if (/mixamorig.*Head$/i.test(node.name)) head = node;
     if (!node.isBone && /^Armature/i.test(node.name)) characterRoot = node;
   });
-  characterRoot?.scale.setScalar(1.5);
+  characterRoot?.scale.setScalar(2.5);
   if (gltf.animations.length) {
     planetMixer = new THREE.AnimationMixer(model);
     gltf.animations.forEach((clip) => planetMixer.clipAction(clip).setLoop(THREE.LoopRepeat, Infinity).play());
@@ -96,36 +98,55 @@ gltfLoader.load(new URL('../public/FINAL.glb', import.meta.url).href, (gltf) => 
   const box = new THREE.Box3().setFromObject(model);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
+  const planetLayout = innerWidth <= 640
+    ? { size: 16, headX: 0, headY: 3.2 }
+    : innerWidth <= 900
+      ? { size: 14, headX: 0, headY: 2.85 }
+      : { size: 14, headX: 0, headY: 2.25 };
   model.position.sub(center);
-  normalized.scale.setScalar(18 / Math.max(size.x, size.y, size.z));
+  normalized.scale.setScalar(planetLayout.size / Math.max(size.x, size.y, size.z));
   normalized.updateMatrixWorld(true);
   if (head) {
     const headPosition = new THREE.Vector3();
     head.getWorldPosition(headPosition);
-    normalized.position.x -= headPosition.x;
-    normalized.position.y += 1.2 - headPosition.y;
+    normalized.position.x += planetLayout.headX - headPosition.x;
+    normalized.position.y += planetLayout.headY - headPosition.y;
   } else {
     normalized.position.y = -2.7;
   }
-}, undefined, (error) => console.error('Не удалось загрузить планету', error));
+  planetStage.classList.add('is-loaded');
+  planetRenderer.render(planetScene, planetCamera);
+}, (event) => {
+  if (!event.total) return;
+  planetLoader.textContent = `Загружаю планету… ${Math.round(event.loaded / event.total * 100)}%`;
+}, (error) => {
+  planetLoader.textContent = 'Планета временно недоступна';
+  console.error('Не удалось загрузить планету', error);
+});
 
-const planetResize = new ResizeObserver(() => {
+function resizePlanet() {
   const { width, height } = planetStage.getBoundingClientRect();
+  if (!width || !height) return;
   planetRenderer.setSize(width, height, false);
   planetCamera.aspect = width / height;
   planetCamera.updateProjectionMatrix();
-});
+  planetRenderer.render(planetScene, planetCamera);
+}
+const planetResize = new ResizeObserver(resizePlanet);
 planetResize.observe(planetStage);
+resizePlanet();
 
 const hotspot = document.querySelector('#bag-hotspot');
 const trackedPosition = new THREE.Vector3();
 function placeHotspot() {
-  if (!trackedHand || innerWidth < 641) return;
+  if (!trackedHand) return;
   trackedHand.getWorldPosition(trackedPosition);
   trackedPosition.project(planetCamera);
-  const box = planetStage.getBoundingClientRect();
-  hotspot.style.left = `${box.left + (trackedPosition.x * .5 + .5) * box.width}px`;
-  hotspot.style.top = `${box.top + (-trackedPosition.y * .5 + .5) * box.height}px`;
+  const stageBox = planetStage.getBoundingClientRect();
+  const parentBox = hotspot.offsetParent.getBoundingClientRect();
+  hotspot.style.left = `${stageBox.left - parentBox.left + (trackedPosition.x * .5 + .5) * stageBox.width -30}px`;
+  hotspot.style.top = `${stageBox.top - parentBox.top + (-trackedPosition.y * .5 + .5) * stageBox.height -20}px`;
+
 }
 
 // Footer character exported from Official Leon.blend.
@@ -135,43 +156,43 @@ const leonScene = new THREE.Scene();
 const leonCamera = new THREE.PerspectiveCamera(28, 1, .01, 100);
 const leonRenderer = setupRenderer(leonCanvas);
 leonRenderer.setClearColor(0xffffff, 0);
-leonRenderer.toneMappingExposure = 1.03;
+leonRenderer.toneMappingExposure = .82;
 const leonPmrem = new THREE.PMREMGenerator(leonRenderer);
 leonScene.environment = leonPmrem.fromScene(new RoomEnvironment(), .03).texture;
+leonScene.environmentIntensity = .42;
 leonPmrem.dispose();
-leonScene.add(new THREE.HemisphereLight(0xf7fbff, 0x68655f, 1.25));
-const leonKey = new THREE.DirectionalLight(0xfff2e1, 2.35);
+leonScene.add(new THREE.HemisphereLight(0xf7fbff, 0x68655f, .68));
+const leonKey = new THREE.DirectionalLight(0xfff2e1, 1.05);
 leonKey.position.set(-4, 5, 6);
 leonKey.castShadow = true;
 leonKey.shadow.mapSize.set(1024, 1024);
 leonScene.add(leonKey);
-const leonFill = new THREE.RectAreaLight(0xeef6ff, 2.2, 5, 7);
+const leonFill = new THREE.RectAreaLight(0xeef6ff, .72, 6, 8);
 leonFill.position.set(3, 2, 5);
 leonScene.add(leonFill);
-const leonRim = new THREE.DirectionalLight(0xcbdcff, .65);
+const leonRim = new THREE.DirectionalLight(0xcbdcff, .24);
 leonRim.position.set(2, 5, -4);
 leonScene.add(leonRim);
 
 let leonMixer = null;
-gltfLoader.load(new URL('../public/models/official-leon.glb', import.meta.url).href, (gltf) => {
+gltfLoader.load(new URL('../public/models/official-leon-edited.glb?v=1', import.meta.url).href, (gltf) => {
   const model = gltf.scene;
-  leonScene.add(model);
-  softenMaterials(model, .7);
+  const normalized = new THREE.Group();
+  normalized.add(model);
+  leonScene.add(normalized);
+  softenMaterials(model, .38);
   model.rotation.y = -.33;
   model.updateMatrixWorld(true);
   const box = new THREE.Box3().setFromObject(model);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
-  model.position.x -= center.x;
-  model.position.y -= box.min.y;
-  model.position.z -= center.z;
-  model.updateMatrixWorld(true);
-  const targetHeight = 4.7;
+  model.position.sub(center);
+  const targetHeight = 4.35;
   const scale = targetHeight / Math.max(size.y, .001);
-  model.scale.setScalar(scale);
-  model.position.y = -2.35;
-  leonCamera.position.set(.1, .15, 8.9);
-  leonCamera.lookAt(0, -.05, 0);
+  normalized.scale.setScalar(scale);
+  normalized.position.y = -.12;
+  leonCamera.position.set(.1, .15, 9.2);
+  leonCamera.lookAt(0, .12, 0);
   if (gltf.animations.length) {
     leonMixer = new THREE.AnimationMixer(model);
     const action = leonMixer.clipAction(gltf.animations[0]);
@@ -179,6 +200,7 @@ gltfLoader.load(new URL('../public/models/official-leon.glb', import.meta.url).h
     action.fadeIn(.35).play();
   }
   leonStage.classList.add('is-loaded');
+  leonRenderer.render(leonScene, leonCamera);
 }, (event) => {
   if (!event.total) return;
   const label = leonStage.querySelector('.model-loader');
@@ -188,16 +210,20 @@ gltfLoader.load(new URL('../public/models/official-leon.glb', import.meta.url).h
   console.error('Не удалось загрузить Official Leon', error);
 });
 
-const leonResize = new ResizeObserver(() => {
+function resizeLeon() {
   const { width, height } = leonStage.getBoundingClientRect();
+  if (!width || !height) return;
   leonRenderer.setSize(width, height, false);
   leonCamera.aspect = width / height;
   leonCamera.updateProjectionMatrix();
-});
+  leonRenderer.render(leonScene, leonCamera);
+}
+const leonResize = new ResizeObserver(resizeLeon);
 leonResize.observe(leonStage);
+resizeLeon();
 
 let leonVisible = false;
-new IntersectionObserver(([entry]) => { leonVisible = entry.isIntersecting; }, { rootMargin: '200px' }).observe(leonStage);
+new IntersectionObserver(([entry]) => { leonVisible = entry.isIntersecting; }, { rootMargin: '700px' }).observe(leonStage);
 
 const clock = new THREE.Clock();
 function animate() {
@@ -215,6 +241,7 @@ animate();
 
 // Cases hotspot.
 const casePeek = document.querySelector('#case-peek');
+const casePeekClose = document.querySelector('#case-peek-close');
 function setCases(open) {
   casePeek.classList.toggle('is-open', open);
   casePeek.setAttribute('aria-hidden', String(!open));
@@ -226,6 +253,10 @@ hotspot.addEventListener('click', () => {
 });
 hotspot.addEventListener('mouseenter', () => setCases(true));
 casePeek.addEventListener('mouseleave', () => setCases(false));
+casePeekClose.addEventListener('click', () => {
+  setCases(false);
+  hotspot.focus();
+});
 document.addEventListener('click', (event) => {
   if (!casePeek.contains(event.target) && !hotspot.contains(event.target)) setCases(false);
 });
@@ -239,8 +270,7 @@ function setDrawer(open, trigger) {
   if (open) drawerReturnFocus = trigger || document.activeElement;
   drawer.classList.toggle('is-open', open);
   drawer.setAttribute('aria-hidden', String(!open));
-  backdrop.hidden = !open;
-  document.body.classList.toggle('drawer-open', open);
+  backdrop.hidden = true;
   if (open) setTimeout(() => closeButton.focus(), 40);
   else drawerReturnFocus?.focus?.();
 }
@@ -257,41 +287,6 @@ document.querySelectorAll('[data-tab]').forEach((tab) => tab.addEventListener('c
   });
   document.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('is-active', panel.dataset.panel === tab.dataset.tab));
 }));
-
-// Procedural, very soft wind bed: starts only after direct user interaction.
-const soundButton = document.querySelector('#sound-toggle');
-let audioContext = null;
-let audioSource = null;
-let audioGain = null;
-function startAmbience() {
-  audioContext ||= new AudioContext();
-  const length = audioContext.sampleRate * 2;
-  const buffer = audioContext.createBuffer(1, length, audioContext.sampleRate);
-  const data = buffer.getChannelData(0);
-  let previous = 0;
-  for (let i = 0; i < length; i += 1) {
-    previous = previous * .985 + (Math.random() * 2 - 1) * .015;
-    data[i] = previous;
-  }
-  audioSource = audioContext.createBufferSource();
-  audioSource.buffer = buffer;
-  audioSource.loop = true;
-  const filter = audioContext.createBiquadFilter();
-  filter.type = 'lowpass';
-  filter.frequency.value = 740;
-  audioGain = audioContext.createGain();
-  audioGain.gain.value = 0;
-  audioSource.connect(filter).connect(audioGain).connect(audioContext.destination);
-  audioSource.start();
-}
-soundButton.addEventListener('click', async () => {
-  if (!audioContext) startAmbience();
-  await audioContext.resume();
-  const enabled = soundButton.getAttribute('aria-pressed') !== 'true';
-  soundButton.setAttribute('aria-pressed', String(enabled));
-  audioGain.gain.cancelScheduledValues(audioContext.currentTime);
-  audioGain.gain.linearRampToValueAtTime(enabled ? .045 : 0, audioContext.currentTime + .45);
-});
 
 const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
   if (entry.isIntersecting) {

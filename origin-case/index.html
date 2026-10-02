@@ -13,13 +13,16 @@
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
   <header class="topbar">
-    <a class="back-link" href="#top" aria-label="К началу страницы"><span>←</span> К началу</a>
+    <a class="back-link" href="../index.html" aria-label="На главную страницу"><span>←</span> На главную</a>
     <nav class="case-switcher" aria-label="Переключение кейсов">
       <a class="active" href="./" aria-current="page">Origin</a>
       <a href="../b2b-case/">B2B кабинет</a>
       <span class="case-track"><i></i></span>
     </nav>
-    <div class="case-count">01 / 02</div>
+    <div class="case-socials" aria-label="Портфолио на внешних площадках">
+      <a href="https://dribbble.com/mileon" target="_blank" rel="noopener">Dribbble</a>
+      <a href="https://www.behance.net/a8f58056" target="_blank" rel="noopener">Behance</a>
+    </div>
   </header>
 
   <main id="top">
@@ -272,9 +275,16 @@
     </footer>
   </main>
 
-  <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel">
-    <span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i>
-  </button>
+  <div class="case-dock" aria-label="Навигация и музыка">
+    <button class="case-sound-toggle" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить или выключить музыку">
+      <span class="case-sound-icon" aria-hidden="true"><img data-track-cover src="../public/audio/in%20another%20cover.png" alt="" /><span class="case-sound-state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></span>
+      <span><strong>Моя волна</strong><small data-track-title>In Another</small></span>
+    </button>
+    <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel">
+      <span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i>
+    </button>
+  </div>
+  <audio id="soundtrack" src="../public/audio/in-another.mp3?v=3" preload="metadata"></audio>
   <nav class="contents-panel" id="contents-panel" aria-label="Содержание">
     <div class="contents-head"><span>Содержание</span><button type="button" aria-label="Закрыть содержание">×</button></div>
     <ol>
@@ -287,6 +297,7 @@
     <img src="" alt="" />
   </dialog>
 
+  <script src="../src/audio.js?v=4"></script>
   <script src="./case.js"></script>
 </body>
 </html>

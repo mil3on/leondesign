@@ -8,20 +8,20 @@
     <link rel="icon" type="image/svg+xml" href="./public/favicon.svg" />
     <link rel="preload" href="./public/fonts/PPNeueMachina-Ultrabold.otf" as="font" type="font/otf" crossorigin />
     <link rel="preload" href="./public/fonts/UraBumBumSP.otf" as="font" type="font/otf" crossorigin />
-    <link rel="stylesheet" href="./src/style.css?v=20" />
+    <link rel="stylesheet" href="./src/style.css?v=36" />
     <title>Леонид Зуев — продуктовый дизайнер</title>
   </head>
   <body>
     <a class="skip-link" href="#portfolio">К портфолио</a>
     <header class="site-header" aria-label="Основная навигация">
       <button class="profile-chip js-about-open" type="button" aria-label="Открыть информацию обо мне">
-        <span class="profile-chip__avatar" aria-hidden="true">ЛЗ</span>
+        <img class="profile-chip__avatar" src="./public/about/profile-photo.png" alt="" aria-hidden="true" />
         <span><strong>Леонид Зуев</strong><small>Продуктовый дизайнер</small></span>
       </button>
       <nav class="header-actions" aria-label="Быстрые ссылки">
-        <a class="round-link has-hint" href="./public/docs/Leonid-Zuev-Product-Designer.pdf" target="_blank" rel="noopener" data-hint="Резюме" aria-label="Открыть резюме">▤</a>
-        <a class="round-link has-hint" href="https://t.me/mileon_pd" target="_blank" rel="noopener" data-hint="Telegram" aria-label="Telegram">⌁</a>
-        <a class="round-link has-hint" href="#contacts" data-hint="Контакты" aria-label="Контакты">↗</a>
+        <a class="round-link has-hint" href="./public/docs/Leonid-Zuev-Product-Designer.pdf" target="_blank" rel="noopener" data-hint="Резюме" aria-label="Открыть резюме"><img class="ui-icon" src="./public/icons/paste.svg" alt="" /></a>
+        <a class="round-link has-hint" href="https://t.me/mileon_pd" target="_blank" rel="noopener" data-hint="Telegram" aria-label="Telegram"><img class="ui-icon" src="./public/icons/telegram-dark.svg" alt="" /></a>
+        <a class="round-link has-hint" href="#contacts" data-hint="Контакты" aria-label="Контакты"><img class="ui-icon" src="./public/icons/link.svg" alt="" /></a>
       </nav>
     </header>
 
@@ -32,13 +32,14 @@
           <h1 id="hero-title"><span>Создаю продукты</span><em>на радость людей и бизнеса</em></h1>
           <svg class="hero-underline" viewBox="0 0 500 30" aria-hidden="true"><path d="M7 7c128 5 255 0 481-2-80 5-147 10-205 20" /></svg>
           <div class="hero-actions">
-            <a class="button button--dark" href="#portfolio">К портфолио <span aria-hidden="true">↘</span></a>
+            <a class="button button--dark" href="#portfolio">К портфолио <img class="button-icon" src="./public/icons/arrow-bottom-right.svg" alt="" /></a>
             <button class="button button--plain js-about-open" type="button">Опыт и скиллы</button>
           </div>
         </div>
 
         <div class="planet-stage" aria-label="Анимированная 3D-планета с персонажем">
           <canvas id="planet-canvas"></canvas>
+          <div class="planet-loader" aria-live="polite">Загружаю планету…</div>
           <svg class="wind-lines" viewBox="0 0 1200 650" preserveAspectRatio="none" aria-hidden="true">
             <path class="wind-line wind-line--one" d="M-120 468 C188 319 480 292 760 388" />
             <path class="wind-line wind-line--two" d="M350 535 C646 365 930 352 1340 485" />
@@ -48,14 +49,26 @@
 
         <button class="bag-hotspot" id="bag-hotspot" type="button" aria-expanded="false" aria-controls="case-peek" aria-label="Показать кейсы"><span></span></button>
         <aside class="case-peek" id="case-peek" aria-hidden="true">
-          <p>Кейс с кейсами</p>
+          <div class="case-peek__head"><h2>Кейс с кейсами</h2><button class="case-peek__close" id="case-peek-close" type="button" aria-label="Закрыть список кейсов"><img src="./public/icons/close.svg" alt="" /></button></div>
           <a href="./origin-case/"><span><strong>ORIGIN</strong><small>Лайф-трекер</small></span><img src="./origin-case/assets/hero-phone-home.png" alt="" /></a>
           <a href="./b2b-case/"><span><strong>ДОМ-ТН</strong><small>Кабинет</small></span><img src="./b2b-case/assets/hero-tablet.png" alt="" /></a>
         </aside>
 
         <div class="sound-controls">
-          <button class="sound-pill" id="sound-toggle" type="button" aria-pressed="false"><span class="sound-icon" aria-hidden="true">◖</span><span><strong>Моя волна</strong><small>Breathe in the light</small></span></button>
-          <button class="designer-pill js-about-open" type="button"><span class="designer-avatar" aria-hidden="true">Л</span><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
+          <div class="sound-player" id="sound-toggle">
+            <div class="sound-volume" aria-label="Громкость">
+              <img src="./public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" />
+              <input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" />
+            </div>
+            <button class="sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку">
+              <img class="sound-cover__image" data-track-cover src="./public/audio/in%20another%20cover.png" alt="" />
+              <span class="sound-cover__state" aria-hidden="true"><img data-audio-state-icon src="./public/icons/iconixto/linear/play.svg" alt="" /></span>
+            </button>
+            <span class="sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span>
+            <button class="sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="./public/icons/iconixto/linear/forward.svg" alt="" /></button>
+          </div>
+          <audio id="soundtrack" src="./public/audio/in-another.mp3?v=3" preload="metadata"></audio>
+          <button class="designer-pill js-about-open" type="button"><img class="designer-avatar" src="./public/about/avatar-head.png" alt="" aria-hidden="true" /><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
         </div>
 
         <section class="portfolio-panel" id="portfolio" aria-labelledby="portfolio-title">
@@ -70,42 +83,46 @@
               <img class="card-art card-art--tablet" src="./b2b-case/assets/hero-tablet.png" alt="Интерфейс кабинета менеджера" />
             </a>
             <a class="work-card work-card--smu reveal" href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener">
-              <span class="external-arrow" aria-hidden="true">↗</span><div class="tags"><span>Web-site</span><span>B2C</span><span>mobile/desktop</span></div><h3>Лендинг | СПбГМТУ</h3><p>Сайт университета: понятная подача поступления, науки и жизни кампуса</p>
-              <img class="card-art card-art--smu" src="./public/work/smtu-cover.png" alt="Макет сайта Санкт-Петербургского морского технического университета" />
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web-site</span><span>B2C</span><span>mobile/desktop</span></div><h3>Лендинг | СПбГМТУ</h3><p>Сайт университета: понятная подача поступления, науки и жизни кампуса</p>
+              <img class="card-art card-art--project card-art--smu" src="./public/work/smtu-mockup.png" alt="Макет сайта Санкт-Петербургского морского технического университета на ноутбуке" />
             </a>
             <a class="work-card work-card--science reveal" href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener">
-              <span class="external-arrow" aria-hidden="true">↗</span><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><div class="phone-hand" aria-hidden="true"><span>КОНКУРС<br />ПО НИОКТР</span></div>
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--project card-art--science" src="./public/work/science-mockup.png" alt="Мобильная версия сайта конкурса НИОКТР" />
             </a>
             <a class="work-card work-card--dragon reveal" href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener">
-              <span class="external-arrow" aria-hidden="true">↗</span><div class="tags"><span>Web</span><span>B2C</span><span>mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Лендинг логистической компании: доставка грузов из Китая в Россию</p><div class="browser-mock browser-mock--dragon" aria-hidden="true"><b>Полный цикл<br />логистических<br />решений между<br />Китаем и Россией</b><span>DRAGONTRANS</span></div>
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Web</span><span>B2C</span><span>mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Лендинг логистической компании: доставка грузов из Китая в Россию</p><img class="card-art card-art--project card-art--dragon" src="./public/work/dragontrans-mockup.png" alt="Сайт Dragontrans на ноутбуке" />
             </a>
             <a class="work-card work-card--book reveal" href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener">
-              <span class="external-arrow" aria-hidden="true">↗</span><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Лендинг сервиса для подбора и аренды книг: от идеи до прототипа</p><div class="browser-mock browser-mock--book" aria-hidden="true"><b>Книги, подобранные<br />специально для тебя</b><span>Book at home</span></div>
+              <img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" aria-hidden="true" /><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Лендинг сервиса для подбора и аренды книг: от идеи до прототипа</p><img class="card-art card-art--project card-art--book" src="./public/work/book-at-home-mockup.png" alt="Сайт Book At Home на ноутбуке" />
             </a>
           </div>
         </section>
+
+        <div class="drawer-backdrop" id="about-backdrop" hidden></div>
+        <aside class="about-drawer" id="about-drawer" aria-hidden="true" aria-labelledby="about-heading">
+          <button class="drawer-close" id="about-close" type="button" aria-label="Закрыть"><img src="./public/icons/close.svg" alt="" /></button>
+          <div class="drawer-top">
+            <div class="drawer-profile"><img class="drawer-avatar" src="./public/about/avatar-head.png" alt="" aria-hidden="true" /><div><h2 id="about-heading">Дизайнер Леонид</h2><p>Продуктовый дизайнер | 2+ года</p></div></div>
+            <div class="drawer-tags"><span>B2B SaaS</span><span>B2C</span><span>Research</span><span>DS</span></div>
+          </div>
+          <div class="drawer-tabs" role="tablist" aria-label="О Леониде"><button class="is-active" type="button" role="tab" aria-selected="true" data-tab="about">Обо мне</button><button type="button" role="tab" aria-selected="false" data-tab="skills">Скиллы</button><a href="./public/docs/Leonid-Zuev-Product-Designer.pdf" target="_blank" rel="noopener">Резюме ↗</a></div>
+          <div class="drawer-panel is-active" data-panel="about"><p>Санкт-Петербург, любой формат, релокация</p><p>Полный цикл проектирования цифровых продуктов — от глубокого discovery и гипотез до UI, прототипирования и внедрения.</p><p>Учусь продуктовому дизайну в магистратуре ИТМО. Соединяю потребности людей, продуктовые метрики и цельный визуальный язык.</p><p>Использую ИИ в дизайне и исследованиях — от аналитики до вайбкод-прототипов.</p></div>
+          <div class="drawer-panel" data-panel="skills"><h3>Проектирование</h3><p>Desktop UI, mobile UI, адаптивы, дизайн-системы, автолэйауты, токены и стили.</p><h3>Исследования</h3><p>Глубинные интервью, анализ конкурентов, JTBD, User stories, CJM, юзабилити-тесты.</p><h3>Инструменты</h3><p>Figma, Photoshop, Illustrator, After Effects, Tilda, VS Code, AI-инструменты.</p></div>
+        </aside>
       </section>
 
       <section class="contact-section" id="contacts" aria-labelledby="contact-title">
         <div class="contact-copy reveal">
-          <span class="status"><i></i> Open to work</span><h2 id="contact-title">Я готов дизайнить<br />и уже собрался</h2><p>Жду только вас, <u>напишите</u></p>
+          <span class="status"><i></i> Open to work</span><h2 id="contact-title"><span>Я готов дизайнить</span><span>и уже собрался</span></h2><p>Жду только вас, <u>напишите</u></p>
           <div class="contact-links"><a href="mailto:zuevleon17@yandex.ru">zuevleon17@yandex.ru</a><a href="https://setka.ru/users/4bb7ecc9-b0d5-4e34-bd49-b950177d5a55" target="_blank" rel="noopener">Сетка</a><a href="https://www.linkedin.com/in/mileondesign/" target="_blank" rel="noopener">LinkedIn</a><a href="https://vc.ru/id5706738" target="_blank" rel="noopener">VC.ru</a><a href="https://www.behance.net/a8f58056" target="_blank" rel="noopener">Behance</a><a href="https://dribbble.com/mileon" target="_blank" rel="noopener">Dribbble</a></div>
-          <a class="button button--dark write-button" href="https://t.me/mileon_pd" target="_blank" rel="noopener">Написать <span aria-hidden="true">⌁</span></a>
+          <a class="button button--dark write-button" href="https://t.me/mileon_pd" target="_blank" rel="noopener">Написать <img class="button-icon" src="./public/icons/telegram-light.svg" alt="" /></a>
         </div>
         <div class="leon-stage" aria-label="Анимированный 3D-персонаж Леонида"><canvas id="leon-canvas"></canvas><div class="model-loader" aria-live="polite">Загружаю 3D…</div></div>
       </section>
     </main>
 
-    <footer><span>© Леонид Зуев, 2026</span><a href="#top">⌃&nbsp; Наверх</a></footer>
-    <div class="drawer-backdrop" id="about-backdrop" hidden></div>
-    <aside class="about-drawer" id="about-drawer" aria-hidden="true" aria-labelledby="about-heading">
-      <button class="drawer-close" id="about-close" type="button" aria-label="Закрыть">×</button>
-      <div class="drawer-profile"><span class="drawer-avatar" aria-hidden="true">ЛЗ</span><div><h2 id="about-heading">Леонид Зуев</h2><p>Продуктовый дизайнер | 2+ года</p></div></div>
-      <div class="drawer-tags"><span>B2B SaaS</span><span>B2C</span><span>Research</span><span>DS</span></div>
-      <div class="drawer-tabs" role="tablist" aria-label="О Леониде"><button class="is-active" type="button" role="tab" aria-selected="true" data-tab="about">Обо мне</button><button type="button" role="tab" aria-selected="false" data-tab="skills">Скиллы</button><a href="./public/docs/Leonid-Zuev-Product-Designer.pdf" target="_blank" rel="noopener">Резюме ↗</a></div>
-      <div class="drawer-panel is-active" data-panel="about"><p>Санкт-Петербург, любой формат, релокация</p><p>Полный цикл проектирования цифровых продуктов — от глубокого discovery и гипотез до UI, прототипирования и внедрения.</p><p>Учусь продуктовому дизайну в магистратуре ИТМО. Соединяю потребности людей, продуктовые метрики и цельный визуальный язык.</p><p>Использую ИИ в дизайне и исследованиях — от аналитики до вайбкод-прототипов.</p></div>
-      <div class="drawer-panel" data-panel="skills"><h3>Проектирование</h3><p>Desktop UI, mobile UI, адаптивы, дизайн-системы, автолэйауты, токены и стили.</p><h3>Исследования</h3><p>Глубинные интервью, анализ конкурентов, JTBD, User stories, CJM, юзабилити-тесты.</p><h3>Инструменты</h3><p>Figma, Photoshop, Illustrator, After Effects, Tilda, VS Code, AI-инструменты.</p></div>
-    </aside>
-    <script type="module" src="./src/main.js?v=23"></script>
+    <footer><span>© Леонид Зуев, 2026</span><a href="#top"><img class="footer-icon" src="./public/icons/arrow-up.svg" alt="" />Наверх</a></footer>
+    <script src="./src/audio.js?v=4"></script>
+  <script type="module" src="./src/main.js?v=40"></script>
   </body>
 </html>
