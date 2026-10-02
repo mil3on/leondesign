@@ -225,3 +225,99 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .hero h1{font-size:clamp(48px,15vw,64px)}
   .hero-media .hero-showcase{bottom:-5%;height:102%;max-width:94%}
 }
+
+/* Unified case navigation, contact action and readable labels. */
+.footer{font-size:16px}
+.case-sound-copy strong{font-size:14px}
+.case-sound-copy small{font-size:12px}
+.contents-toggle b{font-size:12px}
+.contents-toggle .active-label{font-size:14px}
+.meta-card dt,.soft-card span,.research-card em,.section-label,.kicker,.media-card figcaption,.insight-list span,.next-case small{font-size:12px}
+
+.case-sound-player{isolation:isolate}
+.case-sound-player::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:-2px;
+  border-radius:inherit;
+  padding:2px;
+  background:linear-gradient(115deg,rgba(255,255,255,.08),rgba(255,255,255,.88),rgba(255,255,255,.16));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:0;
+  pointer-events:none;
+}
+.case-sound-player.is-playing::before{animation:case-player-glow 2.8s ease-in-out infinite}
+@keyframes case-player-glow{0%,100%{opacity:.12}50%{opacity:.72}}
+.case-sound-player:hover,.case-sound-player:focus-within{border-color:rgba(255,255,255,.3);background:rgba(46,46,46,.94)}
+.case-sound-next{background:rgba(0,0,0,.28)}
+.case-sound-next:hover{background:rgba(0,0,0,.46)}
+.case-sound-volume{bottom:calc(100% - 2px);transition:opacity .2s ease .38s,transform .2s ease .38s}
+.case-sound-player:hover .case-sound-volume,.case-sound-volume:hover,.case-sound-volume:focus-within{transition-delay:0s}
+
+.contents-panel{
+  overflow:visible;
+  padding:16px;
+  border-radius:30px;
+}
+.contents-head{
+  min-height:58px;
+  margin:0 0 16px;
+  padding:16px;
+  border:0;
+  border-radius:999px;
+  background:var(--blue);
+}
+.contents-head span{font-family:"PP Neue Machina",sans-serif;font-size:20px;font-weight:800}
+.contents-head button{
+  position:absolute;
+  top:-50px;
+  right:0;
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  padding:0;
+  border-radius:50%;
+  background:rgba(25,25,25,.92);
+  font-size:24px;
+}
+.contents-panel ol{
+  display:grid;
+  gap:7px;
+  max-height:min(500px,calc(100vh - 250px));
+  overflow-y:auto;
+  padding-right:3px;
+}
+.contents-panel a{
+  min-height:48px;
+  align-items:center;
+  padding:12px 16px;
+  border-radius:999px;
+  font-size:14px;
+}
+
+.case-contact-link{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-height:88px;
+  margin-top:12px;
+  padding:24px 32px;
+  border-radius:22px;
+  background:transparent;
+  font-family:"PP Neue Machina",sans-serif;
+  font-size:28px;
+  transition:background .25s ease,color .25s ease,transform .25s ease;
+}
+.case-contact-link img{width:30px;height:30px;transition:opacity .25s ease}
+.case-contact-link:hover{background:rgba(23,23,23,.06);color:#686868;transform:translateY(-2px)}
+.case-contact-link:hover img{opacity:.62}
+@media(max-width:760px){
+  .footer{font-size:13px}
+  .case-contact-link{min-height:72px;padding:20px 24px;font-size:20px}
+  .contents-panel{padding:16px}
+}

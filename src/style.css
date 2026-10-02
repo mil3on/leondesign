@@ -97,6 +97,64 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
   .drawer-profile p,.drawer-tags span,.drawer-tabs button,.drawer-tabs a,.drawer-panel p,.drawer-panel h3{font-size:14px}
 }
 
+/* Final interaction and typography polish. */
+.hero-actions .button--plain{gap:12px}
+.profile-chip strong{font-size:16px}
+.profile-chip small{font-size:14px}
+.has-hint::after,.planet-loader,.model-loader{font-size:12px}
+footer{font-size:16px}
+
+.status i{
+  box-shadow:none;
+  animation:status-opacity 1.65s ease-in-out infinite;
+}
+@keyframes status-opacity{0%,100%{opacity:1}50%{opacity:.22}}
+
+.drawer-tabs{margin-bottom:12px}
+
+.sound-player,.designer-pill{
+  position:relative;
+  isolation:isolate;
+}
+.sound-player::before{
+  content:"";
+  position:absolute;
+  z-index:2;
+  inset:-2px;
+  border-radius:inherit;
+  padding:2px;
+  background:linear-gradient(115deg,rgba(255,255,255,.08),rgba(255,255,255,.88),rgba(255,255,255,.16));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:0;
+  pointer-events:none;
+}
+.sound-player.is-playing::before{animation:player-glow 2.8s ease-in-out infinite}
+@keyframes player-glow{0%,100%{opacity:.12}50%{opacity:.72}}
+.sound-player:hover,.sound-player:focus-within,.designer-pill:hover,.designer-pill:focus-visible{
+  border-color:rgba(255,255,255,.3);
+  background:rgba(57,72,61,.64);
+  box-shadow:0 12px 34px rgba(17,40,27,.17);
+}
+.sound-player:active,.designer-pill:active{background:rgba(64,79,68,.7)}
+.sound-next{background:rgba(0,0,0,.3)}
+.sound-next:hover{background:rgba(0,0,0,.46)}
+.sound-volume{
+  bottom:calc(100% - 2px);
+  transition:opacity .2s ease .38s,transform .2s ease .38s;
+}
+.sound-player:hover .sound-volume,.sound-volume:hover,.sound-volume:focus-within{transition-delay:0s}
+
+.button--plain:hover{color:#666;background:rgba(255,255,255,.48)}
+.button--plain:hover .button-icon,.round-link:hover .ui-icon{opacity:.62}
+
+@media(max-width:760px){
+  .profile-chip strong{font-size:14px}
+  .profile-chip small{display:block;font-size:12px}
+  footer{font-size:13px}
+}
+
 /* About and skills drawer: fixed viewport, internal scroll and collision-free layout. */
 .about-drawer{top:334px;height:520px;max-height:520px;display:flex;flex-direction:column;overflow:visible}
 .drawer-top,.drawer-tabs{flex:0 0 auto}
@@ -162,4 +220,26 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
   .card-art--smu{height:360px}
   .card-art--science,.card-art--dragon{height:355px}
   .card-art--book{height:365px}
+}
+
+/* Keep the last interaction rules authoritative. */
+.sound-player:hover,.sound-player:focus-within,.designer-pill:hover,.designer-pill:focus-visible{
+  border-color:rgba(255,255,255,.3);
+  background:rgba(57,72,61,.64);
+  box-shadow:0 12px 34px rgba(17,40,27,.17);
+}
+.sound-player:active,.designer-pill:active{background:rgba(64,79,68,.7)}
+.drawer-tabs{margin-bottom:12px}
+.sound-player strong,.designer-pill strong{font-size:14px}
+.sound-player small,.designer-pill small{font-size:12px}
+.case-peek a strong{font-size:14px}
+.case-peek small{font-size:12px}
+.case-peek a:hover span,.case-peek a:hover>img{opacity:.68}
+.drawer-tabs button:hover,.drawer-tabs a:hover{color:rgba(255,255,255,.68)}
+.drawer-tabs button.is-active:hover{color:#666}
+@media(max-width:760px){
+  .sound-player strong,.designer-pill strong{font-size:14px}
+  .sound-player small,.designer-pill small{font-size:12px}
+  .case-peek a strong{font-size:14px}
+  .case-peek small{font-size:12px}
 }
