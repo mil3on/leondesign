@@ -97,6 +97,7 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
   .drawer-profile p,.drawer-tags span,.drawer-tabs button,.drawer-tabs a,.drawer-panel p,.drawer-panel h3{font-size:14px}
 }
 
+
 /* Final interaction and typography polish. */
 .hero-actions .button--plain{gap:12px}
 .profile-chip strong{font-size:16px}
@@ -242,4 +243,19 @@ footer{font-size:16px}
   .sound-player small,.designer-pill small{font-size:12px}
   .case-peek a strong{font-size:14px}
   .case-peek small{font-size:12px}
+}
+
+/* Final spacing for the compact hero controls. */
+.sound-player,.designer-pill{padding-right:16px}
+.sound-volume{
+  bottom:calc(100% + 8px);
+  border-radius:999px;
+}
+.sound-volume::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:-10px;
+  left:0;
+  height:12px;
 }

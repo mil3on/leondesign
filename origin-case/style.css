@@ -370,3 +370,24 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   }
   .contents-panel a{min-height:42px;padding:9px 16px}
 }
+
+/* Keep the contents menu visually detached and the secondary CTA quiet. */
+.case-contact-link:hover{
+  background:transparent;
+  color:#686868;
+  transform:none;
+}
+.case-sound-volume{
+  bottom:calc(100% + 8px);
+  border-radius:999px;
+}
+.case-sound-volume::after{
+  content:"";
+  position:absolute;
+  right:0;
+  bottom:-10px;
+  left:0;
+  height:12px;
+}
+@media(min-width:761px){.contents-panel{bottom:83px}}
+@media(max-width:760px){.contents-panel{bottom:78px}}

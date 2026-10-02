@@ -63,6 +63,11 @@ toggle.addEventListener('click', () => {
 });
 panel.querySelector('button').addEventListener('click', closeContents);
 menuLinks.forEach((link) => link.addEventListener('click', closeContents));
+document.addEventListener('pointerdown', (event) => {
+  if (!panel.classList.contains('open')) return;
+  if (panel.contains(event.target) || toggle.contains(event.target)) return;
+  closeContents();
+});
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeContents();
 });
