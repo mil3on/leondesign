@@ -1,4 +1,4 @@
-@import url("../origin-case/style.css");
+@import url("../origin-case/style.css?v=2");
 
 :root{--blue:#eb0015;--blue-dark:#a90010}
 .scroll-progress span{background:#eb0015}

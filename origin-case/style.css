@@ -130,3 +130,32 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .hero-media .phone-group .hero-phone-home{height:95%;margin-right:-12%}
   .hero-media .phone-group .hero-phone-goals{height:85%}
 }
+
+/* Shared phone header and readable mobile scale for both cases. */
+@media(max-width:760px){
+  body{font-size:16px}
+  .topbar{height:70px;padding-inline:12px;grid-template-columns:auto auto minmax(0,1fr);gap:9px}
+  .back-link{width:28px;min-width:28px;justify-content:flex-start;font-size:0;gap:0}
+  .back-link span{font-size:21px}
+  .case-switcher{justify-self:start;width:max-content;height:46px;margin-right:3px;padding:3px;grid-template-columns:auto auto}
+  .case-switcher a{padding:10px 11px;font-size:14px;white-space:nowrap}
+  .case-socials{justify-self:end;gap:10px;font-size:14px;white-space:nowrap}
+  .case-socials a{text-underline-offset:3px}
+
+  .hero{padding-top:84px}
+  .hero-card{border-radius:24px}
+  .hero-copy{min-height:390px;padding:28px 24px}
+  .brand-lockup{min-height:48px}
+  .hero h1{font-size:clamp(54px,17vw,72px)}
+  .eyebrow,.hero-lead{font-size:16px}
+  .project-meta,.impact-grid,.test-stats{grid-template-columns:1fr}
+  .meta-card dt,.soft-card span,.research-card em,.section-label,.kicker,.media-card figcaption,.insight-list span,.next-case small{font-size:14px}
+  .meta-card dd,.soft-card p,.research-card p,.table-row,.insight-list p,.scenario-copy p,.events li{font-size:16px}
+
+  .case-dock{left:12px;right:12px;bottom:12px;width:auto;transform:none}
+  .case-sound-toggle{display:flex;width:142px;min-width:142px;height:58px;padding:6px 10px 6px 6px}
+  .case-sound-toggle>span:last-child{display:block;min-width:0}
+  .case-sound-toggle strong,.case-sound-toggle small{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .contents-toggle{flex:1;min-width:0;height:58px;padding:0 14px}
+  .contents-toggle b,.contents-toggle .active-label{font-size:14px}
+}
