@@ -340,7 +340,7 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .contents-head{
   min-height:auto;
   margin:0;
-  padding:2px 16px 12px;
+  padding:4px;
   border-radius:0;
   background:transparent;
 }
