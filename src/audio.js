@@ -2,6 +2,7 @@
   const buttons = [...document.querySelectorAll('[data-audio-toggle]')];
   const nextButtons = [...document.querySelectorAll('[data-audio-next]')];
   const volumeInputs = [...document.querySelectorAll('[data-audio-volume]')];
+  const playerContainers = [...document.querySelectorAll('.sound-player')];
   const soundtrack = document.querySelector('#soundtrack');
   if (!buttons.length || !soundtrack) return;
 
@@ -74,6 +75,19 @@
     document.querySelectorAll('[data-audio-state-icon]').forEach((icon) => {
       icon.src = new URL(stateIcon, iconBaseUrl).href;
     });
+    playerContainers.forEach((player) => {
+      player.classList.toggle('is-playing', isPlaying);
+      player.setAttribute('aria-label', isPlaying ? `Поставить ${track.title} на паузу` : `Включить ${track.title}`);
+    });
+  }
+
+  function showPlaybackFeedback(source) {
+    const component = source.closest('.sound-player, .case-sound-toggle');
+    if (!component) return;
+    component.classList.remove('audio-feedback');
+    void component.offsetWidth;
+    component.classList.add('audio-feedback');
+    window.setTimeout(() => component.classList.remove('audio-feedback'), 420);
   }
 
   function updateVolumeUi() {
@@ -148,17 +162,32 @@
     autoplay: desiredEnabled,
   });
 
+  async function togglePlayback(source) {
+    if (!soundtrack.paused) {
+      desiredEnabled = false;
+      soundtrack.pause();
+      updateUi();
+      writeState(true);
+      showPlaybackFeedback(source);
+      return;
+    }
+    desiredEnabled = true;
+    await playIfWanted();
+    showPlaybackFeedback(source);
+  }
+
   buttons.forEach((button) => {
-    button.addEventListener('click', async () => {
-      if (!soundtrack.paused) {
-        desiredEnabled = false;
-        soundtrack.pause();
-        updateUi();
-        writeState(true);
-        return;
-      }
-      desiredEnabled = true;
-      await playIfWanted();
+    button.addEventListener('click', () => togglePlayback(button));
+  });
+  playerContainers.forEach((player) => {
+    player.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('[data-audio-toggle], [data-audio-next], .sound-volume')) return;
+      togglePlayback(player);
+    });
+    player.addEventListener('keydown', (event) => {
+      if (event.target !== player || (event.key !== 'Enter' && event.key !== ' ')) return;
+      event.preventDefault();
+      togglePlayback(player);
     });
   });
 

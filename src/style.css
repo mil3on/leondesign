@@ -98,7 +98,7 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
 }
 
 /* About and skills drawer: fixed viewport, internal scroll and collision-free layout. */
-.about-drawer{top:600px;height:520px;max-height:520px;display:flex;flex-direction:column;overflow:visible}
+.about-drawer{top:334px;height:520px;max-height:520px;display:flex;flex-direction:column;overflow:visible}
 .drawer-top,.drawer-tabs{flex:0 0 auto}
 .drawer-panel{min-height:0}
 .drawer-panel.is-active{display:block;flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.42) transparent}
@@ -116,14 +116,23 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
 .skill-icon-grid{display:flex;flex-wrap:wrap;gap:7px}
 .skill-icon-grid img{width:39px;height:39px;padding:5px;border-radius:10px;background:#f3f3f3;object-fit:contain}
 
-@media(min-width:901px){body.about-open .world{min-height:2380px}body.about-open .portfolio-panel{top:1160px}}
-@media(min-width:761px) and (max-width:900px){.about-drawer{top:560px}body.about-open .world{min-height:2820px}body.about-open .portfolio-panel{top:1150px}}
+@media(min-width:761px) and (max-width:900px){.about-drawer{top:134px}}
 @media(max-width:760px){
-  .about-drawer{top:820px;height:520px;max-height:520px}
-  body.about-open .world{min-height:4680px}
-  body.about-open .portfolio-panel{top:1370px}
+  .about-drawer{top:232px;height:520px;max-height:520px}
   .drawer-panel--skills{padding-top:12px}
   .skill-card{padding:13px}
   .skill-card h3,.skill-tags span{font-size:13px}
   .skill-icon-grid img{width:42px;height:42px}
 }
+
+/* Persistent popovers and tactile controls. */
+.case-peek__head{min-height:32px;margin-bottom:10px;padding:0 50px 0 2px;border-radius:0;background:transparent;color:#fff}
+.case-peek__head h2{color:#fff}
+.sound-player{padding-right:10px;cursor:pointer}
+.sound-player,.designer-pill{transition:background .2s ease,border-color .2s ease,box-shadow .2s ease,transform .12s ease}
+.sound-player:hover,.sound-player:focus-within,.designer-pill:hover,.designer-pill:focus-visible{border-color:rgba(255,255,255,.42);background:rgba(255,255,255,.24);box-shadow:0 12px 34px rgba(17,40,27,.2)}
+.sound-player:active,.designer-pill:active{transform:translateY(1px);background:rgba(255,255,255,.31)}
+.sound-player.audio-feedback .sound-cover__state{opacity:1;animation:audio-feedback .42s ease}
+@keyframes audio-feedback{0%{transform:scale(.76);opacity:0}35%{transform:scale(1);opacity:1}100%{transform:scale(1);opacity:0}}
+@media(min-width:761px) and (max-width:1280px){.sound-controls{left:35%}}
+@media(max-width:760px){.about-drawer{top:158px}}

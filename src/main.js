@@ -248,11 +248,8 @@ function setCases(open) {
   hotspot.setAttribute('aria-expanded', String(open));
 }
 hotspot.addEventListener('click', () => {
-  const isTouchLayout = matchMedia('(hover: none)').matches;
-  setCases(isTouchLayout ? !casePeek.classList.contains('is-open') : true);
+  setCases(!casePeek.classList.contains('is-open'));
 });
-hotspot.addEventListener('mouseenter', () => setCases(true));
-casePeek.addEventListener('mouseleave', () => setCases(false));
 casePeekClose.addEventListener('click', () => {
   setCases(false);
   hotspot.focus();
