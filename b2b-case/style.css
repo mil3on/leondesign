@@ -23,3 +23,34 @@
 @media(max-width:900px){.hero-media{height:460px}.b2b-tablet{width:88%!important;right:4%;bottom:0}.b2b-calendar{width:32%!important;left:11%;bottom:7%}.b2b-statuses{width:21%!important;left:34%;top:20%}.mobile-strip{grid-template-columns:repeat(3,1fr)}.mobile-strip img{height:420px}}
 @media(max-width:620px){.hero-copy{min-height:420px}.hero h1{font-size:54px}.hero-media{height:380px}.b2b-tablet{width:94%!important;right:2%;bottom:0}.b2b-calendar{width:37%!important;left:5%;bottom:6%}.b2b-statuses{width:26%!important;left:32%;top:17%}.mobile-strip{grid-template-columns:repeat(2,1fr);padding:10px}.mobile-strip img{height:390px}.next-case span{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.hero-media .b2b-float{animation:none!important;transform:none!important}}
+
+/* Final B2B hero composition. */
+.hero-card{
+  background:
+    linear-gradient(to bottom,
+      rgba(235,0,21,0) 0%,
+      rgba(235,0,21,.05) 46%,
+      rgba(235,0,21,.38) 100%),
+    #171719;
+}
+.hero h1{
+  font-size:5vw;
+  letter-spacing:0;
+}
+.hero-media .hero-showcase{
+  left:52%;
+  top:2.5%;
+  bottom:auto;
+  width:96%;
+  height:97.5%;
+  max-width:96%;
+  object-position:left top;
+}
+@media(max-width:900px){
+  .hero h1{font-size:clamp(52px,10vw,72px)}
+  .hero-media .hero-showcase{left:50%;top:3%;width:94%;height:94%;max-width:94%;object-position:center top}
+}
+@media(max-width:620px){
+  .hero h1{font-size:clamp(48px,15vw,64px)}
+  .hero-media .hero-showcase{top:4%;width:92%;height:92%;max-width:92%}
+}

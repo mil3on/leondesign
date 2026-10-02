@@ -196,3 +196,33 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .case-sound-volume{width:190px}
 }
 @media(prefers-reduced-motion:reduce){.hero-media .hero-showcase{transform:translateX(-50%)!important}.case-sound-player,.case-sound-next{transition:none}}
+
+/* Final hero composition: transparent orange fades into the white page. */
+.hero-card{
+  background:
+    linear-gradient(to top,
+      #FE5314 0%,
+      rgba(254,83,20,.72) 30%,
+      rgba(254,83,20,.22) 62%,
+      rgba(254,83,20,0) 100%),
+    #fff;
+}
+.hero-card::after{display:none}
+.hero h1{
+  font-size:5vw;
+  letter-spacing:0;
+}
+.hero-media .hero-showcase{
+  left:54%;
+  bottom:-7%;
+  height:105%;
+  max-width:94%;
+}
+@media(max-width:900px){
+  .hero h1{font-size:clamp(52px,10vw,72px)}
+  .hero-media .hero-showcase{left:50%;bottom:-6%;height:104%;max-width:92%}
+}
+@media(max-width:620px){
+  .hero h1{font-size:clamp(48px,15vw,64px)}
+  .hero-media .hero-showcase{bottom:-5%;height:102%;max-width:94%}
+}
