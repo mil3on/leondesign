@@ -204,8 +204,7 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
       #FE5314 0%,
       rgba(254,83,20,.72) 30%,
       rgba(254,83,20,.22) 62%,
-      rgba(254,83,20,0) 100%),
-    #fff;
+      rgba(254,83,20,0) 100%);
 }
 .hero-card::after{display:none}
 .hero h1{
