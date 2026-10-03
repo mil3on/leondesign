@@ -99,7 +99,7 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=2', import.meta.url).href, (gltf)
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   const planetLayout = innerWidth <= 760
-    ? { size: 15, headX: 0, headY: 2.4 }
+    ? { size: 14.5, headX: 0, headY: 2.5 }
     : innerWidth <= 900
       ? { size: 14, headX: 0, headY: 2.85 }
       : { size: 14, headX: 0, headY: 2.25 };
@@ -199,7 +199,7 @@ function loadLeonModel() {
     const scale = targetHeight / Math.max(size.y, .001);
     normalized.scale.setScalar(scale);
     normalized.position.y = -.12;
-    leonCamera.position.set(.1, .15, 9.2);
+    leonCamera.position.set(.1, .15, 9.65);
     leonCamera.lookAt(0, .12, 0);
     if (gltf.animations.length) {
       leonMixer = new THREE.AnimationMixer(model);
