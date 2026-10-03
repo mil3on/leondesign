@@ -7,16 +7,12 @@
   if (!buttons.length || !soundtrack) return;
 
   const tracks = [
-    { title: 'In Another', file: 'in-another.mp3', cover: 'in another cover.webp' },
-    { title: 'Dolphin Love', file: 'Dolphin Love.mp3', cover: 'dolphine love cover.webp' },
-    { title: 'Highest In The Room', file: 'highest in the room.mp3', cover: 'highest in the room.webp' },
-    { title: 'To The Ground', file: 'To The Ground.mp3', cover: 'to the ground cover.webp' },
     { title: 'Long night', file: 'Long night.mp3', cover: 'long night.jpg' },
     { title: 'Dream', file: 'Dream.mp3', cover: 'dream.jpg' },
     { title: 'In the flow', file: 'In the flow.mp3', cover: 'working.jpg' },
   ];
 
-  const STORAGE_KEY = 'portfolio-audio-state-v2';
+  const STORAGE_KEY = 'portfolio-audio-state-v3';
   const WINDOW_NAME_PREFIX = 'portfolio-audio:';
   const DEFAULT_STATE = { enabled: false, trackIndex: 0, currentTime: 0, volume: 0.32, updatedAt: 0 };
   const audioBaseUrl = new URL(soundtrack.dataset.audioBase || './public/audio/', document.baseURI);
