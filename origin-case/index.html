@@ -8,7 +8,7 @@
   <title>Origin — продуктовый кейс Леонида Зуева</title>
   <link rel="icon" type="image/png" href="../public/about/favicon.png" />
   <link rel="preload" href="./assets/hero-showcase.webp" as="image" type="image/webp" fetchpriority="high" />
-  <link rel="stylesheet" href="./style.css?v=10" />
+  <link rel="stylesheet" href="./style.css?v=11" />
 </head>
 <body>
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
@@ -274,15 +274,17 @@
   </main>
 
   <div class="case-dock" aria-label="Навигация и музыка">
-    <div class="case-sound-player sound-player" data-yandex-player>
-      <div class="yandex-player-popup" data-yandex-popup aria-hidden="true"><iframe data-yandex-frame title="Плейлист Яндекс Музыки" allow="autoplay; clipboard-write" loading="lazy"></iframe></div>
-      <button class="sound-main case-sound-main" data-yandex-toggle type="button" aria-expanded="false" aria-label="Открыть плейлист в Яндекс Музыке"><span class="case-sound-icon sound-cover"><img src="https://avatars.yandex.net/get-music-content/5207413/da6ec3ee.a.16905929-1/200x200" alt="Обложка плейлиста Моя волна" /><span class="case-sound-state sound-cover__state"><img src="../public/icons/volume-high.svg" alt="" /></span></span><span class="case-sound-copy"><strong>Моя волна</strong><small>5 треков</small></span></button>
-      <button class="case-sound-next" data-yandex-open type="button" aria-label="Открыть список треков"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button>
+    <div class="case-sound-player sound-player" role="button" tabindex="0" aria-label="Включить или поставить музыку на паузу">
+      <div class="case-sound-volume sound-volume" aria-label="Громкость"><img src="../public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" /><input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" /></div>
+      <button class="case-sound-icon sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку"><img data-track-cover src="../public/audio/in%20another%20cover.webp" alt="" /><span class="case-sound-state sound-cover__state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></button>
+      <span class="case-sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span>
+      <button class="case-sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button>
     </div>
     <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel">
       <span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i>
     </button>
   </div>
+  <audio id="soundtrack" data-audio-base="../public/audio/" preload="none"></audio>
   <nav class="contents-panel" id="contents-panel" aria-label="Содержание">
     <div class="contents-head"><span>Содержание</span><button type="button" aria-label="Закрыть содержание">×</button></div>
     <ol>
@@ -296,7 +298,7 @@
   </dialog>
 
   <script src="../src/typography.js?v=1"></script>
-  <script src="../src/audio.js?v=11"></script>
+  <script src="../src/audio.js?v=13"></script>
   <script src="./case.js?v=2"></script>
 </body>
 </html>
