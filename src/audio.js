@@ -8,7 +8,7 @@
 
   const tracks = [
     { title: 'Long night', file: 'Long night.mp3', cover: 'long night.jpg' },
-    { title: 'Dream', file: 'Dream.mp3', cover: 'dream.jpg' },
+    { title: 'Dream', file: 'Dream.mp3?v=2', cover: 'dream.jpg' },
     { title: 'In the flow', file: 'In the flow.mp3', cover: 'working.jpg' },
   ];
 
