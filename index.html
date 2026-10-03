@@ -14,7 +14,7 @@
       .site-loader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#f6f5f1;color:#111;transition:opacity .55s ease,visibility .55s ease}.site-loader__inner{display:grid;justify-items:center;gap:14px;width:min(280px,72vw)}.site-loader__mark{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#314b35;color:#fff;font:700 18px/1 Arial,sans-serif}.site-loader__label{font:600 14px/1.2 Arial,sans-serif}.site-loader__track{width:100%;height:3px;overflow:hidden;border-radius:99px;background:rgba(17,17,17,.12)}.site-loader__bar{display:block;width:var(--loader-progress,8%);height:100%;border-radius:inherit;background:#111;transition:width .25s ease}.site-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.js body.is-loading{overflow:hidden}@media(prefers-reduced-motion:reduce){.site-loader,.site-loader__bar{transition:none}}
     </style>
     <script defer src="./src/loader.js?v=1"></script>
-    <link rel="stylesheet" href="./src/style.css?v=45" />
+    <link rel="stylesheet" href="./src/style.css?v=46" />
     <title>Леонид Зуев — продуктовый дизайнер</title>
   </head>
   <body class="is-loading">
@@ -71,14 +71,14 @@
 
         <div class="sound-controls">
           <div class="sound-player" id="sound-toggle" data-yandex-player>
-            <div class="yandex-player-popup" data-yandex-popup aria-hidden="true"><iframe data-yandex-frame title="Плеер Яндекс Музыки" allow="autoplay" loading="lazy"></iframe></div>
+            <div class="yandex-player-popup" data-yandex-popup aria-hidden="true"><iframe data-yandex-frame title="Плейлист Яндекс Музыки" allow="autoplay; clipboard-write" loading="lazy"></iframe></div>
             <button class="sound-main" data-yandex-toggle type="button" aria-expanded="false" aria-label="Открыть трек в Яндекс Музыке">
-              <span class="sound-cover"><img class="sound-cover__image" data-track-cover src="https://avatars.yandex.net/get-music-content/20372582/e825ce71.a.43116656-1/200x200" alt="" decoding="async" /><span class="sound-cover__state" aria-hidden="true"><img src="./public/icons/volume-high.svg" alt="" /></span></span>
-              <span class="sound-copy"><strong>Моя волна</strong><small data-track-title>In Another</small></span>
+              <span class="sound-cover"><img class="sound-cover__image" src="https://avatars.yandex.net/get-music-content/5207413/da6ec3ee.a.16905929-1/200x200" alt="Обложка плейлиста Моя волна" decoding="async" /><span class="sound-cover__state" aria-hidden="true"><img src="./public/icons/volume-high.svg" alt="" /></span></span>
+              <span class="sound-copy"><strong>Моя волна</strong><small>5 треков</small></span>
             </button>
-            <button class="sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="./public/icons/iconixto/linear/forward.svg" alt="" /></button>
+            <button class="sound-next" data-yandex-open type="button" aria-label="Открыть список треков"><img src="./public/icons/iconixto/linear/forward.svg" alt="" /></button>
           </div>
-          <button class="designer-pill js-about-open" type="button" aria-controls="about-drawer" aria-expanded="false"><img class="designer-avatar" src="./public/about/avatar-head.webp" alt="" aria-hidden="true" decoding="async" /><span><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button>
+          <div class="designer-pill"><button class="designer-main js-about-open" type="button" aria-controls="about-drawer" aria-expanded="false"><img class="designer-avatar" src="./public/about/avatar-head.webp" alt="" aria-hidden="true" decoding="async" /><span class="designer-copy"><strong>Дизайнер Леонид</strong><small>Узнать подробнее</small></span></button><a class="designer-telegram" href="https://t.me/mileon_pd" target="_blank" rel="noopener" aria-label="Написать Леониду в Telegram"><img src="./public/icons/telegram-light.svg" alt="" /></a></div>
         </div>
 
         <section class="portfolio-panel" id="portfolio" aria-labelledby="portfolio-title">
@@ -149,7 +149,7 @@
 
     <footer><span>© Леонид Зуев, 2026</span><a href="#top"><img class="footer-icon" src="./public/icons/arrow-up.svg" alt="" />Наверх</a></footer>
     <script src="./src/typography.js?v=1"></script>
-  <script src="./src/audio.js?v=9"></script>
+  <script src="./src/audio.js?v=10"></script>
     <script type="module" src="./src/main.js?v=44"></script>
   </body>
 </html>

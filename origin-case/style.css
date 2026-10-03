@@ -406,3 +406,9 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .yandex-player-popup iframe{display:block;width:100%;height:180px;border:0;border-radius:16px;background:transparent}
 @media(max-width:640px){.yandex-player-popup{width:min(360px,calc(100vw - 24px))}}
 @media(prefers-reduced-motion:reduce){.yandex-player-popup{transition:none}}
+
+.case-dock{bottom:max(20px,env(safe-area-inset-bottom))}
+.yandex-player-popup{width:min(480px,calc(100vw - 24px));max-width:calc(100vw - 24px);overflow:hidden;transform:translateX(calc(-50% + var(--popup-shift-x,0px))) translateY(10px)}
+.sound-player.yandex-open .yandex-player-popup{transform:translateX(calc(-50% + var(--popup-shift-x,0px))) translateY(0)}
+.yandex-player-popup iframe{height:min(500px,calc(100vh - 112px))}
+@media(max-width:640px){.case-dock{bottom:max(12px,env(safe-area-inset-bottom))}.yandex-player-popup{width:calc(100vw - 24px);max-width:calc(100vw - 24px)}.yandex-player-popup iframe{height:min(500px,calc(100vh - 104px))}}
