@@ -1,10 +1,10 @@
-const CACHE_NAME = 'leonid-portfolio-v5';
+const CACHE_NAME = 'leonid-portfolio-v6';
 const SHELL = [
   './',
   './index.html',
-  './src/style.css?v=46',
+  './src/style.css?v=47',
   './src/main.js?v=44',
-  './src/audio.js?v=10',
+  './src/audio.js?v=11',
   './src/typography.js?v=1',
   './src/loader.js?v=1',
   './public/sky-reference.webp',

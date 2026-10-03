@@ -43,6 +43,7 @@
     const openButton = player.querySelector('[data-yandex-open]');
     const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     let closeTimer = 0;
+    let openTimer = 0;
 
     toggle?.addEventListener('click', () => {
       if (hasHover) openPlayer(player);
@@ -54,9 +55,10 @@
     if (hasHover) {
       player.addEventListener('pointerenter', () => {
         window.clearTimeout(closeTimer);
-        openPlayer(player);
+        openTimer = window.setTimeout(() => openPlayer(player), 320);
       });
       player.addEventListener('pointerleave', () => {
+        window.clearTimeout(openTimer);
         closeTimer = window.setTimeout(() => closePlayer(player), 180);
       });
     }
