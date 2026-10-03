@@ -105,15 +105,26 @@
 
   players.forEach((player) => {
     const toggle = player.querySelector('[data-yandex-toggle]');
-    const close = player.querySelector('[data-yandex-close]');
     const next = player.querySelector('[data-audio-next]');
+    const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    let closeTimer = 0;
 
     toggle?.addEventListener('click', () => {
-      if (player.classList.contains('yandex-open')) closePlayer(player);
+      if (hasHover) openPlayer(player);
+      else if (player.classList.contains('yandex-open')) closePlayer(player);
       else openPlayer(player);
     });
-    close?.addEventListener('click', () => closePlayer(player));
     next?.addEventListener('click', nextTrack);
+
+    if (hasHover) {
+      player.addEventListener('pointerenter', () => {
+        window.clearTimeout(closeTimer);
+        openPlayer(player);
+      });
+      player.addEventListener('pointerleave', () => {
+        closeTimer = window.setTimeout(() => closePlayer(player), 180);
+      });
+    }
   });
 
   document.addEventListener('pointerdown', (event) => {
