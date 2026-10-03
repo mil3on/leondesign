@@ -72,7 +72,7 @@ footer{position:relative;z-index:2;display:flex;justify-content:space-between;wi
   .sound-next{flex:0 0 auto}
   .sound-volume{width:max(190px,100%)}
 
-  .portfolio-panel{top:830px;left:8px;right:8px;padding:26px 16px 16px;border-radius:26px}
+  .portfolio-panel{top:786px;left:8px;right:8px;padding:26px 16px 16px;border-radius:26px}
   .portfolio-panel h2{margin-bottom:20px;font-size:29px}
   .work-grid{grid-template-columns:1fr;gap:12px}
   .work-card{min-height:510px;padding:20px}

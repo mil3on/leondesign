@@ -99,7 +99,7 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=2', import.meta.url).href, (gltf)
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
   const planetLayout = innerWidth <= 760
-    ? { size: 17.5, headX: 0, headY: 2.25 }
+    ? { size: 15, headX: 0, headY: 2.4 }
     : innerWidth <= 900
       ? { size: 14, headX: 0, headY: 2.85 }
       : { size: 14, headX: 0, headY: 2.25 };
