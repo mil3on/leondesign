@@ -1,7 +1,7 @@
-@font-face{font-family:"PP Neue Machina";src:url("./fonts/PPNeueMachina-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap}
-@font-face{font-family:"PP Neue Machina";src:url("./fonts/PPNeueMachina-Regular.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
-@font-face{font-family:"PP Neue Machina";src:url("./fonts/PPNeueMachina-Ultrabold.otf") format("opentype");font-weight:800;font-style:normal;font-display:swap}
-@font-face{font-family:"Manrope";src:url("./fonts/Manrope.ttf") format("truetype");font-weight:200 800;font-style:normal;font-display:swap}
+@font-face{font-family:"PP Neue Machina";src:url("../public/fonts/PPNeueMachina-Light.otf") format("opentype");font-weight:300;font-style:normal;font-display:swap}
+@font-face{font-family:"PP Neue Machina";src:url("../public/fonts/PPNeueMachina-Regular.otf") format("opentype");font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:"PP Neue Machina";src:url("../public/fonts/PPNeueMachina-Ultrabold.otf") format("opentype");font-weight:800;font-style:normal;font-display:swap}
+@font-face{font-family:"Manrope";src:url("../public/fonts/Manrope.ttf") format("truetype");font-weight:200 800;font-style:normal;font-display:swap}
 
 :root{--bg:#f2f2f0;--card:#fff;--ink:#171717;--muted:#747473;--line:rgba(17,17,17,.10);--blue:#FE5314;--blue-dark:#c93d08;--purple:#8b4ce6;--radius:28px;--shell:min(1180px,calc(100vw - 48px));--left:250px}
 *{box-sizing:border-box}
@@ -56,11 +56,6 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .hero-media{z-index:1;position:relative;overflow:hidden;background:transparent}
 .hero-media:after{display:none}
 .hero-media:before{content:"";position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(254,83,20,.22),transparent 42%);pointer-events:none}
-.hero-media .hero-phone{position:absolute;width:auto;object-fit:contain;object-position:center;filter:drop-shadow(0 24px 28px rgba(8,18,28,.3));will-change:transform}
-.hero-media .hero-phone-home{z-index:3;height:104%;left:5%;bottom:-15%;animation:phone-float-a 6.8s ease-in-out infinite}
-.hero-media .hero-phone-goals{z-index:2;height:92%;right:-2%;bottom:-12%;animation:phone-float-b 7.6s ease-in-out -1.4s infinite}
-@keyframes phone-float-a{0%,100%{transform:translate3d(0,0,0) rotate(-2deg)}50%{transform:translate3d(0,-13px,0) rotate(-.6deg)}}
-@keyframes phone-float-b{0%,100%{transform:translate3d(0,2px,0) rotate(3deg)}50%{transform:translate3d(0,-10px,0) rotate(1.5deg)}}
 
 /* Balanced case headings */
 .section-head h2{font-size:clamp(38px,3.8vw,50px);line-height:1.03;max-width:900px;text-wrap:balance}
@@ -77,19 +72,14 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 @media(max-width:900px){
   .hero-media{height:430px}
   .hero-media:before{background:linear-gradient(180deg,rgba(254,83,20,.22),transparent 30%)}
-  .hero-media .hero-phone-home{height:108%;left:12%;bottom:-18%}
-  .hero-media .hero-phone-goals{height:94%;right:4%;bottom:-15%}
 }
 @media(max-width:620px){
   .section-head h2{font-size:34px}
   .hero-media{height:340px}
-  .hero-media .hero-phone-home{height:108%;left:4%;bottom:-16%}
-  .hero-media .hero-phone-goals{height:91%;right:-8%;bottom:-12%}
   .inspect-link{right:12px;bottom:12px;padding:10px 13px}
   .media-card .inspect-link{bottom:48px}
 }
 @media(prefers-reduced-motion:reduce){
-  .hero-media .hero-phone{animation:none!important;transform:none!important}
   .inspect-link{transition:none}
 }
 
@@ -106,19 +96,12 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .hero-copy .eyebrow{color:rgba(23,23,23,.6)}
 .hero-copy .hero-lead{color:rgba(23,23,23,.78)}
 .hero-media:before{display:none}
-.hero-media .phone-group{position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:18px 4% 0}
-.hero-media .phone-group .hero-phone{position:relative;left:auto;right:auto;bottom:auto;flex:0 0 auto}
-.hero-media .phone-group .hero-phone-home{height:96%;margin-right:-12%;z-index:3}
-.hero-media .phone-group .hero-phone-goals{height:86%;z-index:2}
 .statement:before,.events li:before{color:#FE5314}
 .note{background:#fff0ea;color:#7f2c0d}
 .experiment-number{color:#FE5314}
 .scroll-progress span{background:#FE5314}
 @media(max-width:900px){
   .topbar{grid-template-columns:minmax(76px,1fr) minmax(220px,280px) minmax(48px,1fr)}
-  .hero-media .phone-group{padding-inline:8%}
-  .hero-media .phone-group .hero-phone-home{height:96%;margin-right:-11%}
-  .hero-media .phone-group .hero-phone-goals{height:86%}
 }
 @media(max-width:620px){
   .topbar{grid-template-columns:26px minmax(170px,1fr) auto;gap:8px;padding-inline:12px}
@@ -126,9 +109,6 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .case-switcher{height:42px;padding:3px}
   .case-switcher a{padding:8px 7px;font-size:10.5px}
   .case-socials{gap:7px;font-size:9px}.case-socials a{text-underline-offset:3px}
-  .hero-media .phone-group{padding-inline:5%}
-  .hero-media .phone-group .hero-phone-home{height:95%;margin-right:-12%}
-  .hero-media .phone-group .hero-phone-goals{height:85%}
 }
 
 /* Shared phone header and readable mobile scale for both cases. */

@@ -271,7 +271,7 @@ footer{font-size:16px}
   height:12px;
 }
 
-/* Yandex Music: the site keeps its compact control while playback stays in the official embed. */
+/* Compact controls for the local audio playlist. */
 .sound-main{display:flex;align-items:center;gap:9px;min-width:0;padding:0;border:0;color:inherit;background:transparent;text-align:left;cursor:pointer}
 .sound-main .sound-copy{min-width:0}
 .sound-cover__state img{filter:brightness(0) invert(1)}
