@@ -25,7 +25,7 @@
   <title>Origin — продуктовый кейс Леонида Зуева</title>
   <link rel="icon" type="image/png" href="../public/about/favicon.png" />
   <link rel="preload" href="./assets/hero-showcase.webp" as="image" type="image/webp" fetchpriority="high" />
-  <link rel="stylesheet" href="./style.css?v=14" />
+  <link rel="stylesheet" href="./style.css?v=17" />
 
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -103,6 +103,19 @@
             <p>Origin объединяет цель, личное «зачем», план, действия и рефлексию в одном сценарии. Пользователь сам выбирает нагрузку и может адаптировать путь к меняющимся обстоятельствам.</p>
           </div>
         </div>
+        <div class="context-grid stagger">
+          <article class="context-card reveal">
+            <span>Аудитория</span>
+            <h3>Молодые взрослые с несколькими целями одновременно</h3>
+            <p>Фокус исследования — люди 20–27 лет, которые совмещают работу и учёбу, ставят личные цели и уже пробовали планировщики или трекеры привычек. Им нужен не контроль, а помощь в выборе приоритета, старте и возвращении после паузы.</p>
+          </article>
+          <article class="context-card reveal">
+            <span>Границы проекта</span>
+            <h3>Высокодетализированный MVP, а не запущенный продукт</h3>
+            <p>В прототип вошли четыре ключевых сценария. Пауза, возвращение, социальная поддержка и полноценный AI-ассистент остались частью концепции. Продуктовые метрики ниже — план проверки после запуска, а не фактические результаты.</p>
+          </article>
+        </div>
+        <h3 class="subsection-title reveal">MVP приложение помогает</h3>
         <div class="feature-cards stagger">
           <article class="soft-card reveal"><span>01</span><h3>Сформулировать</h3><p>Понять, чего хочется и почему это действительно важно.</p></article>
           <article class="soft-card reveal"><span>02</span><h3>Начать</h3><p>Разложить большую цель и выбрать посильное первое действие.</p></article>
@@ -111,20 +124,29 @@
       </div>
     </section>
 
-    <section class="case-section page-shell" id="hypothesis" data-label="Гипотеза">
-      <aside class="section-label"><span>02</span><p>Гипотеза</p></aside>
+    <section class="case-section page-shell" id="hypothesis" data-label="Начало">
+      <aside class="section-label"><span>02</span><p>Начало</p></aside>
       <div class="section-body">
         <header class="section-head reveal">
-          <p class="kicker">Продуктовая гипотеза</p>
+          <p class="kicker">Продуктовые вводные</p>
           <h2>Осознание цели и первый шаг</h2>
         </header>
         <blockquote class="statement reveal">Если пользователь связывает цель с личным «зачем» и получает возможность выбрать небольшое первое действие, ему будет проще перейти от намерения к действию.</blockquote>
+        <div class="product-logic reveal">
+          <div class="block-heading"><span>Логика продукта</span><h3>От проблемы к решению в MVP</h3></div>
+          <div class="product-logic-grid">
+            <article><span>Наблюдение</span><h4>Цель теряется за списком дел</h4><p>Большой замысел пугает масштабом, а отдельные задачи и привычки быстро теряют связь с личным смыслом.</p></article>
+            <article><span>Гипотеза</span><h4>Смысл и первый шаг снижают барьер</h4><p>Если человек сформулирует личное «зачем» и увидит небольшое действие, ему будет проще начать и продолжить.</p></article>
+            <article><span>Решение в MVP</span><h4>Цель становится центром сценария</h4><p>При создании пользователь фиксирует причину и ресурсы, получает план, а затем может менять нагрузку и приоритеты.</p></article>
+          </div>
+        </div>
         <div class="metric-table reveal">
-          <div class="table-row table-head"><span>Этап</span><span>Метрика</span><span>Зачем мерить</span></div>
-          <div class="table-row"><span>Активация</span><strong>Создание первой цели</strong><span>Понятен ли первоначальный сценарий</span></div>
-          <div class="table-row"><span>Первая ценность</span><strong>Первое действие за 24 часа</strong><span>Помогает ли продукт начать</span></div>
+          <div class="table-row table-head"><span>Этап</span><span>Метрика</span><span>Что покажет</span></div>
+          <div class="table-row"><span>Активация</span><strong>Конверсия в создание первой цели</strong><span>Проходит ли пользователь первоначальный сценарий</span></div>
+          <div class="table-row"><span>Первая ценность</span><strong>Первое действие в течение 24 часов</strong><span>Помогает ли продукт перейти от намерения к действию</span></div>
           <div class="table-row"><span>Удержание</span><strong>D7 / D30</strong><span>Возвращается ли пользователь</span></div>
           <div class="table-row"><span>Возвращение</span><strong>Возобновление после паузы</strong><span>Помогает ли не бросить путь</span></div>
+          <div class="table-row"><span>Ценность</span><strong>Значимое действие за неделю</strong><span>Двигается ли человек к выбранной цели</span></div>
         </div>
       </div>
     </section>
@@ -141,12 +163,47 @@
           <article class="research-card reveal"><em>02</em><h3>25 конкурентов</h3><p>Большинство продуктов измеряют действия, но редко удерживают связь с личным смыслом цели.</p></article>
           <article class="research-card reveal"><em>03</em><h3>8 интервью</h3><p>Мотивация оказалась нелинейной: ресурсы, приоритеты и желание действовать постоянно меняются.</p></article>
         </div>
+        <article class="discovery-detail reveal">
+          <div class="discovery-detail__title"><span>Этап 01</span><h3>Теория самодетерминации</h3></div>
+          <div class="discovery-detail__body">
+            <p>Начал с теории Deci &amp; Ryan, чтобы не сводить мотивацию к streak, очкам и напоминаниям. Три психологические потребности дали рамку для первых продуктовых гипотез.</p>
+            <ul>
+              <li><b>Автономия:</b> человек сам выбирает цель и способ движения.</li>
+              <li><b>Компетентность:</b> видит результат небольших реальных действий.</li>
+              <li><b>Связанность:</b> получает поддержку без давления и соревнования.</li>
+            </ul>
+          </div>
+        </article>
+        <article class="discovery-detail reveal">
+          <div class="discovery-detail__title"><span>Этап 02</span><h3>Функциональный анализ рынка</h3></div>
+          <div class="discovery-detail__body">
+            <p>Сравнил 25 продуктов по 35 пунктам: постановка задач, привычки, мотивация, рефлексия, эмоциональный слой, AI и связанные механики.</p>
+            <ul>
+              <li>Задачи и привычки существуют отдельно и не прикреплены к цели. Нет связи действий и смысла.</li>
+              <li>Персонализация в основном касается визуала и не адаптирует контент под каждого пользователя.</li>
+              <li>Streak и награды поддерживают внешнюю мотивацию, но не доказывают реальный прогресс.</li>
+            </ul>
+            <p class="discovery-outcome"><b>Возможность:</b> объединить ежедневные действия вокруг личной цели и адаптировать поддержку к состоянию человека.</p>
+          </div>
+        </article>
         <figure class="media-card reveal" data-zoom>
           <img src="./assets/competitive-analysis.webp" alt="Сравнительный анализ функциональности конкурентов" loading="lazy" decoding="async" />
-          <figcaption>Сравнение конкурентов по шести категориям функций</figcaption>
+          <figcaption>Функциональный анализ: 25 конкурентов по 35 пунктам</figcaption>
         </figure>
+        <article class="discovery-detail reveal">
+          <div class="discovery-detail__title"><span>Этап 03</span><h3>Глубинные интервью</h3></div>
+          <div class="discovery-detail__body">
+            <p>Поговорил с восемью респондентами 20–27 лет, большинство из которых совмещают работу и учёбу. Разбирал конкретные цели: от появления желания до старта, паузы и возвращения.</p>
+            <ul>
+              <li>Что запускает желание изменений и помогает сформулировать личное «зачем».</li>
+              <li>Почему масштаб цели, перфекционизм и отсутствие дедлайна мешают начать.</li>
+              <li>Как меняются приоритеты, что происходит после срыва и помогает ли геймификация.</li>
+            </ul>
+            <p class="discovery-outcome"><b>Результат:</b> 33 пользовательские задачи в формате JTBD и вопросы HMW, связанные с конкретными продуктовыми возможностями.</p>
+          </div>
+        </article>
         <div class="insight-list reveal">
-          <div class="insight-list-head" aria-hidden="true"><span></span><span>Инсайт</span><span>Возможность продукта</span></div>
+          <div class="insight-list-head" aria-hidden="true"><span></span><span>Инсайты из интервью</span><span>Возможность продукта</span></div>
           <article><span>01</span><h3>Масштаб цели затрудняет начало</h3><p>Предложить одно быстрое действие вместо полного плана.</p></article>
           <article><span>02</span><h3>Приоритеты меняются вместе с жизнью</h3><p>Дать человеку пересобирать фокус в моменте.</p></article>
           <article><span>03</span><h3>Перерыв ощущается как провал</h3><p>Сохранить историю и сделать возвращение частью сценария.</p></article>
@@ -163,10 +220,12 @@
           <h2>Девять состояний вместо линейного пути пользователя</h2>
         </header>
         <p class="large-copy reveal">Поиск цели → зажигание → страх → планирование → действие → фрустрация → пауза → возвращение → финиш. Пользователь может оказаться в любой точке до цели и мы сможем помочь.</p>
+        <p class="supporting-copy reveal">Вместо линейного CJM была построена цикличная модель из девяти динамических состояний с возвратными переходами между ними и без единственной «правильной» точки входа: пользователь может начать путь как с поиска цели, так и с планирования.</p>
         <figure class="media-card reveal" data-zoom>
           <img src="./assets/state-model.webp" alt="Модель динамических состояний пользователя" loading="lazy" decoding="async" />
           <figcaption>Модель состояний превратила исследование в рабочую архитектуру сценариев</figcaption>
         </figure>
+        <p class="supporting-copy supporting-copy--spaced reveal">Каждая из этих точек получила свою функцию: первый шаг на 5 минут, режим паузы, ритуал завершения. Модель использовалась не как иллюстрация «пути пользователя» для презентации, а как рабочий инструмент, напрямую определивший архитектуру MVP.</p>
         <details class="expandable reveal">
           <summary><span>Связка JTBD + HMW</span><i>Раскрыть</i></summary>
           <div class="tall-image"><img src="./assets/jtbd-hmw.webp" alt="Карта JTBD и HMW" loading="lazy" decoding="async" /></div>
@@ -187,10 +246,10 @@
           <figcaption>Основной поток — дерево решений, а не линейная воронка</figcaption>
         </figure>
         <div class="decision-grid stagger">
-          <article class="reveal"><b>01</b><h3>Важно узнать пользователя</h3><p>Чтобы адаптировать под него контент и подсказки. А потом уже регистрация.</p></article>
-          <article class="reveal"><b>02</b><h3>Автопланирование цели</h3><p>Написал цель - дали примерный пошаговый план. Снимает страх белого листа.</p></article>
+          <article class="reveal"><b>01</b><h3>Важно узнать пользователя</h3><p>Онбординг со знакомством до регистрации, чтобы сразу показать ценность персонализации.</p></article>
+          <article class="reveal"><b>02</b><h3>Планирование цели</h3><p>Ресурсы и смысл цели фиксируются при создании. Автогенерация плана из контекста ускорит создание задач и привычек.</p></article>
           <article class="reveal"><b>03</b><h3>Цели - ядро приложения</h3><p>Каждая цель имеет причину. К каждой цели свои задачи и привычки. Так проще осознавать ценность ежедневных дел.</p></article>
-          <article class="reveal"><b>04</b><h3>Пауза - это нормально и правильно</h3><p>Не давим на пользователя никогда. Наоборот изучаем его паттерн и предлагаем гибкие режимы и паузу целей</p></article>
+          <article class="reveal"><b>04</b><h3>Пауза - это нормально и правильно</h3><p>Не давим на пользователя никогда. Наоборот изучаем его паттерн и предлагаем гибкие режимы и смену приоритетов целей.</p></article>
         </div>
       </div>
     </section>
@@ -268,6 +327,18 @@
           <p class="kicker">После запуска</p>
           <h2>Провести тестирования на пользователях</h2>
         </header>
+        <div class="analytics-copy reveal">
+          <h3>Воронка активации</h3>
+          <p>Главная проверка после запуска — не количество открытий или чекинов, а переход от намерения к первому значимому действию. На каждом шаге воронки можно увидеть, где продукт теряет пользователя.</p>
+        </div>
+        <ol class="activation-funnel reveal" aria-label="Воронка активации Origin">
+          <li><span>01</span><b>Начал онбординг</b></li>
+          <li><span>02</span><b>Завершил знакомство</b></li>
+          <li><span>03</span><b>Создал первую цель</b></li>
+          <li><span>04</span><b>Выбрал первое действие</b></li>
+          <li><span>05</span><b>Выполнил действие</b></li>
+        </ol>
+        <p class="activation-note reveal"><b>Точка активации:</b> пользователь выполнил первое заранее выбранное действие, связанное с конкретной целью. Чекины, открытия приложения и игровые награды сами по себе активацией не считаются.</p>
         <div class="experiment reveal">
           <div class="experiment-number">A/B</div>
           <div><h3>Погружение против скорости</h3><p>A/B тесты создания целей. В одном варианте - подсказки и погружение в осознание цели. В другом - скорость создания цели.</p></div>
@@ -276,6 +347,15 @@
         <ul class="events reveal" aria-label="Ключевые события аналитики">
           <li>Завершение онбординга</li><li>Создание первой цели</li><li>Выбор первого действия</li><li>Выполнение действия</li><li>Изменение приоритетов</li><li>Возвращение после паузы</li>
         </ul>
+        <div class="business-model reveal">
+          <div class="block-heading"><span>Монетизация</span><h3>Freemium показывает ценность до оплаты</h3></div>
+          <div class="business-model-grid">
+            <article><span>Бесплатно</span><h4>Базовый путь к цели</h4><p>До трёх целей, основные задачи и привычки. Красивые предметы магазина недоступны, аналитика и поведенческие инсайты почти отсутствуют.</p></article>
+            <article><span>Попробовать</span><h4>Два использования premium-функций</h4><p>Голосовой ввод, автозаполнение полей и AI-инсайты о поведении можно использовать два раза — пользователь видит пользу на деле.</p></article>
+            <article><span>Доход</span><h4>AI-функции и визуальные предметы</h4><p>Платный доступ упрощает действия и углубляет аналитику. Дополнительный доход приносит продажа внутриигровых предметов и оформления.</p></article>
+            <article><span>Польза бизнесу</span><h4>Низкий барьер и понятная причина платить</h4><p>Бесплатный сценарий приводит к первой ценности, пробные premium-возможности демонстрируют эффект, а персонализация поддерживает повторное использование.</p></article>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -293,7 +373,12 @@
         </div>
         <div class="result-copy reveal">
           <h3>Главный вывод</h3>
-          <p>Качественное исследование становится ценным только тогда, когда меняет продукт. Модель девяти состояний помогла уйти от идеального линейного пути и заложить в опыт страх начала, смену приоритетов, паузу и возвращение.</p>
+          <p>Глубокое дискавери и правильные гипотезы дают наиболее ценный результат. Продукт получается смелым, выделяется среди конкурентов и реально закрывает боли пользователей. Модель состояний, персонализация через геймификацию, осмысление целей и гибкость мотивации — всё это сделало продукт живым.</p>
+        </div>
+        <div class="outcome-grid stagger">
+          <article class="outcome-card reveal"><span>Что удалось</span><h3>Исследование стало архитектурой MVP</h3><p>Теория мотивации, анализ 25 продуктов и 8 интервью превратились в четыре ключевых сценария. Понятность онбординга и создания цели проверена с 13 участниками.</p></article>
+          <article class="outcome-card reveal"><span>Что не проверено</span><h3>Реальное влияние на поведение</h3><p>Origin не запускался, поэтому пока неизвестно, помогают ли механики выполнять действия, возвращаться после паузы и удерживать связь с целью в долгую.</p></article>
+          <article class="outcome-card reveal"><span>Следующий шаг</span><h3>Короткий работающий сценарий</h3><p>Собрать вайбкод-прототип цепочки «цель → первое действие → выполнение», настроить события и только затем проверять AI-подсказки, паузу и социальную поддержку.</p></article>
         </div>
         <a class="prototype-link reveal" href="https://www.figma.com/proto/HFdAIEPEgICHPnMZLpaOaJ/%D0%92%D0%9A%D0%A0-%D0%97%D1%83%D0%B5%D0%B2-%D0%9B%D0%B5%D0%BE%D0%BD%D0%B8%D0%B4-%7C-Origin?node-id=721-21673&scaling=scale-down&content-scaling=fixed&starting-point-node-id=721%3A21673&page-id=1%3A3" target="_blank" rel="noreferrer"><span>Открыть прототип в Figma</span><b>↗</b></a>
         <a class="prototype-link prototype-link--secondary reveal" href="https://app.notion.com/p/Origin-3e6d2d18c62c8140b9ccd46891e3ee29?source=copy_link" target="_blank" rel="noopener noreferrer"><span>Узнать больше</span><b>↗</b></a>
@@ -301,10 +386,6 @@
       </div>
     </section>
 
-    <footer class="page-shell footer">
-      <span>Origin · Product Design Case</span>
-      <a href="#top">Наверх ↑</a>
-    </footer>
   </main>
 
   <div class="case-dock" aria-label="Навигация и музыка">
@@ -322,7 +403,7 @@
   <nav class="contents-panel" id="contents-panel" aria-label="Содержание">
     <div class="contents-head"><span>Содержание</span><button type="button" aria-label="Закрыть содержание">×</button></div>
     <ol>
-      <li><a href="#brief"><span>01</span>Коротко</a></li><li><a href="#hypothesis"><span>02</span>Гипотеза</a></li><li><a href="#discovery"><span>03</span>Дискавери</a></li><li><a href="#synthesis"><span>04</span>Синтез</a></li><li><a href="#flow"><span>05</span>Проектирование</a></li><li><a href="#visual"><span>06</span>Дизайн-концепт</a></li><li><a href="#scenarios"><span>07</span>Сценарии</a></li><li><a href="#testing"><span>08</span>Тестирование</a></li><li><a href="#analytics"><span>09</span>Перспективы</a></li><li><a href="#result"><span>10</span>Результат</a></li>
+      <li><a href="#brief"><span>01</span>Коротко</a></li><li><a href="#hypothesis"><span>02</span>Начало</a></li><li><a href="#discovery"><span>03</span>Дискавери</a></li><li><a href="#synthesis"><span>04</span>Синтез</a></li><li><a href="#flow"><span>05</span>Проектирование</a></li><li><a href="#visual"><span>06</span>Дизайн-концепт</a></li><li><a href="#scenarios"><span>07</span>Сценарии</a></li><li><a href="#testing"><span>08</span>Тестирование</a></li><li><a href="#analytics"><span>09</span>Перспективы</a></li><li><a href="#result"><span>10</span>Результат</a></li>
     </ol>
   </nav>
 

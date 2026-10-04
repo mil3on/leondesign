@@ -47,3 +47,7 @@
   .hero h1{font-size:clamp(48px,15vw,64px)}
   .hero-media .hero-showcase{top:4%;width:92%;height:92%;max-width:92%}
 }
+
+/* Keep analytics arrows fixed at the far edge of each event card. */
+.events li{position:relative;padding-right:54px}
+.events li:before{position:absolute;right:22px;margin-right:0}
