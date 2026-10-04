@@ -44,7 +44,7 @@
   .hero-media .hero-showcase{left:50%;top:3%;width:94%;height:94%;max-width:94%;object-position:center top}
 }
 @media(max-width:620px){
-  .hero h1{font-size:clamp(48px,15vw,64px)}
+  .hero h1{font-size:clamp(36px,12vw,50px)}
   .hero-media .hero-showcase{top:4%;width:92%;height:92%;max-width:92%}
 }
 
