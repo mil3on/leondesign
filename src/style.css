@@ -328,3 +328,12 @@ footer{font-size:16px}
   .sound-player strong,.designer-pill strong{font-size:12px}
   .sound-player small,.designer-pill small{font-size:10px}
 }
+
+/* Desktop typography and hover outline for the hero controls. */
+@media(min-width:761px){
+  .sound-player strong,.designer-pill strong{font-size:16px}
+  .sound-player small,.designer-pill small{font-size:14px}
+  .sound-player:hover,.sound-player:focus-within,.designer-pill:hover,.designer-pill:focus-within{
+    border-color:rgba(255,255,255,.6);
+  }
+}
