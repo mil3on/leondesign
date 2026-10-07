@@ -7,7 +7,9 @@ const gltfLoader = new GLTFLoader();
 
 function setupRenderer(canvas, alpha = true) {
   const renderer = new THREE.WebGLRenderer({ canvas, alpha, antialias: true, powerPreference: 'high-performance' });
-  const pixelRatioLimit = innerWidth >= 1600 ? 1.2 : innerWidth < 700 ? 1.1 : 1.4;
+  // Большой canvas планеты раньше рисовал почти 5 млн пикселей каждый кадр.
+  // На широких экранах незаметно снижаем внутреннее разрешение, сохраняя CSS-размер.
+  const pixelRatioLimit = innerWidth >= 1600 ? .75 : innerWidth < 700 ? 1 : .9;
   renderer.setPixelRatio(Math.min(devicePixelRatio, pixelRatioLimit));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -53,7 +55,7 @@ const planetKey = new THREE.DirectionalLight(0xfff3df, 1.05);
 planetKey.position.set(-3.2, 6.5, -8.5);
 planetKey.target.position.set(0, -2.8, 0);
 planetKey.castShadow = true;
-planetKey.shadow.mapSize.set(1024, 1024);
+planetKey.shadow.mapSize.set(512, 512);
 planetKey.shadow.camera.near = .1;
 planetKey.shadow.camera.far = 32;
 planetKey.shadow.camera.left = -9;
@@ -74,7 +76,7 @@ let trackedHand = null;
 const planetWorld = new THREE.Group();
 planetScene.add(planetWorld);
 
-gltfLoader.load(new URL('../public/FINAL.glb?v=2', import.meta.url).href, (gltf) => {
+gltfLoader.load(new URL('../public/FINAL.glb?v=3', import.meta.url).href, (gltf) => {
   const model = gltf.scene;
   const normalized = new THREE.Group();
   normalized.add(model);
@@ -169,7 +171,7 @@ leonScene.add(new THREE.HemisphereLight(0xf7fbff, 0x68655f, .68));
 const leonKey = new THREE.DirectionalLight(0xfff2e1, 1.05);
 leonKey.position.set(-4, 5, 6);
 leonKey.castShadow = true;
-leonKey.shadow.mapSize.set(1024, 1024);
+leonKey.shadow.mapSize.set(512, 512);
 leonScene.add(leonKey);
 const leonFill = new THREE.RectAreaLight(0xeef6ff, .72, 6, 8);
 leonFill.position.set(3, 2, 5);
@@ -183,7 +185,7 @@ let leonLoadStarted = false;
 function loadLeonModel() {
   if (leonLoadStarted) return;
   leonLoadStarted = true;
-  gltfLoader.load(new URL('../public/models/official-leon-edited.glb?v=1', import.meta.url).href, (gltf) => {
+  gltfLoader.load(new URL('../public/models/official-leon-edited.glb?v=2', import.meta.url).href, (gltf) => {
     const model = gltf.scene;
     const normalized = new THREE.Group();
     normalized.add(model);
@@ -236,7 +238,7 @@ let leonVisible = false;
 new IntersectionObserver(([entry]) => {
   leonVisible = entry.isIntersecting;
   if (entry.isIntersecting) loadLeonModel();
-}, { rootMargin: '900px 0px' }).observe(leonStage);
+}, { rootMargin: '250px 0px' }).observe(leonStage);
 
 let planetVisible = true;
 new IntersectionObserver(([entry]) => {

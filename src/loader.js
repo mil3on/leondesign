@@ -21,11 +21,15 @@
     window.setTimeout(() => {
       loader.classList.add('is-hidden');
       document.body.classList.remove('is-loading');
-    }, 1450);
-    window.setTimeout(() => loader.remove(), 2350);
+    }, 550);
+    window.setTimeout(() => loader.remove(), 1100);
   };
 
-  document.addEventListener('DOMContentLoaded', () => update(18, 'Загружаю мир…'));
+  document.addEventListener('DOMContentLoaded', () => {
+    update(18, 'Загружаю мир…');
+    // Не блокируем интерфейс из-за медленной сети или слабого WebGL.
+    window.setTimeout(finish, 1600);
+  });
   window.addEventListener('portfolio:planet-progress', (event) => {
     const modelProgress = Number(event.detail?.progress) || 0;
     update(22 + modelProgress * .72, 'Загружаю мир…');
@@ -34,5 +38,5 @@
   window.addEventListener('portfolio:planet-error', finish, { once: true });
 
   // Страница должна оставаться доступной даже при медленном соединении или ошибке WebGL.
-  window.setTimeout(finish, 18000);
+  window.setTimeout(finish, 5000);
 })();
