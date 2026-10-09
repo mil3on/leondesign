@@ -335,6 +335,19 @@ workTabs.forEach((tab) => tab.addEventListener('click', () => {
   });
 }));
 
+const shotLightbox = document.querySelector('#shot-lightbox');
+const shotLightboxImage = shotLightbox?.querySelector('img');
+document.querySelectorAll('[data-shot-src]').forEach((button) => button.addEventListener('click', () => {
+  if (!shotLightbox || !shotLightboxImage) return;
+  shotLightboxImage.src = button.dataset.shotSrc;
+  shotLightboxImage.alt = button.dataset.shotAlt || '';
+  shotLightbox.showModal();
+}));
+shotLightbox?.querySelector('.shot-lightbox__close')?.addEventListener('click', () => shotLightbox.close());
+shotLightbox?.addEventListener('click', (event) => {
+  if (event.target === shotLightbox) shotLightbox.close();
+});
+
 const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
   if (entry.isIntersecting) {
     entry.target.classList.add('is-visible');
