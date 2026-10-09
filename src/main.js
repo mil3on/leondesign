@@ -320,6 +320,21 @@ document.querySelectorAll('[data-tab]').forEach((tab) => tab.addEventListener('c
   document.querySelectorAll('[data-panel]').forEach((panel) => panel.classList.toggle('is-active', panel.dataset.panel === tab.dataset.tab));
 }));
 
+// Portfolio cases / shots tabs.
+const workTabs = [...document.querySelectorAll('[data-work-tab]')];
+const workPanels = [...document.querySelectorAll('[data-work-panel]')];
+workTabs.forEach((tab) => tab.addEventListener('click', () => {
+  const selected = tab.dataset.workTab;
+  workTabs.forEach((item) => {
+    const active = item === tab;
+    item.classList.toggle('is-active', active);
+    item.setAttribute('aria-selected', String(active));
+  });
+  workPanels.forEach((panel) => {
+    panel.hidden = panel.dataset.workPanel !== selected;
+  });
+}));
+
 const revealObserver = new IntersectionObserver((entries) => entries.forEach((entry) => {
   if (entry.isIntersecting) {
     entry.target.classList.add('is-visible');
