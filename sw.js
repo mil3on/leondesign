@@ -1,12 +1,13 @@
-const CACHE_NAME = 'leonid-portfolio-v21';
+const CACHE_NAME = 'leonid-portfolio-v22';
 const SHELL = [
   './',
   './index.html',
-  './src/style.css?v=62',
-  './src/main.js?v=49',
+  './src/style.css?v=66',
+  './src/main.js?v=51',
   './src/audio.js?v=15',
   './src/typography.js?v=1',
   './src/loader.js?v=3',
+  './src/cookie-consent.js?v=1',
   './public/sky-reference.webp',
   './public/fonts/PPNeueMachina-Ultrabold.otf',
   './public/fonts/UraBumBumSP.otf',
