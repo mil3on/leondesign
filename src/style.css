@@ -390,7 +390,7 @@ footer{font-size:16px}
 
 /* UI shots gallery. */
 .shots-panel{min-height:0;border:0;background:transparent;display:block}
-.shots-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;width:100%}
+.shots-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;width:100%}
 .shot-card{min-width:0}
 .shot-card__media{position:relative;margin:0;border-radius:40px;overflow:hidden}
 .shot-card__media img{display:block;width:100%;height:auto;object-fit:contain}
@@ -404,6 +404,7 @@ footer{font-size:16px}
 .shot-lightbox::backdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(8px)}
 .shot-lightbox img{width:100%;height:auto;border-radius:40px;object-fit:contain}
 .shot-lightbox__close{position:sticky;z-index:2;top:0;float:right;display:grid;place-items:center;width:40px;height:40px;margin:0 0 -40px;padding:0;border:0;border-radius:50%;background:rgba(17,17,17,.82);color:#fff;font-size:26px;line-height:1;cursor:pointer}
+@media(max-width:1200px){.shots-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
 @media(max-width:1080px){.shots-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:720px){.shots-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.shot-card__media{border-radius:40px}.shot-card__overlay{gap:8px;padding:34px 10px 10px}.shot-card__overlay p{font-size:11px}.shot-card__overlay button{min-height:32px;padding:0 10px;font-size:10px}}
 @media(hover:none){.shot-card__overlay{opacity:1;transform:none;pointer-events:auto}}
