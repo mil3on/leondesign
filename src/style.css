@@ -389,9 +389,8 @@ footer{font-size:16px}
 .has-hint:hover::after,.has-hint:focus-visible::after{transition-delay:.18s}
 
 /* UI shots gallery. */
-.shots-panel{min-height:0;border:0;background:transparent;display:block}
-.shots-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;width:100%}
-.shot-card{width:100%;max-width:226px;min-width:0;justify-self:center;border-radius:20px;overflow:hidden}
+.shots-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(226px,1fr));place-items:stretch;align-content:start;gap:8px;width:100%;min-height:492px;padding:0;border:0;background:transparent}
+.shot-card{width:100%;min-width:0;border-radius:20px;overflow:hidden}
 .shot-card__media{position:relative;margin:0;border-radius:40px;overflow:hidden}
 .shot-card__media img{display:block;width:100%;height:auto;object-fit:contain}
 .shot-card__overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:12px;padding:48px 18px 18px;background:linear-gradient(transparent 38%,rgba(8,8,8,.94));color:#fff;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .24s ease,transform .24s ease}
@@ -404,16 +403,8 @@ footer{font-size:16px}
 .shot-lightbox::backdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(8px)}
 .shot-lightbox img{width:100%;height:auto;border-radius:40px;object-fit:contain}
 .shot-lightbox__close{position:sticky;z-index:2;top:0;float:right;display:grid;place-items:center;width:40px;height:40px;margin:0 0 -40px;padding:0;border:0;border-radius:50%;background:rgba(17,17,17,.82);color:#fff;font-size:26px;line-height:1;cursor:pointer}
-@media(max-width:1023px){.shots-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
-@media(max-width:820px){.shots-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){.shots-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.shot-card__media{border-radius:40px}.shot-card__overlay{gap:8px;padding:34px 10px 10px}.shot-card__overlay p{font-size:11px}.shot-card__overlay button{min-height:32px;padding:0 10px;font-size:10px}}
+@media(max-width:600px){.shots-panel{grid-template-columns:repeat(2,minmax(0,1fr))}.shot-card__media{border-radius:40px}.shot-card__overlay{gap:8px;padding:34px 10px 10px}.shot-card__overlay p{font-size:11px}.shot-card__overlay button{min-height:32px;padding:0 10px;font-size:10px}}
 @media(hover:none){.shot-card__overlay{opacity:1;transform:none;pointer-events:auto}}
-
-/* Keep both portfolio tabs as tall as the cases grid. */
-.portfolio-stage{position:relative;min-width:0}
-.portfolio-stage>#portfolio-cases[hidden]{display:block;visibility:hidden;pointer-events:none}
-.portfolio-stage>.shots-panel{position:absolute;inset:0;min-height:0;overflow:hidden}
-.portfolio-stage>.shots-panel[hidden]{display:block;visibility:hidden;pointer-events:none}
 
 /* UI concepts cards. */
 .shot-card__media{aspect-ratio:780/1694;border-radius:0;background:#fff}
