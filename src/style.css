@@ -390,7 +390,7 @@ footer{font-size:16px}
 
 /* UI shots gallery. */
 .shots-panel{min-height:0;border:0;background:transparent;display:block}
-.shots-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;width:100%}
+.shots-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px;width:100%}
 .shot-card{width:100%;max-width:226px;min-width:0;justify-self:center;border-radius:20px;overflow:hidden}
 .shot-card__media{position:relative;margin:0;border-radius:40px;overflow:hidden}
 .shot-card__media img{display:block;width:100%;height:auto;object-fit:contain}
