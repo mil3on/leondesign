@@ -321,6 +321,22 @@ document.querySelectorAll('[data-tab]').forEach((tab) => tab.addEventListener('c
 }));
 
 // Portfolio cases / shots tabs.
+const worldSection = document.querySelector('.world');
+const portfolioPanel = document.querySelector('.portfolio-panel');
+const contactSection = document.querySelector('.contact-section');
+const syncPortfolioClearance = () => {
+  if (!worldSection || !portfolioPanel || !contactSection) return;
+  const contactTop = contactSection.getBoundingClientRect().top;
+  const characterTop = leonStage?.getBoundingClientRect().top ?? contactTop;
+  const characterLift = Math.max(0, contactTop - characterTop);
+  const requiredHeight = Math.ceil(portfolioPanel.offsetTop + portfolioPanel.offsetHeight + 40 + characterLift);
+  worldSection.style.setProperty('--portfolio-clearance-height', `${requiredHeight}px`);
+};
+const portfolioResize = new ResizeObserver(syncPortfolioClearance);
+if (portfolioPanel) portfolioResize.observe(portfolioPanel);
+window.addEventListener('resize', syncPortfolioClearance);
+window.addEventListener('load', syncPortfolioClearance, { once: true });
+
 const workTabs = [...document.querySelectorAll('[data-work-tab]')];
 const workPanels = [...document.querySelectorAll('[data-work-panel]')];
 workTabs.forEach((tab) => tab.addEventListener('click', () => {
@@ -333,7 +349,9 @@ workTabs.forEach((tab) => tab.addEventListener('click', () => {
   workPanels.forEach((panel) => {
     panel.hidden = panel.dataset.workPanel !== selected;
   });
+  requestAnimationFrame(syncPortfolioClearance);
 }));
+requestAnimationFrame(syncPortfolioClearance);
 
 const shotLightbox = document.querySelector('#shot-lightbox');
 const shotLightboxImage = shotLightbox?.querySelector('img');
