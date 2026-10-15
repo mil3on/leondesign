@@ -1,6 +1,7 @@
-@import url("../origin-case/style.css?v=23");
+@import url("../origin-case/style.css?v=30");
 
-:root{--blue:#eb0015;--blue-dark:#a90010}
+:root{--blue:#eb0015;--blue-dark:#a90010;--success:#239447;--success-soft:#e7f5eb}
+.b2b-page{overflow-x:clip}
 .scroll-progress span{background:#eb0015}
 .case-switcher a.active{background:#eb0015}
 .hero-card{background:linear-gradient(to top,rgba(235,0,21,.38) 0%,rgba(235,0,21,.14) 38%,rgba(235,0,21,0) 100%),#171719;border:0;outline:0}
@@ -12,10 +13,10 @@
 .statement:before,.events li:before,.experiment-number{color:#eb0015}
 .note{background:#fff0f1;color:#7b111a}
 .scenario{background:#211f20}.scenario .inspect-link{color:#171717}
-.mobile-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding:18px;border-radius:24px;background:#171717;overflow:hidden}.mobile-strip figure{position:relative;margin:0;border-radius:15px;overflow:hidden;background:#fff;cursor:zoom-in}.mobile-strip img{height:480px;object-fit:cover;object-position:top}.mobile-strip .inspect-link{right:8px;bottom:8px;padding:8px 10px;font-size:0}.mobile-strip .inspect-link:after{font-size:14px}
+.mobile-gallery{grid-column:1/-1;width:100vw;margin:36px 0 0 calc(50% - 50vw);position:relative;background:#171717;overflow:hidden}.mobile-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;padding:18px;background:#171717}.mobile-strip figure{position:relative;min-width:0;margin:0;border-radius:15px;overflow:hidden;background:#fff;cursor:zoom-in}.mobile-strip img{display:block;width:100%;height:auto;object-fit:contain;object-position:top}.mobile-strip .inspect-link{right:8px;bottom:8px;padding:8px 10px;font-size:0}.mobile-strip .inspect-link:after{font-size:14px}.mobile-carousel-controls{display:none}
 .result-hero img{max-height:760px;object-fit:cover}.next-case{display:flex;flex-direction:column;gap:9px;padding:30px 32px;border-radius:999px;background:#171717;color:#fff;transition:background .25s ease,transform .25s ease}.next-case small{font-size:12px;color:rgba(255,255,255,.48)}.next-case span{font-family:"PP Neue Machina",sans-serif;font-size:28px;letter-spacing:-.035em}.next-case:hover{background:#eb0015;transform:translateY(-3px)}
-@media(max-width:900px){.hero-media{height:460px}.mobile-strip{grid-template-columns:repeat(3,1fr)}.mobile-strip img{height:420px}}
-@media(max-width:620px){.hero-copy{min-height:420px}.hero h1{font-size:54px}.hero-media{height:380px}.mobile-strip{grid-template-columns:repeat(2,1fr);padding:10px}.mobile-strip img{height:390px}.next-case span{font-size:21px}}
+@media(max-width:900px){.hero-media{height:460px}}
+@media(max-width:620px){.hero-copy{min-height:420px}.hero h1{font-size:54px}.hero-media{height:380px}.next-case span{font-size:21px}}
 
 /* Final B2B hero composition. */
 .hero-card{
@@ -51,3 +52,62 @@
 /* Keep analytics arrows fixed at the far edge of each event card. */
 .events li{position:relative;padding-right:54px}
 .events li:before{position:absolute;right:22px;margin-right:0}
+
+/* B2B review refinements. */
+.b2b-page .project-meta{align-items:stretch}
+.b2b-page .meta-card{min-height:0;height:100%;align-self:stretch}
+.b2b-page .research-card h3{margin-top:54px}
+.b2b-page .impact-card:nth-child(3) strong{font-size:clamp(30px,3.4vw,48px);line-height:1}
+.b2b-page #jobs .insight-list article:last-child{border-bottom:0}
+.b2b-page #principles .decision-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.scenario-benefits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:-4px 0 28px}
+.scenario-benefits--single{grid-template-columns:1fr}
+.scenario-benefits>div{padding:18px;border:1px solid rgba(255,255,255,.11);border-radius:16px;background:rgba(255,255,255,.07)}
+.scenario-benefits b{display:block;margin-bottom:9px;font-size:14px;line-height:1.35}
+.scenario-benefits p{margin:0;color:rgba(255,255,255,.58);font-size:13px;line-height:1.45}
+.result-copy--single{grid-template-columns:1fr}
+.result-copy--single p{max-width:920px}
+.result-trophy{position:absolute;z-index:7;top:22px;right:22px;display:grid;place-items:center;width:76px;height:76px;border-radius:24px;background:linear-gradient(145deg,#ffce3a,#ff7b00);box-shadow:0 14px 34px rgba(111,34,0,.3);pointer-events:none}
+.result-trophy svg{width:44px;height:44px;overflow:visible;fill:#fff3b5;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.b2b-page .result-hero .inspect-link{right:14px;bottom:60px}
+
+@media(min-width:1001px) and (max-width:1200px){
+  .b2b-page .hero-media .hero-art{right:-22%;height:126%}
+}
+
+@media(min-width:621px) and (max-width:1200px){
+  .mobile-gallery{padding:18px 0 74px}
+  .mobile-strip{display:flex;gap:14px;padding:0 max(24px,calc((100vw - 246px)/2));overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:none}
+  .mobile-strip::-webkit-scrollbar{display:none}
+  .mobile-strip figure{flex:0 0 246px;scroll-snap-align:center}
+  .mobile-carousel-controls{position:absolute;left:50%;bottom:16px;z-index:9;display:flex;align-items:center;gap:12px;padding:8px 10px;border-radius:999px;background:#050505;transform:translateX(-50%)}
+  .mobile-carousel-controls>button{width:34px;height:34px;padding:0;border:0;border-radius:50%;background:#262626;color:#fff;font:600 18px/1 sans-serif;cursor:pointer}
+  .mobile-carousel-dots{display:flex;align-items:center;gap:8px}
+  .mobile-carousel-dots button{width:8px;height:8px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.55);transition:width .2s ease,background .2s ease;cursor:pointer}
+  .mobile-carousel-dots button.is-active{width:32px;background:#fff}
+}
+
+@media(max-width:1000px){
+  .b2b-page .hero-card::after{content:"";position:absolute;z-index:2;inset:0 0 auto;height:62%;display:block;background:linear-gradient(180deg,rgba(10,10,12,.76) 0%,rgba(10,10,12,.58) 58%,rgba(10,10,12,0) 100%);pointer-events:none}
+  .b2b-page .hero-media{z-index:1}
+  .b2b-page .feature-cards .soft-card{min-height:180px}
+  .b2b-page #principles .decision-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:900px){
+  .scenario-benefits{grid-template-columns:1fr}
+}
+
+@media(max-width:620px){
+  .b2b-page .feature-cards .soft-card{min-height:145px;padding:22px}
+  .b2b-page .feature-cards .soft-card h3{margin:26px 0 10px}
+  .b2b-page .hero-card::after{height:68%;background:linear-gradient(180deg,rgba(10,10,12,.82) 0%,rgba(10,10,12,.64) 62%,rgba(10,10,12,0) 100%)}
+  .b2b-page .research-card h3{margin-top:38px}
+  .mobile-gallery{margin-top:28px;overflow:visible;background:transparent}
+  .mobile-strip{display:grid;grid-template-columns:1fr;gap:12px;padding:0 10px;background:transparent;overflow:visible}
+  .mobile-strip figure{width:100%;border-radius:20px;background:#171717}
+  .mobile-carousel-controls{display:none}
+  .result-trophy{top:14px;right:14px;width:60px;height:60px;border-radius:19px}
+  .result-trophy svg{width:36px;height:36px}
+  .b2b-page .result-hero .inspect-link{right:10px;bottom:54px}
+}

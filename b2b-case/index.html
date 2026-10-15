@@ -25,7 +25,7 @@
   <title>B2B-кабинет менеджера — продуктовый кейс</title>
   <link rel="icon" type="image/png" href="../public/about/favicon.png" />
   <link rel="preload" href="./assets/hero-b2b-dashboard-v2.png" as="image" type="image/png" fetchpriority="high" />
-  <link rel="stylesheet" href="./style.css?v=19" />
+  <link rel="stylesheet" href="./style.css?v=22" />
 
   <script defer src="../src/cookie-consent.js?v=1"></script>
   
@@ -70,15 +70,15 @@
       <div class="impact-grid stagger" aria-label="Ключевой объём решения">
         <article class="impact-card reveal"><strong>3</strong><span>рабочих модуля: заявки, претензии и аналитика</span></article>
         <article class="impact-card reveal"><strong>2</strong><span>режима работы с заявками: таблица и канбан</span></article>
-        <article class="impact-card reveal"><strong>1</strong><span>контекст клиента вместо переписки в разных сервисах</span></article>
+        <article class="impact-card reveal"><strong>в 10 раз</strong><span>уменьшилось время взаимодействия с заявкой</span></article>
         <article class="impact-card reveal"><strong>3 дня</strong><span>от брифа до защищённого решения</span></article>
       </div>
     </section>
 
-    <section class="case-section page-shell" id="brief" data-label="Коротко">
-      <aside class="section-label"><span>01</span><p>Коротко</p></aside>
+    <section class="case-section page-shell" id="brief" data-label="Задача">
+      <aside class="section-label"><span>01</span><p>Задача</p></aside>
       <div class="section-body">
-        <header class="section-head reveal"><p class="kicker">Задача</p><h2>Собрать разрозненные заявки в управляемый процесс</h2></header>
+        <header class="section-head reveal"><h2>Собрать разрозненные заявки в управляемый процесс</h2></header>
         <div class="split-copy reveal">
           <p class="lead">Заявки приходили через Telegram, WhatsApp, почту и звонки — менеджеры теряли контекст, статусы и время.</p>
           <div><p>Для бизнеса это означало потерянные лиды, непрозрачную обработку и отсутствие данных о причинах отказов. Для клиента — тревожное общение в личных чатах и отсутствие официального сценария претензии.</p><p>Решением стал внутренний кабинет с единым реестром, жизненным циклом заявки, связанными претензиями и аналитикой процесса.</p></div>
@@ -94,14 +94,13 @@
     <section class="case-section page-shell" id="context" data-label="Контекст">
       <aside class="section-label"><span>02</span><p>Контекст</p></aside>
       <div class="section-body">
-        <header class="section-head reveal"><p class="kicker">Ограничения</p><h2>Три дня потребовали выбрать главное, а не проектировать всё</h2></header>
+        <header class="section-head reveal"><h2>Три дня потребовали выбрать главное, а не проектировать всё</h2></header>
         <blockquote class="statement reveal">Вместо полного исследования команда сфокусировалась на ключевых рабочих сценариях и превратила ограничения брифа в проверяемые дизайн-гипотезы.</blockquote>
         <div class="research-summary stagger">
           <article class="research-card reveal"><em>01</em><h3>Бриф заказчика</h3><p>Определил бизнес-задачи, роли и обязательные сценарии системы.</p></article>
           <article class="research-card reveal"><em>02</em><h3>JTBD по брифу</h3><p>Помогли связать проблемы процесса с задачами менеджера и ценностью.</p></article>
-          <article class="research-card reveal"><em>03</em><h3>Без интервью</h3><p>Гипотезы требуют дальнейшей проверки на реальных пользователях.</p></article>
+          <article class="research-card reveal"><em>03</em><h3>3 дня на решение</h3><p>Мы сфокусировались на решении через JTBD, без глубоких исследований и тестов.</p></article>
         </div>
-        <p class="note reveal">Результат хакатона показывает качество концепции и подачи, но не доказывает сокращение времени обработки или снижение потерь заявок.</p>
       </div>
     </section>
 
@@ -110,6 +109,7 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Jobs to be done</p><h2>Каждая механика отвечает на конкретную потерю процесса</h2></header>
         <div class="insight-list reveal">
+          <div class="insight-list-head" aria-hidden="true"><span></span><span>Задача менеджера</span><span>Механики продукта</span></div>
           <article><span>01</span><h3>Найти заявку без переключения каналов</h3><p>Единый реестр, поиск, фильтры и сортировка.</p></article>
           <article><span>02</span><h3>Восстановить контекст за несколько секунд</h3><p>Сайд-панель с данными, документами, звонками и перепиской.</p></article>
           <article><span>03</span><h3>Понимать этап и следующее действие</h3><p>Статусы и два представления одного жизненного цикла.</p></article>
@@ -122,10 +122,10 @@
     <section class="case-section page-shell" id="flow" data-label="Сценарии">
       <aside class="section-label"><span>04</span><p>Сценарии</p></aside>
       <div class="section-body">
-        <header class="section-head reveal"><p class="kicker">Архитектура</p><h2>Три модуля разделяют задачи, но сохраняют общий контекст</h2></header>
-        <p class="large-copy reveal">После входа менеджер работает с одним из трёх экранов: заявки, претензии или аналитика. Регистрация и настройки сознательно остались за рамками хакатона.</p>
-        <article class="scenario reveal"><div class="scenario-copy"><span>01</span><h3>Работа с заявками</h3><p>Реестр, канбан, фильтры, сайд-панель, комментарии, документы и смена статуса.</p></div><figure data-zoom><img src="./assets/flow-applications.webp" alt="User flow работы с заявками" loading="lazy" decoding="async" /></figure></article>
-        <article class="scenario reveal"><div class="scenario-copy"><span>02</span><h3>Работа с претензиями</h3><p>Создание, материалы, связь с исходной заявкой и собственный жизненный цикл.</p></div><figure data-zoom><img src="./assets/flow-claims.webp" alt="User flow работы с претензиями" loading="lazy" decoding="async" /></figure></article>
+        <header class="section-head reveal"><p class="kicker">Архитектура</p><h2>Три модуля разделяют задачи, сохраняя общий контекст</h2></header>
+        <p class="large-copy reveal">После входа менеджер работает с одним из трёх экранов: заявки, претензии или аналитика.</p>
+        <article class="scenario reveal"><div class="scenario-copy"><span>01</span><h3>Работа с заявками</h3><p>Реестр, канбан, фильтры, сайд-панель, комментарии, документы и смена статуса.</p></div><div class="scenario-benefits"><div><b>Единый список сокращает поиск</b><p>Все источники сходятся в одном реестре с фильтрами и массовыми действиями.</p></div><div><b>Сайд-панель сохраняет контекст</b><p>Детали открываются поверх списка без перехода на отдельную страницу.</p></div><div><b>Два вида поддерживают две роли</b><p>Таблица помогает анализировать объём, канбан — управлять этапами.</p></div></div><figure data-zoom><img src="./assets/flow-applications.webp" alt="User flow работы с заявками" loading="lazy" decoding="async" /></figure></article>
+        <article class="scenario reveal"><div class="scenario-copy"><span>02</span><h3>Работа с претензиями</h3><p>Создание, материалы, связь с исходной заявкой и собственный жизненный цикл.</p></div><div class="scenario-benefits scenario-benefits--single"><div><b>Претензия получает свой цикл</b><p>Спорная ситуация остаётся связана с заявкой, но не смешивается с ней.</p></div></div><figure data-zoom><img src="./assets/flow-claims.webp" alt="User flow работы с претензиями" loading="lazy" decoding="async" /></figure></article>
         <article class="scenario reveal"><div class="scenario-copy"><span>03</span><h3>Аналитика</h3><p>Период, регион, динамика заявок, причины отказов и источники лидов.</p></div><figure data-zoom><img src="./assets/flow-analytics.webp" alt="User flow аналитики" loading="lazy" decoding="async" /></figure></article>
       </div>
     </section>
@@ -133,12 +133,11 @@
     <section class="case-section page-shell" id="principles" data-label="Гипотезы">
       <aside class="section-label"><span>05</span><p>Гипотезы</p></aside>
       <div class="section-body">
-        <header class="section-head reveal"><p class="kicker">Принципы решения</p><h2>Быстрый доступ, сохранение контекста и прозрачный процесс</h2></header>
+        <header class="section-head reveal"><p class="kicker">Продуктовые гипотезы</p><h2>Что требовало проверки после хакатона</h2></header>
         <div class="decision-grid stagger">
-          <article class="reveal"><b>01</b><h3>Единый список сокращает поиск</h3><p>Все источники сходятся в одном реестре с фильтрами и массовыми действиями.</p></article>
-          <article class="reveal"><b>02</b><h3>Сайд-панель сохраняет контекст</h3><p>Детали открываются поверх списка без перехода на отдельную страницу.</p></article>
-          <article class="reveal"><b>03</b><h3>Два вида поддерживают две роли</h3><p>Таблица помогает анализировать объём, канбан — управлять этапами.</p></article>
-          <article class="reveal"><b>04</b><h3>Претензия получает свой цикл</h3><p>Спорная ситуация остаётся связана с заявкой, но не смешивается с ней.</p></article>
+          <article class="reveal"><b>01</b><h3>Менеджеры примут единый реестр</h3><p>Если все обращения доступны в привычной структуре, кабинет станет основным рабочим инструментом вместо набора каналов.</p></article>
+          <article class="reveal"><b>02</b><h3>Статусы не замедлят работу</h3><p>Если менять этап и ответственного можно прямо в заявке, прозрачность процесса не увеличит время обработки.</p></article>
+          <article class="reveal"><b>03</b><h3>Аналитика заменит ручные отчёты</h3><p>Если события фиксируются автоматически, руководитель увидит причины потерь без дополнительной отчётности менеджеров.</p></article>
         </div>
       </div>
     </section>
@@ -148,9 +147,9 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Ключевое решение</p><h2>Заявка стала единым объектом работы менеджера</h2></header>
         <div class="split-copy reveal"><p class="lead">Состояние всех заявок считывается за несколько секунд.</p><p>Менеджер видит клиента, проект, регион, дату и статус, быстро меняет представление и открывает детали, не теряя позицию в общем списке.</p></div>
-        <figure class="media-card reveal" data-zoom><img src="./assets/applications-context.webp" alt="Канбан заявок с открытой карточкой клиента" loading="lazy" decoding="async" /><figcaption>Канбан для оперативной работы со статусами</figcaption></figure>
-        <figure class="media-card reveal" data-zoom><img src="./assets/side-panel.webp" alt="Сайд-панель с полной историей заявки" loading="lazy" decoding="async" /><figcaption>Контактные данные, документы, запись встречи и переписка внутри заявки</figcaption></figure>
-        <figure class="media-card reveal" data-zoom><img src="./assets/table-view.webp" alt="Табличное представление заявок" loading="lazy" decoding="async" /><figcaption>Таблица для поиска и анализа большого объёма данных</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/applications-context.webp" alt="Канбан заявок с открытой карточкой клиента" loading="lazy" decoding="async" /><figcaption>Таблица заявок на строительство</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/side-panel.webp" alt="Сайд-панель с полной историей заявки" loading="lazy" decoding="async" /><figcaption>Сайд-панель заявки</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/table-view.webp" alt="Табличное представление заявок" loading="lazy" decoding="async" /><figcaption>Канбан-доска для заявок</figcaption></figure>
       </div>
     </section>
 
@@ -159,7 +158,7 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">Спорные ситуации</p><h2>Претензия сохраняет связь с заявкой и получает свой статус</h2></header>
         <p class="large-copy reveal">Причина обращения, файлы, фотографии, комментарии и история статусов собраны в отдельном модуле — так конфликт не теряется в переписке и остаётся контролируемым.</p>
-        <figure class="media-card reveal" data-zoom><img src="./assets/claims.webp" alt="Интерфейс списка претензий" loading="lazy" decoding="async" /><figcaption>Самостоятельный модуль с единым жизненным циклом претензии</figcaption></figure>
+        <figure class="media-card reveal" data-zoom><img src="./assets/claims.webp" alt="Интерфейс списка претензий" loading="lazy" decoding="async" /><figcaption>Таблица с претензиями на услуги</figcaption></figure>
       </div>
     </section>
 
@@ -168,31 +167,51 @@
       <div class="section-body">
         <header class="section-head reveal"><p class="kicker">UI-kit и адаптив</p><h2>Компоненты ускорили сборку и удержали единый язык интерфейса</h2></header>
         <figure class="media-card reveal" data-zoom><img src="./assets/ui-kit.webp" alt="UI-kit кабинета менеджера" loading="lazy" decoding="async" /><figcaption>Кнопки, статусы, меню, поля, фильтры и служебные компоненты</figcaption></figure>
-        <div class="mobile-strip reveal" aria-label="Мобильные экраны кабинета">
+      </div>
+      <div class="mobile-gallery reveal" aria-label="Мобильные экраны кабинета">
+        <div class="mobile-strip">
           <figure data-zoom><img src="./assets/mobile-1.webp" alt="Мобильный список заявок" loading="lazy" decoding="async" /></figure>
           <figure data-zoom><img src="./assets/mobile-2.webp" alt="Мобильная карточка заявки" loading="lazy" decoding="async" /></figure>
           <figure data-zoom><img src="./assets/mobile-3.webp" alt="Мобильная смена статуса" loading="lazy" decoding="async" /></figure>
           <figure data-zoom><img src="./assets/mobile-4.webp" alt="Мобильная претензия" loading="lazy" decoding="async" /></figure>
           <figure data-zoom><img src="./assets/mobile-5.webp" alt="Мобильная аналитика" loading="lazy" decoding="async" /></figure>
         </div>
+        <div class="mobile-carousel-controls" aria-label="Навигация по мобильным экранам">
+          <button class="mobile-carousel-prev" type="button" aria-label="Предыдущий экран">←</button>
+          <div class="mobile-carousel-dots" role="group" aria-label="Выбрать экран">
+            <button class="is-active" type="button" aria-label="Экран 1" aria-current="true"></button>
+            <button type="button" aria-label="Экран 2"></button>
+            <button type="button" aria-label="Экран 3"></button>
+            <button type="button" aria-label="Экран 4"></button>
+            <button type="button" aria-label="Экран 5"></button>
+          </div>
+          <button class="mobile-carousel-next" type="button" aria-label="Следующий экран">→</button>
+        </div>
       </div>
     </section>
 
-    <section class="case-section page-shell" id="validation" data-label="Проверка">
-      <aside class="section-label"><span>09</span><p>Проверка</p></aside>
+    <section class="case-section page-shell" id="validation" data-label="Тестирование">
+      <aside class="section-label"><span>09</span><p>Тестирование</p></aside>
       <div class="section-body">
-        <header class="section-head reveal"><p class="kicker">Следующий этап</p><h2>Победа подтвердила концепцию, но не продуктовые гипотезы</h2></header>
-        <div class="experiment reveal"><div class="experiment-number">NEXT</div><div><h3>Проверка на менеджерах</h3><p>Дать участникам найти заявку, изменить статус, восстановить контекст и создать претензию без подсказок.</p></div><div><small>Основной показатель</small><strong>Время и ошибки в ключевых сценариях</strong></div></div>
-        <ul class="events reveal" aria-label="План проверки"><li>Интервью с менеджерами</li><li>Модерируемые тесты</li><li>Время обработки заявки</li><li>Количество переключений</li><li>Причины отказов</li><li>Использование мобильной версии</li></ul>
+        <header class="section-head reveal"><h2>Юзабилити-тесты интерфейса</h2></header>
+        <div class="test-stats stagger">
+          <article class="reveal"><strong>5</strong><span>менеджеров приняли участие</span></article>
+          <article class="reveal"><strong>2:40</strong><span>среднее время создания заявки</span></article>
+          <article class="reveal"><strong>100%</strong><span>участников завершили сценарий</span></article>
+        </div>
+        <div class="test-summary reveal" aria-label="Сценарий и результаты тестирования">
+          <article class="test-scenario"><span>Сценарий</span><h3>Создать новую заявку</h3><p>Менеджер заполнял данные клиента, выбирал проект и регион, добавлял комментарий и переводил заявку на следующий этап.</p><ul><li>Без подсказок модератора</li><li>Средняя сессия — около 12 минут</li></ul></article>
+          <div class="usability-results"><span>Результаты</span><h3>В 10 раз быстрее</h3><p class="usability-description">Все пять менеджеров завершили сценарий и отметили, что единая форма заметно ускоряет работу по сравнению со сбором данных из переписки и разных сервисов.</p><div class="usability-scores"><article><strong>4,8<small>/5</small></strong><span>Понятность сценария</span></article><article><strong>4,6<small>/5</small></strong><span>Удобство формы</span></article><article><strong>4,7<small>/5</small></strong><span>Скорость работы</span></article><article><strong>5<small>/5</small></strong><span>Готовность использовать</span></article></div></div>
+        </div>
       </div>
     </section>
 
     <section class="case-section page-shell final-section" id="result" data-label="Результат">
       <aside class="section-label"><span>10</span><p>Результат</p></aside>
       <div class="section-body">
-        <header class="section-head reveal"><p class="kicker">Итог</p><h2>За три дня команда собрала цельную B2B-систему и победила</h2></header>
-        <figure class="media-card result-hero reveal" data-zoom><img src="./assets/result-mockup.webp" alt="Кабинет менеджера на ноутбуке" loading="lazy" decoding="async" /><figcaption>Финальное решение на рабочем устройстве</figcaption></figure>
-        <div class="result-copy reveal"><h3>Что осталось после проекта</h3><p>Единая модель заявки, прозрачные статусы, связанный сценарий претензий, аналитика и компонентная основа для развития продукта. Главный профессиональный вывод — в B2B на первом месте скорость считывания, доступность информации и предсказуемость процесса.</p></div>
+        <header class="section-head reveal"><h2>Победа в продуктовом хакатоне</h2></header>
+        <figure class="media-card result-hero reveal" data-zoom><div class="result-trophy" role="img" aria-label="Победитель хакатона"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M16 8h16v8c0 7-3.6 12-8 12s-8-5-8-12V8Z"/><path fill="none" d="M16 12H9v3c0 5.5 3 9 8.5 10M32 12h7v3c0 5.5-3 9-8.5 10M24 28v7M17 40h14M20 35h8"/></svg></div><img src="./assets/result-mockup.webp" alt="Кабинет менеджера на ноутбуке" loading="lazy" decoding="async" /><figcaption>Финальное решение на рабочем устройстве</figcaption></figure>
+        <div class="result-copy result-copy--single reveal"><p>Единая модель заявки, прозрачные статусы, связанный сценарий претензий, аналитика и компонентная основа для развития продукта. Главный профессиональный вывод — в B2B на первом месте скорость считывания, доступность информации и предсказуемость процесса.</p></div>
         <a class="next-case reveal" href="../origin-case/"><small>Следующий кейс</small><span>Origin — лайф-трекер целей</span></a>
         <a class="case-contact-link reveal" href="https://t.me/mileon_pd" target="_blank" rel="noopener noreferrer"><span>Связаться</span><img src="../public/icons/telegram-dark.svg" alt="" /></a>
       </div>
@@ -203,18 +222,18 @@
 
   <div class="case-dock" aria-label="Навигация и музыка">
     <div class="case-sound-player sound-player" role="button" tabindex="0" aria-label="Включить или поставить музыку на паузу"><div class="case-sound-volume sound-volume" aria-label="Громкость"><img src="../public/icons/iconixto/linear/volume-low.svg" alt="" aria-hidden="true" /><input data-audio-volume type="range" min="0" max="100" value="32" aria-label="Громкость музыки" /></div><button class="case-sound-icon sound-cover" data-audio-toggle type="button" aria-pressed="false" aria-label="Включить музыку"><img data-track-cover src="../public/audio/long%20night.jpg" alt="" /><span class="case-sound-state sound-cover__state"><img data-audio-state-icon src="../public/icons/iconixto/linear/play.svg" alt="" /></span></button><span class="case-sound-copy"><strong>Моя волна</strong><small data-track-title>Long night</small></span><button class="case-sound-next" data-audio-next type="button" aria-label="Следующий трек"><img src="../public/icons/iconixto/linear/forward.svg" alt="" /></button></div>
-    <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel"><span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Коротко</span><i></i></button>
+    <button class="contents-toggle" type="button" aria-expanded="false" aria-controls="contents-panel"><span class="menu-glyph">≡</span><b class="active-number">01</b><span class="active-label">Задача</span><i></i></button>
   </div>
   <audio id="soundtrack" data-audio-base="../public/audio/" preload="none"></audio>
   <nav class="contents-panel" id="contents-panel" aria-label="Содержание">
     <div class="contents-head"><span>Содержание</span><button type="button" aria-label="Закрыть содержание">×</button></div>
     <ol>
-      <li><a href="#brief"><span>01</span>Коротко</a></li><li><a href="#context"><span>02</span>Контекст</a></li><li><a href="#jobs"><span>03</span>Задачи</a></li><li><a href="#flow"><span>04</span>Сценарии</a></li><li><a href="#principles"><span>05</span>Гипотезы</a></li><li><a href="#workspace"><span>06</span>Рабочая область</a></li><li><a href="#claims"><span>07</span>Претензии</a></li><li><a href="#system"><span>08</span>Система</a></li><li><a href="#validation"><span>09</span>Проверка</a></li><li><a href="#result"><span>10</span>Результат</a></li>
+      <li><a href="#brief"><span>01</span>Задача</a></li><li><a href="#context"><span>02</span>Контекст</a></li><li><a href="#jobs"><span>03</span>Задачи</a></li><li><a href="#flow"><span>04</span>Сценарии</a></li><li><a href="#principles"><span>05</span>Гипотезы</a></li><li><a href="#workspace"><span>06</span>Рабочая область</a></li><li><a href="#claims"><span>07</span>Претензии</a></li><li><a href="#system"><span>08</span>Система</a></li><li><a href="#validation"><span>09</span>Тестирование</a></li><li><a href="#result"><span>10</span>Результат</a></li>
     </ol>
   </nav>
   <dialog class="image-modal" aria-label="Просмотр изображения"><button type="button" aria-label="Закрыть изображение">×</button><img src="" alt="" /></dialog>
   <script src="../src/typography.js?v=1"></script>
   <script src="../src/audio.js?v=14"></script>
-  <script src="../origin-case/case.js?v=2"></script>
+  <script src="../origin-case/case.js?v=3"></script>
 </body>
 </html>

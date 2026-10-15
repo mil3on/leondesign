@@ -353,6 +353,45 @@ workTabs.forEach((tab) => tab.addEventListener('click', () => {
 }));
 requestAnimationFrame(syncPortfolioClearance);
 
+// Gentle pointer parallax for portfolio-card artwork.
+const canTiltPortfolioArt = !reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (canTiltPortfolioArt) {
+  document.querySelectorAll('.work-card').forEach((card) => {
+    if (!card.querySelector('.card-art--portfolio')) return;
+    let animationFrame = 0;
+    let nextX = 0;
+    let nextY = 0;
+
+    const renderTilt = () => {
+      card.style.setProperty('--art-tilt-x', `${(-nextY * 2.6).toFixed(2)}deg`);
+      card.style.setProperty('--art-tilt-y', `${(nextX * 3.2).toFixed(2)}deg`);
+      card.style.setProperty('--art-shift-x', `${(nextX * 5).toFixed(2)}px`);
+      card.style.setProperty('--art-shift-y', `${(nextY * 4).toFixed(2)}px`);
+      card.style.setProperty('--art-scale', '1.012');
+      animationFrame = 0;
+    };
+
+    card.addEventListener('pointermove', (event) => {
+      const bounds = card.getBoundingClientRect();
+      nextX = ((event.clientX - bounds.left) / bounds.width - .5) * 2;
+      nextY = ((event.clientY - bounds.top) / bounds.height - .5) * 2;
+      card.classList.add('is-parallax-active');
+      if (!animationFrame) animationFrame = requestAnimationFrame(renderTilt);
+    });
+
+    card.addEventListener('pointerleave', () => {
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      animationFrame = 0;
+      card.classList.remove('is-parallax-active');
+      card.style.setProperty('--art-tilt-x', '0deg');
+      card.style.setProperty('--art-tilt-y', '0deg');
+      card.style.setProperty('--art-shift-x', '0px');
+      card.style.setProperty('--art-shift-y', '0px');
+      card.style.setProperty('--art-scale', '1');
+    });
+  });
+}
+
 const shotLightbox = document.querySelector('#shot-lightbox');
 const shotLightboxImage = shotLightbox?.querySelector('img');
 document.querySelectorAll('[data-shot-src]').forEach((button) => button.addEventListener('click', () => {

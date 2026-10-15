@@ -96,6 +96,49 @@ modal.addEventListener('click', (event) => {
   if (event.target === modal) modal.close();
 });
 
+const mobileGallery = document.querySelector('.mobile-gallery');
+if (mobileGallery) {
+  const strip = mobileGallery.querySelector('.mobile-strip');
+  const slides = [...strip.querySelectorAll('figure')];
+  const dots = [...mobileGallery.querySelectorAll('.mobile-carousel-dots button')];
+  const previous = mobileGallery.querySelector('.mobile-carousel-prev');
+  const next = mobileGallery.querySelector('.mobile-carousel-next');
+  let activeSlide = 0;
+  let galleryTicking = false;
+
+  function updateGallery(index, shouldScroll = true) {
+    activeSlide = (index + slides.length) % slides.length;
+    dots.forEach((dot, dotIndex) => {
+      const active = dotIndex === activeSlide;
+      dot.classList.toggle('is-active', active);
+      if (active) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+    if (shouldScroll) {
+      const target = slides[activeSlide];
+      const left = target.offsetLeft - (strip.clientWidth - target.offsetWidth) / 2;
+      strip.scrollTo({ left, behavior: reducedMotion ? 'auto' : 'smooth' });
+    }
+  }
+
+  previous.addEventListener('click', () => updateGallery(activeSlide - 1));
+  next.addEventListener('click', () => updateGallery(activeSlide + 1));
+  dots.forEach((dot, index) => dot.addEventListener('click', () => updateGallery(index)));
+  strip.addEventListener('scroll', () => {
+    if (galleryTicking || window.innerWidth <= 620 || window.innerWidth > 1200) return;
+    galleryTicking = true;
+    requestAnimationFrame(() => {
+      const center = strip.scrollLeft + strip.clientWidth / 2;
+      const nearest = slides.reduce((best, slide, index) => {
+        const distance = Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - center);
+        return distance < best.distance ? { index, distance } : best;
+      }, { index: 0, distance: Infinity });
+      updateGallery(nearest.index, false);
+      galleryTicking = false;
+    });
+  }, { passive: true });
+}
+
 // Keeps short Russian prepositions and conjunctions with the following word
 // at every responsive width without hard-coded line breaks.
 const noBreakWords = /(^|[\s([{«„“])((?:а|в|во|и|к|ко|о|об|с|со|у|из|от|до|по|за|на|не|ни|но|да|же|ли|бы|для|без|над|под|при|про|как|что|или))\s+(?=[\p{L}\p{N}])/giu;
