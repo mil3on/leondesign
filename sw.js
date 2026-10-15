@@ -1,4 +1,4 @@
-const CACHE_NAME = 'leonid-portfolio-v40';
+const CACHE_NAME = 'leonid-portfolio-v41';
 const SHELL = [
   './',
   './index.html',
