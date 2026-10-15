@@ -390,7 +390,7 @@ footer{font-size:16px}
 
 /* UI shots gallery. */
 .shots-panel{display:grid;grid-template-columns:repeat(auto-fit,minmax(226px,1fr));place-items:stretch;align-content:start;gap:8px;width:100%;min-height:492px;padding:0;border:0;background:transparent}
-.shot-card{width:100%;min-width:0;border-radius:20px;overflow:hidden}
+.shot-card{width:100%;min-width:0;aspect-ratio:780/1688;border-radius:20px;background:transparent;overflow:hidden}
 .shot-card__media{position:relative;margin:0;border-radius:40px;overflow:hidden}
 .shot-card__media img{display:block;width:100%;height:auto;object-fit:contain}
 .shot-card__overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:12px;padding:48px 18px 18px;background:linear-gradient(transparent 38%,rgba(8,8,8,.94));color:#fff;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .24s ease,transform .24s ease}
@@ -407,9 +407,9 @@ footer{font-size:16px}
 @media(hover:none){.shot-card__overlay{opacity:1;transform:none;pointer-events:auto}}
 
 /* UI concepts cards. */
-.shot-card__media{aspect-ratio:780/1688;border-radius:0;background:#fff}
+.shot-card__media{width:100%;height:100%;aspect-ratio:780/1688;border-radius:20px;background:transparent}
 .shot-card__media>img{width:100%;height:100%;object-fit:cover;object-position:center top}
-.shot-card__overlay{justify-content:flex-end;align-items:center;padding:18px;border-radius:0;text-align:center;background:linear-gradient(180deg,transparent 38%,rgba(8,8,8,.94))}
+.shot-card__overlay{justify-content:flex-end;align-items:center;padding:18px;border-radius:20px;text-align:center;background:linear-gradient(180deg,transparent 38%,rgba(8,8,8,.94))}
 .shot-card__overlay p{max-width:20ch;font-size:14px}
 .shot-card__overlay button{gap:6px;font-size:14px}
 .shot-card__overlay button .shot-button__icon{display:block;width:18px;height:18px;flex:0 0 18px;object-fit:contain}
@@ -417,7 +417,7 @@ footer{font-size:16px}
 
 @media(max-width:720px){
   .shot-card{border-radius:20px}
-  .shot-card__media{border-radius:0}
+  .shot-card__media{border-radius:20px}
   .shot-card__overlay{justify-content:flex-end;align-items:center;padding:10px}
   .shot-lightbox,.shot-lightbox img{border-radius:12px}
 }
