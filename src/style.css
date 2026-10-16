@@ -402,25 +402,68 @@ footer{font-size:16px}
 .shot-card__overlay button:hover{background:#f0f0ed;transform:translateY(-1px)}
 .shot-card__overlay button span{font-size:14px}
 .shot-card:hover .shot-card__overlay,.shot-card:focus-within .shot-card__overlay{opacity:1;transform:none;pointer-events:auto}
-.shot-lightbox{width:min(720px,calc(100vw - 32px));max-height:calc(100vh - 32px);padding:14px;border:0;border-radius:40px;background:#171717;box-shadow:0 30px 100px rgba(0,0,0,.38);overflow:auto}
+.shot-lightbox{position:fixed;inset:0;width:100%;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:24px 48px;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:hidden;overscroll-behavior:contain}
+.shot-lightbox[open]{display:grid;place-items:center}
 .shot-lightbox::backdrop{background:rgba(0,0,0,.68);backdrop-filter:blur(8px)}
-.shot-lightbox img{width:100%;height:auto;border-radius:40px;object-fit:contain}
-.shot-lightbox__close{position:sticky;z-index:2;top:0;float:right;display:grid;place-items:center;width:40px;height:40px;margin:0 0 -40px;padding:0;border:0;border-radius:50%;background:rgba(17,17,17,.82);color:#fff;font-size:26px;line-height:1;cursor:pointer}
+.shot-lightbox__frame{position:relative;width:min(100%,calc((100vh - 48px) * var(--shot-ratio, .462085)));width:min(100%,calc((100dvh - 48px) * var(--shot-ratio, .462085)));aspect-ratio:var(--shot-ratio,780 / 1688)}
+.shot-lightbox__media{position:relative;width:100%;height:100%;padding:0;border-radius:20px;overflow:hidden;background:#111}
+.shot-lightbox__media>img{display:block;width:100%;height:100%;object-fit:contain}
+.shot-lightbox__close{position:absolute;z-index:2;top:0;right:-48px;display:grid;place-items:center;width:40px;height:40px;margin:0;padding:0;border:0;border-radius:50%;background:transparent;color:#fff;font-size:32px;line-height:1;cursor:pointer;transition:background .18s ease}
+.shot-lightbox__pagination{--scenario-inset:12px}
+.shot-lightbox__pagination[hidden]{display:none}
+.shot-lightbox__pagination .shot-scenario__pagination{opacity:1;pointer-events:auto;transform:none}
+.shot-lightbox__close:hover{background:rgba(255,255,255,.12)}
+html:has(.shot-lightbox[open]){overflow:hidden}
 @media(max-width:600px){.shots-panel{grid-template-columns:repeat(2,minmax(0,1fr))}.shot-card__media{border-radius:40px}.shot-card__overlay{gap:8px;padding:34px 10px 10px}.shot-card__overlay p{font-size:11px}.shot-card__overlay button{min-height:32px;padding:0 10px;font-size:10px}}
 @media(hover:none){.shot-card__overlay{opacity:1;transform:none;pointer-events:auto}}
 
 /* UI concepts cards. */
 .shot-card__media{width:100%;height:100%;aspect-ratio:780/1688;border-radius:20px;background:transparent}
 .shot-card__media>img{width:100%;height:100%;object-fit:cover;object-position:center top}
-.shot-card__overlay{justify-content:flex-end;align-items:center;padding:18px;border-radius:20px;text-align:center;background:linear-gradient(180deg,transparent 38%,rgba(8,8,8,.94))}
+.shot-card__overlay{justify-content:flex-end;align-items:center;padding:18px;border-radius:20px;text-align:center;background:linear-gradient(180deg,transparent 55%,rgba(8,8,8,.7))}
 .shot-card__overlay p{max-width:20ch;font-size:14px}
 .shot-card__overlay button{gap:6px;font-size:14px}
 .shot-card__overlay button .shot-button__icon{display:block;width:18px;height:18px;flex:0 0 18px;object-fit:contain}
-.shot-lightbox,.shot-lightbox img{border-radius:24px}
+
+/* Three-step cinema scenario: screen follows the cursor's horizontal third. */
+.shot-card--scenario{--scenario-inset:18px}
+.shot-card--scenario .shot-card__media{isolation:isolate;background:#111}
+.shot-card--scenario .shot-scenario__screen{position:absolute;inset:0;display:none;width:100%;height:100%;object-fit:cover;object-position:center top}
+.shot-card--scenario .shot-scenario__screen.is-active{display:block}
+.shot-scenario__control{position:absolute;z-index:2;top:var(--scenario-inset);left:50%;display:grid;place-items:center;width:84px;height:36px;border-radius:999px;background:rgba(255,255,255,.94);box-shadow:0 4px 16px rgba(0,0,0,.14);transform:translateX(-50%)}
+.shot-scenario__badge{grid-area:1 / 1;display:inline-flex;align-items:center;gap:6px;color:#111;font-size:14px;font-weight:600;line-height:1;pointer-events:none;transition:opacity .18s ease,transform .18s ease}
+.shot-scenario__badge img{width:24px;height:24px;flex:0 0 24px}
+.shot-card--scenario:hover .shot-scenario__badge,.shot-card--scenario:focus-within .shot-scenario__badge{opacity:0;transform:scale(.9)}
+.shot-card--scenario .shot-card__overlay{z-index:1;display:grid;grid-template-columns:minmax(0,1fr) auto;align-content:end;align-items:center;gap:8px;padding:var(--scenario-inset);text-align:left;pointer-events:none}
+.shot-card--scenario .shot-card__overlay p{min-width:0;max-width:none;white-space:normal;text-wrap:pretty}
+.shot-card--scenario .shot-card__overlay button{pointer-events:none}
+.shot-card--scenario .shot-card__overlay .shot-scenario__open{display:grid;place-items:center;width:40px;height:40px;min-height:40px;padding:0;border:0;border-radius:50%}
+.shot-card--scenario .shot-scenario__open img{width:24px;height:24px;object-fit:contain}
+.shot-card--scenario:hover .shot-card__overlay button,.shot-card--scenario:focus-within .shot-card__overlay button{pointer-events:auto}
+.shot-scenario__pagination{grid-area:1 / 1;display:flex;align-items:center;gap:4px;opacity:0;pointer-events:none;transform:scale(.9);transition:opacity .18s ease,transform .18s ease}
+.shot-card--scenario:hover .shot-scenario__pagination,.shot-card--scenario:focus-within .shot-scenario__pagination{opacity:1;pointer-events:auto;transform:none}
+.shot-scenario__pagination button{display:grid;place-items:center;width:14px;height:28px;padding:0;border:0;border-radius:999px;background:transparent;cursor:pointer}
+.shot-scenario__pagination button::before{content:"";width:7px;height:7px;border-radius:999px;background:#aaa}
+.shot-scenario__pagination button.is-active{width:26px}
+.shot-scenario__pagination button.is-active::before{width:22px;background:#ef3d17}
+.shot-scenario__pagination button:focus-visible,.shot-scenario__open:focus-visible{outline:2px solid #ef3d17;outline-offset:2px}
+@media(hover:none){
+  .shot-card--scenario .shot-card__overlay button{pointer-events:auto}
+  .shot-card--scenario .shot-scenario__badge{opacity:0}
+  .shot-card--scenario .shot-scenario__pagination{opacity:1;pointer-events:auto;transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .shot-scenario__badge,.shot-scenario__pagination{transition:none}
+}
 
 @media(max-width:720px){
   .shot-card{border-radius:20px}
   .shot-card__media{border-radius:20px}
   .shot-card__overlay{justify-content:flex-end;align-items:center;padding:10px}
-  .shot-lightbox,.shot-lightbox img{border-radius:12px}
+  .shot-card--scenario{--scenario-inset:10px}
+}
+@media(max-width:720px),(hover:none){
+  .shot-card{cursor:pointer}
+  .shot-card .shot-card__overlay button,.shot-card--scenario .shot-card__overlay .shot-scenario__open{display:none}
+  .shot-card--scenario .shot-card__overlay{grid-template-columns:minmax(0,1fr)}
 }

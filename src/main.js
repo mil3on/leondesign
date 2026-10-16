@@ -394,12 +394,121 @@ if (canTiltPortfolioArt) {
 
 const shotLightbox = document.querySelector('#shot-lightbox');
 const shotLightboxImage = shotLightbox?.querySelector('img');
-document.querySelectorAll('[data-shot-src]').forEach((button) => button.addEventListener('click', () => {
+const shotLightboxMedia = shotLightbox?.querySelector('.shot-lightbox__media');
+const shotLightboxPagination = shotLightbox?.querySelector('.shot-lightbox__pagination');
+const mobileShots = window.matchMedia('(max-width:720px), (hover:none)');
+let lightboxScreens = [];
+let lightboxScreenIndex = 0;
+
+const setLightboxScreen = (index) => {
+  if (!shotLightboxImage || !lightboxScreens.length) return;
+  lightboxScreenIndex = Math.max(0, Math.min(lightboxScreens.length - 1, index));
+  const screen = lightboxScreens[lightboxScreenIndex];
+  shotLightboxImage.src = screen.src;
+  shotLightboxImage.alt = screen.alt;
+  shotLightbox.style.setProperty('--shot-ratio', String(screen.ratio));
+  shotLightboxPagination.querySelectorAll('button').forEach((dot, i) => {
+    dot.classList.toggle('is-active', i === lightboxScreenIndex);
+    dot.setAttribute('aria-pressed', String(i === lightboxScreenIndex));
+  });
+};
+
+const openShot = (card) => {
   if (!shotLightbox || !shotLightboxImage) return;
-  shotLightboxImage.src = button.dataset.shotSrc;
-  shotLightboxImage.alt = button.dataset.shotAlt || '';
+  const images = [...card.querySelectorAll('[data-scenario-screen]')];
+  if (!images.length) images.push(card.querySelector('.shot-card__media > img'));
+  lightboxScreens = images.map((img) => ({src:img.src, alt:img.alt, ratio:(img.naturalWidth || 780) / (img.naturalHeight || 1688)}));
+  const dots = shotLightboxPagination.querySelector('.shot-scenario__pagination');
+  dots.replaceChildren();
+  shotLightboxPagination.hidden = images.length < 2;
+  if (images.length > 1) images.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', `Экран ${index + 1} из ${images.length}`);
+    dot.addEventListener('click', () => setLightboxScreen(index));
+    dots.append(dot);
+  });
+  setLightboxScreen(Math.max(0, images.findIndex((img) => img.classList.contains('is-active'))));
   shotLightbox.showModal();
-}));
+};
+
+const chooseLightboxScreen = (event) => {
+  if (lightboxScreens.length < 2 || event.target.closest('button')) return;
+  const bounds = shotLightboxMedia.getBoundingClientRect();
+  const progress = Math.max(0, Math.min(.999, (event.clientX - bounds.left) / bounds.width));
+  setLightboxScreen(Math.floor(progress * lightboxScreens.length));
+};
+shotLightboxMedia?.addEventListener('pointermove', (event) => {
+  if (event.pointerType === 'mouse' || event.pointerType === 'pen') chooseLightboxScreen(event);
+});
+shotLightboxMedia?.addEventListener('pointerdown', (event) => {
+  if (event.pointerType === 'touch') chooseLightboxScreen(event);
+});
+shotLightbox?.addEventListener('keydown', (event) => {
+  if (lightboxScreens.length < 2 || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
+  event.preventDefault();
+  setLightboxScreen(lightboxScreenIndex + (event.key === 'ArrowRight' ? 1 : -1));
+});
+
+const setScenarioScreen = (card, requestedIndex) => {
+  const screens = [...card.querySelectorAll('[data-scenario-screen]')];
+  const dots = [...card.querySelectorAll('[data-scenario-dot]')];
+  if (!screens.length) return;
+
+  const index = Math.max(0, Math.min(screens.length - 1, requestedIndex));
+  screens.forEach((screen, screenIndex) => {
+    const isActive = screenIndex === index;
+    screen.classList.toggle('is-active', isActive);
+    screen.setAttribute('aria-hidden', String(!isActive));
+  });
+  dots.forEach((dot, dotIndex) => {
+    const isActive = dotIndex === index;
+    dot.classList.toggle('is-active', isActive);
+    dot.setAttribute('aria-pressed', String(isActive));
+  });
+
+  const action = card.querySelector('[data-shot-src]');
+  if (action) {
+    action.dataset.shotSrc = screens[index].getAttribute('src') || '';
+    action.dataset.shotAlt = screens[index].alt || '';
+  }
+};
+
+document.querySelectorAll('[data-shot-scenario]').forEach((card) => {
+  const chooseByPointer = (event) => {
+    if (event.target.closest('button')) return;
+    const bounds = card.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(.999, (event.clientX - bounds.left) / bounds.width));
+    setScenarioScreen(card, Math.floor(progress * 3));
+  };
+
+  card.addEventListener('pointermove', (event) => {
+    if (event.pointerType === 'mouse' || event.pointerType === 'pen') chooseByPointer(event);
+  });
+  card.querySelectorAll('[data-scenario-dot]').forEach((dot) => {
+    dot.addEventListener('click', () => setScenarioScreen(card, Number(dot.dataset.scenarioDot)));
+  });
+  setScenarioScreen(card, 0);
+});
+
+document.querySelectorAll('.shot-card').forEach((card) => {
+  card.querySelector('[data-shot-src]')?.addEventListener('click', () => openShot(card));
+  card.addEventListener('click', (event) => {
+    if (mobileShots.matches && !event.target.closest('button,a')) openShot(card);
+  });
+  const updateCardFocus = () => {
+    if (mobileShots.matches) card.setAttribute('tabindex', '0');
+    else card.removeAttribute('tabindex');
+  };
+  updateCardFocus();
+  mobileShots.addEventListener('change', updateCardFocus);
+  card.addEventListener('keydown', (event) => {
+    if (mobileShots.matches && event.target === card && ['Enter',' '].includes(event.key)) {
+      event.preventDefault();
+      openShot(card);
+    }
+  });
+});
 shotLightbox?.querySelector('.shot-lightbox__close')?.addEventListener('click', () => shotLightbox.close());
 shotLightbox?.addEventListener('click', (event) => {
   if (event.target === shotLightbox) shotLightbox.close();
