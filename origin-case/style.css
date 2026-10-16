@@ -145,6 +145,19 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .case-switcher{height:56px;padding:7px;gap:3px}
 }
 
+/* Keep both case tabs inside the switcher at every responsive width. */
+@media(max-width:900px){
+  .topbar{grid-template-columns:28px minmax(176px,280px) minmax(0,1fr);gap:clamp(7px,1.4vw,12px)}
+  .case-switcher{box-sizing:border-box;justify-self:stretch;width:100%;min-width:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .case-switcher a{min-width:0;padding-inline:clamp(7px,1.6vw,12px);font-size:clamp(11px,1.9vw,14px);overflow:hidden;text-overflow:ellipsis}
+}
+@media(max-width:520px){
+  .topbar{grid-template-columns:26px minmax(164px,208px) minmax(0,1fr);gap:7px;padding-inline:9px}
+  .case-switcher{height:46px;padding:4px}
+  .case-switcher a{padding-inline:6px;font-size:11px}
+  .case-socials{gap:6px;font-size:10px}
+}
+
 /* Updated case heroes, stronger project names and full music controls. */
 .case-switcher a{font-weight:800}
 .hero h1{font-weight:800}
@@ -803,7 +816,7 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .experiment .events{grid-column:1/-1;grid-template-columns:repeat(3,1fr);margin:8px 0 0;padding-top:26px;border-top:1px solid rgba(255,255,255,.14)}
 .experiment .events li{display:flex;align-items:center;gap:10px;padding:17px;background:rgba(255,255,255,.08);color:#fff}
 .experiment .events li:before{display:none}
-.experiment .events img{width:22px;height:22px;filter:brightness(0) invert(1);opacity:.78}
+.experiment .events img{order:2;width:22px;height:22px;margin-left:auto;filter:brightness(0) invert(1);opacity:.78}
 .business-model .block-heading{margin-bottom:28px}
 .business-model-grid article{min-height:300px}
 .business-model-grid article:nth-child(4){background:var(--success);color:#fff}
@@ -909,3 +922,66 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .usability-scores{grid-template-columns:1fr}
   .activation-funnel{grid-template-columns:1fr 1fr}
 }
+
+/* Match the main-page artwork parallax strength in both case heroes. */
+.origin-page .hero-media .hero-art,
+.b2b-page .hero-media .hero-art{
+  --hero-base-x:0%;
+  --hero-tilt-x:0deg;
+  --hero-tilt-y:0deg;
+  --hero-shift-x:0px;
+  --hero-shift-y:0px;
+  --hero-scale:1;
+  transform:translateX(var(--hero-base-x)) perspective(900px) rotateX(var(--hero-tilt-x)) rotateY(var(--hero-tilt-y)) translate3d(var(--hero-shift-x),var(--hero-shift-y),0) scale(var(--hero-scale)) !important;
+  transform-origin:center;
+  backface-visibility:hidden;
+  will-change:transform;
+  transition:transform .3s cubic-bezier(.2,.75,.25,1);
+}
+.hero-card.is-parallax-active .hero-art{transition-duration:.08s}
+@media(max-width:900px){
+  .origin-page .hero-media .hero-art,
+  .b2b-page .hero-media .hero-art{--hero-base-x:-50%}
+}
+@media(prefers-reduced-motion:reduce){
+  .origin-page .hero-media .hero-art,
+  .b2b-page .hero-media .hero-art{transition:none}
+}
+
+/* Full-width case illustrations supplied with the project. */
+.section-illustration{
+  width:100%;
+  margin:36px 0 0;
+  border-radius:28px;
+  overflow:hidden;
+  background:#fff;
+  cursor:zoom-in;
+}
+.section-illustration img{display:block;width:100%;height:auto;object-fit:contain}
+#result .section-illustration{margin-bottom:28px}
+@media(max-width:620px){
+  .section-illustration{margin-top:24px;border-radius:20px}
+  #result .section-illustration{margin-bottom:20px}
+}
+
+/* Keep back navigation and case tabs together below desktop widths. */
+.topbar-left{display:contents}
+@media(max-width:1100px){
+  .topbar{display:flex;grid-template-columns:none;gap:18px}
+  .topbar-left{display:flex;align-items:center;gap:16px;min-width:0}
+  .topbar-left .back-link{flex:0 0 auto}
+  .topbar-left .case-switcher{flex:0 1 340px;width:min(340px,46vw);min-width:0}
+  .case-socials{margin-left:auto;flex:0 0 auto}
+}
+@media(max-width:760px){
+  .topbar{gap:10px}
+  .topbar-left{flex:1 1 auto;gap:10px}
+  .topbar-left .case-switcher{flex:1 1 auto;width:auto;max-width:280px}
+}
+
+/* Origin illustrations: framed during the story, unframed in the final result. */
+.origin-page #discovery .section-illustration,
+.origin-page #flow .section-illustration{padding:16px;background:#fff}
+.origin-page #discovery .section-illustration img,
+.origin-page #flow .section-illustration img{border-radius:18px}
+.origin-page #result .section-illustration{padding:0;background:transparent}

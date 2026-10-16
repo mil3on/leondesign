@@ -1,4 +1,4 @@
-@import url("../origin-case/style.css?v=30");
+@import url("../origin-case/style.css?v=34");
 
 :root{--blue:#eb0015;--blue-dark:#a90010;--success:#239447;--success-soft:#e7f5eb}
 .b2b-page{overflow-x:clip}
@@ -70,12 +70,13 @@
 .result-trophy{position:absolute;z-index:7;top:22px;right:22px;display:grid;place-items:center;width:76px;height:76px;border-radius:24px;background:linear-gradient(145deg,#ffce3a,#ff7b00);box-shadow:0 14px 34px rgba(111,34,0,.3);pointer-events:none}
 .result-trophy svg{width:44px;height:44px;overflow:visible;fill:#fff3b5;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
 .b2b-page .result-hero .inspect-link{right:14px;bottom:60px}
+.context-browser-illustration{margin-top:28px}
 
 @media(min-width:1001px) and (max-width:1200px){
   .b2b-page .hero-media .hero-art{right:-22%;height:126%}
 }
 
-@media(min-width:621px) and (max-width:1200px){
+@media(max-width:1200px){
   .mobile-gallery{padding:18px 0 74px}
   .mobile-strip{display:flex;gap:14px;padding:0 max(24px,calc((100vw - 246px)/2));overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:none}
   .mobile-strip::-webkit-scrollbar{display:none}
@@ -103,11 +104,28 @@
   .b2b-page .feature-cards .soft-card h3{margin:26px 0 10px}
   .b2b-page .hero-card::after{height:68%;background:linear-gradient(180deg,rgba(10,10,12,.82) 0%,rgba(10,10,12,.64) 62%,rgba(10,10,12,0) 100%)}
   .b2b-page .research-card h3{margin-top:38px}
-  .mobile-gallery{margin-top:28px;overflow:visible;background:transparent}
-  .mobile-strip{display:grid;grid-template-columns:1fr;gap:12px;padding:0 10px;background:transparent;overflow:visible}
-  .mobile-strip figure{width:100%;border-radius:20px;background:#171717}
-  .mobile-carousel-controls{display:none}
+  .mobile-gallery{margin-top:28px;padding:14px 0 72px;overflow:hidden;background:#171717}
+  .mobile-strip{display:flex;grid-template-columns:none;gap:12px;padding:0 max(14px,calc((100vw - min(82vw,320px))/2));background:#171717;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;overscroll-behavior-inline:contain;scrollbar-width:none}
+  .mobile-strip figure{flex:0 0 min(82vw,320px);width:auto;border-radius:18px;background:#fff;scroll-snap-align:center}
+  .mobile-strip::-webkit-scrollbar{display:none}
+  .mobile-carousel-controls{display:flex;bottom:14px}
   .result-trophy{top:14px;right:14px;width:60px;height:60px;border-radius:19px}
   .result-trophy svg{width:36px;height:36px}
   .b2b-page .result-hero .inspect-link{right:10px;bottom:54px}
+}
+
+/* Keep the adaptive gallery inside the same page-shell bounds. */
+.mobile-gallery{
+  width:100%;
+  margin:36px 0 0;
+  border-radius:28px;
+}
+@media(max-width:1200px){
+  .mobile-carousel-controls{gap:8px;padding:0;background:transparent}
+  .mobile-carousel-dots{gap:4px}
+  .mobile-carousel-dots button{width:4px;height:4px}
+  .mobile-carousel-dots button.is-active{width:16px}
+}
+@media(max-width:620px){
+  .mobile-gallery{margin-top:28px;border-radius:20px}
 }

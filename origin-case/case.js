@@ -1,6 +1,43 @@
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revealItems = document.querySelectorAll('.reveal');
 
+const heroCard = document.querySelector('.hero-card');
+const heroArt = heroCard?.querySelector('.hero-art');
+const canParallaxHero = heroArt && !reducedMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (canParallaxHero) {
+  let heroFrame = 0;
+  let heroX = 0;
+  let heroY = 0;
+
+  const renderHeroParallax = () => {
+    heroArt.style.setProperty('--hero-tilt-x', `${(-heroY * 2.6).toFixed(2)}deg`);
+    heroArt.style.setProperty('--hero-tilt-y', `${(heroX * 3.2).toFixed(2)}deg`);
+    heroArt.style.setProperty('--hero-shift-x', `${(heroX * 5).toFixed(2)}px`);
+    heroArt.style.setProperty('--hero-shift-y', `${(heroY * 4).toFixed(2)}px`);
+    heroArt.style.setProperty('--hero-scale', '1.012');
+    heroFrame = 0;
+  };
+
+  heroCard.addEventListener('pointermove', (event) => {
+    const bounds = heroCard.getBoundingClientRect();
+    heroX = ((event.clientX - bounds.left) / bounds.width - .5) * 2;
+    heroY = ((event.clientY - bounds.top) / bounds.height - .5) * 2;
+    heroCard.classList.add('is-parallax-active');
+    if (!heroFrame) heroFrame = requestAnimationFrame(renderHeroParallax);
+  });
+
+  heroCard.addEventListener('pointerleave', () => {
+    if (heroFrame) cancelAnimationFrame(heroFrame);
+    heroFrame = 0;
+    heroCard.classList.remove('is-parallax-active');
+    heroArt.style.setProperty('--hero-tilt-x', '0deg');
+    heroArt.style.setProperty('--hero-tilt-y', '0deg');
+    heroArt.style.setProperty('--hero-shift-x', '0px');
+    heroArt.style.setProperty('--hero-shift-y', '0px');
+    heroArt.style.setProperty('--hero-scale', '1');
+  });
+}
+
 if (reducedMotion || !('IntersectionObserver' in window)) {
   revealItems.forEach((item) => item.classList.add('is-visible'));
 } else {
@@ -125,7 +162,7 @@ if (mobileGallery) {
   next.addEventListener('click', () => updateGallery(activeSlide + 1));
   dots.forEach((dot, index) => dot.addEventListener('click', () => updateGallery(index)));
   strip.addEventListener('scroll', () => {
-    if (galleryTicking || window.innerWidth <= 620 || window.innerWidth > 1200) return;
+    if (galleryTicking || window.innerWidth > 1200) return;
     galleryTicking = true;
     requestAnimationFrame(() => {
       const center = strip.scrollLeft + strip.clientWidth / 2;

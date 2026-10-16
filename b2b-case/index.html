@@ -25,7 +25,7 @@
   <title>B2B-кабинет менеджера — продуктовый кейс</title>
   <link rel="icon" type="image/png" href="../public/about/favicon.png" />
   <link rel="preload" href="./assets/hero-b2b-dashboard-v2.png" as="image" type="image/png" fetchpriority="high" />
-  <link rel="stylesheet" href="./style.css?v=22" />
+  <link rel="stylesheet" href="./style.css?v=25" />
 
   <script defer src="../src/cookie-consent.js?v=1"></script>
   
@@ -34,12 +34,14 @@
   <div class="scroll-progress" aria-hidden="true"><span></span></div>
 
   <header class="topbar">
-    <a class="back-link" href="../index.html" aria-label="На главную страницу"><span>←</span> На главную</a>
-    <nav class="case-switcher" aria-label="Переключение кейсов">
-      <a href="../origin-case/">Origin</a>
-      <a class="active" href="./" aria-current="page">B2B кабинет</a>
-      <span class="case-track"><i></i></span>
-    </nav>
+    <div class="topbar-left">
+      <a class="back-link" href="../index.html" aria-label="На главную страницу"><span>←</span> На главную</a>
+      <nav class="case-switcher" aria-label="Переключение кейсов">
+        <a href="../origin-case/">Origin</a>
+        <a class="active" href="./" aria-current="page">B2B кабинет</a>
+        <span class="case-track"><i></i></span>
+      </nav>
+    </div>
     <div class="case-socials" aria-label="Портфолио на внешних площадках">
       <a href="https://dribbble.com/mileon" target="_blank" rel="noopener">Dribbble</a>
       <a href="https://www.behance.net/a8f58056" target="_blank" rel="noopener">Behance</a>
@@ -101,6 +103,9 @@
           <article class="research-card reveal"><em>02</em><h3>JTBD по брифу</h3><p>Помогли связать проблемы процесса с задачами менеджера и ценностью.</p></article>
           <article class="research-card reveal"><em>03</em><h3>3 дня на решение</h3><p>Мы сфокусировались на решении через JTBD, без глубоких исследований и тестов.</p></article>
         </div>
+        <figure class="section-illustration context-browser-illustration reveal" data-zoom>
+          <img src="./assets/b2b-in-browser.png" alt="B2B-кабинет менеджера в браузере" loading="lazy" decoding="async" />
+        </figure>
       </div>
     </section>
 
@@ -234,6 +239,6 @@
   <dialog class="image-modal" aria-label="Просмотр изображения"><button type="button" aria-label="Закрыть изображение">×</button><img src="" alt="" /></dialog>
   <script src="../src/typography.js?v=1"></script>
   <script src="../src/audio.js?v=14"></script>
-  <script src="../origin-case/case.js?v=3"></script>
+  <script src="../origin-case/case.js?v=5"></script>
 </body>
 </html>
