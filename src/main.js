@@ -400,6 +400,14 @@ const mobileShots = window.matchMedia('(max-width:720px), (hover:none)');
 let lightboxScreens = [];
 let lightboxScreenIndex = 0;
 
+shotLightboxImage?.addEventListener('load', () => {
+  if (!shotLightboxImage.naturalWidth || !shotLightboxImage.naturalHeight) return;
+  const ratio = shotLightboxImage.naturalWidth / shotLightboxImage.naturalHeight;
+  shotLightbox.style.setProperty('--shot-ratio', String(ratio));
+  const screen = lightboxScreens[lightboxScreenIndex];
+  if (screen && screen.src === shotLightboxImage.src) screen.ratio = ratio;
+});
+
 const setLightboxScreen = (index) => {
   if (!shotLightboxImage || !lightboxScreens.length) return;
   lightboxScreenIndex = Math.max(0, Math.min(lightboxScreens.length - 1, index));
