@@ -339,10 +339,9 @@ window.addEventListener('load', syncPortfolioClearance, { once: true });
 
 const workTabs = [...document.querySelectorAll('[data-work-tab]')];
 const workPanels = [...document.querySelectorAll('[data-work-panel]')];
-workTabs.forEach((tab) => tab.addEventListener('click', () => {
-  const selected = tab.dataset.workTab;
+const activateWorkTab = (selected) => {
   workTabs.forEach((item) => {
-    const active = item === tab;
+    const active = item.dataset.workTab === selected;
     item.classList.toggle('is-active', active);
     item.setAttribute('aria-selected', String(active));
   });
@@ -350,7 +349,12 @@ workTabs.forEach((tab) => tab.addEventListener('click', () => {
     panel.hidden = panel.dataset.workPanel !== selected;
   });
   requestAnimationFrame(syncPortfolioClearance);
-}));
+};
+workTabs.forEach((tab) => tab.addEventListener('click', () => activateWorkTab(tab.dataset.workTab)));
+if (window.location.hash === '#shots') {
+  activateWorkTab('shots');
+  requestAnimationFrame(() => portfolioPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+}
 requestAnimationFrame(syncPortfolioClearance);
 
 // Gentle pointer parallax for portfolio-card artwork.
