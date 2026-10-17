@@ -987,3 +987,39 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .origin-page #discovery .section-illustration img,
 .origin-page #flow .section-illustration img{border-radius:18px}
 .origin-page #result .section-illustration{padding:0;background:transparent}
+
+/* Final case sections use the full page-shell width below their labels. */
+.project-meta .meta-card dt{font-size:14px;font-weight:700}
+.final-section{grid-template-columns:minmax(0,1fr);gap:24px}
+.final-section .section-label{position:static;top:auto}
+.final-section .section-body{width:100%;min-width:0}
+.final-section .section-head{margin-bottom:40px}
+.final-section .result-gallery{max-width:none}
+
+/* Compact closing actions, matching the scale of controls on the home page. */
+.result-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px}
+.result-actions .prototype-link{min-height:62px;padding:0 22px;border-radius:999px;font-size:17px;letter-spacing:-.02em}
+.result-actions .prototype-link b{font-size:24px}
+.result-actions .prototype-link--secondary{margin-top:0}
+.final-section .case-contact-link{
+  width:max-content;
+  min-height:50px;
+  margin:24px auto 0;
+  padding:0 18px 0 24px;
+  border-radius:999px;
+  background:transparent;
+  gap:12px;
+  font-family:"Manrope",sans-serif;
+  font-size:14px;
+  font-weight:600;
+}
+.final-section .case-contact-link img{width:24px;height:24px}
+.final-section .case-contact-link:hover{background:rgba(255,255,255,.62);color:var(--ink);transform:none}
+
+@media(max-width:620px){
+  .final-section{gap:18px}
+  .final-section .section-head{margin-bottom:30px}
+  .result-actions{grid-template-columns:1fr;gap:8px;margin-top:20px}
+  .result-actions .prototype-link{min-height:54px;padding:0 18px;font-size:15px}
+  .final-section .case-contact-link{min-height:46px;margin-top:20px;padding:0 14px 0 18px;font-size:13px}
+}
