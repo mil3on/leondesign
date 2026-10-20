@@ -116,9 +116,17 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=3', import.meta.url).href, (gltf)
   } else {
     normalized.position.y = -2.7;
   }
-  planetStage.classList.add('is-loaded');
   planetRenderer.render(planetScene, planetCamera);
-  window.dispatchEvent(new CustomEvent('portfolio:planet-ready'));
+  // Ждём не только загрузки GLB, но и фактической отрисовки первого кадра.
+  // Второй animation frame гарантирует, что canvas успел попасть в композицию
+  // страницы до того, как глобальный предзагрузчик начнёт исчезать.
+  requestAnimationFrame(() => {
+    planetRenderer.render(planetScene, planetCamera);
+    planetStage.classList.add('is-loaded');
+    requestAnimationFrame(() => {
+      window.dispatchEvent(new CustomEvent('portfolio:planet-ready'));
+    });
+  });
 }, (event) => {
   if (!event.total) return;
   const progress = Math.min(99, Math.max(0, Math.round(event.loaded / event.total * 100)));

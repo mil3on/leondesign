@@ -27,16 +27,14 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     update(18, 'Загружаю мир…');
-    // Не блокируем интерфейс из-за медленной сети или слабого WebGL.
-    window.setTimeout(finish, 1600);
   });
   window.addEventListener('portfolio:planet-progress', (event) => {
     const modelProgress = Number(event.detail?.progress) || 0;
     update(22 + modelProgress * .72, 'Загружаю мир…');
   });
   window.addEventListener('portfolio:planet-ready', finish, { once: true });
-  window.addEventListener('portfolio:planet-error', finish, { once: true });
-
-  // Страница должна оставаться доступной даже при медленном соединении или ошибке WebGL.
-  window.setTimeout(finish, 5000);
+  window.addEventListener('portfolio:planet-error', () => {
+    update(100, 'Не удалось загрузить мир');
+    window.setTimeout(finish, 900);
+  }, { once: true });
 })();
