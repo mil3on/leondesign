@@ -76,6 +76,29 @@ let trackedHand = null;
 const planetWorld = new THREE.Group();
 planetScene.add(planetWorld);
 
+// Orbit the view around the complete scene; never rotate animated model nodes.
+const planetViewRig = new THREE.Group();
+planetViewRig.position.set(0, -1.1, 0);
+planetScene.add(planetViewRig);
+planetViewRig.attach(planetCamera);
+const planetParallaxMedia = matchMedia('(min-width:761px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+const planetParallaxTarget = new THREE.Vector2();
+const resetPlanetParallax = () => planetParallaxTarget.set(0, 0);
+window.addEventListener('pointermove', (event) => {
+  if (!planetParallaxMedia.matches || event.pointerType !== 'mouse' || document.querySelector('dialog[open]')) {
+    resetPlanetParallax();
+    return;
+  }
+  planetParallaxTarget.set(
+    THREE.MathUtils.clamp(event.clientY / innerHeight * 2 - 1, -1, 1) * .025,
+    THREE.MathUtils.clamp(event.clientX / innerWidth * 2 - 1, -1, 1) * -.045,
+  );
+}, { passive: true });
+document.documentElement.addEventListener('pointerleave', resetPlanetParallax);
+window.addEventListener('blur', resetPlanetParallax);
+window.addEventListener('scroll', resetPlanetParallax, { passive: true });
+planetParallaxMedia.addEventListener('change', resetPlanetParallax);
+
 gltfLoader.load(new URL('../public/FINAL.glb?v=3', import.meta.url).href, (gltf) => {
   const model = gltf.scene;
   const normalized = new THREE.Group();
@@ -259,6 +282,9 @@ function animate() {
   const pageVisible = document.visibilityState === 'visible';
   if (pageVisible && planetVisible) {
     planetMixer?.update(delta);
+    planetViewRig.rotation.x = THREE.MathUtils.damp(planetViewRig.rotation.x, -planetParallaxTarget.x, 5, delta);
+    planetViewRig.rotation.y = THREE.MathUtils.damp(planetViewRig.rotation.y, -planetParallaxTarget.y, 5, delta);
+    planetViewRig.updateMatrixWorld(true);
     placeHotspot();
     planetRenderer.render(planetScene, planetCamera);
   }
