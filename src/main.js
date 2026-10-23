@@ -363,6 +363,14 @@ const syncPortfolioClearance = () => {
   const contactTop = contactSection.getBoundingClientRect().top;
   const characterTop = leonStage?.getBoundingClientRect().top ?? contactTop;
   const characterLift = Math.max(0, contactTop - characterTop);
+  if (matchMedia('(max-width:760px)').matches) {
+    const bottom = portfolioPanel.offsetTop + portfolioPanel.offsetHeight;
+    const baseline = parseFloat(getComputedStyle(worldSection).getPropertyValue('--world-min-height')) || 0;
+    const gap = Math.max(baseline - bottom, 40 + characterLift);
+    worldSection.style.minHeight = Math.ceil(bottom + gap / 2) + 'px';
+  } else {
+    worldSection.style.removeProperty('min-height');
+  }
   const requiredHeight = Math.ceil(portfolioPanel.offsetTop + portfolioPanel.offsetHeight + 40 + characterLift);
   worldSection.style.setProperty('--portfolio-clearance-height', `${requiredHeight}px`);
 };
@@ -373,6 +381,28 @@ window.addEventListener('load', syncPortfolioClearance, { once: true });
 
 const workTabs = [...document.querySelectorAll('[data-work-tab]')];
 const workPanels = [...document.querySelectorAll('[data-work-panel]')];
+const syncMobileConceptHeight = () => {
+  const cases = document.querySelector('[data-work-panel="cases"]');
+  const shots = document.querySelector('[data-work-panel="shots"]');
+  if (!cases || !shots || !portfolioPanel) return;
+  if (!matchMedia('(max-width:760px)').matches) {
+    shots.style.removeProperty('--cases-panel-height');
+    return;
+  }
+  const savedStyle = cases.style.cssText;
+  if (cases.hidden) {
+    const panelStyle = getComputedStyle(portfolioPanel);
+    const width = portfolioPanel.clientWidth - parseFloat(panelStyle.paddingLeft) - parseFloat(panelStyle.paddingRight);
+    Object.assign(cases.style, {display:'block', position:'absolute', visibility:'hidden', pointerEvents:'none', width:width + 'px'});
+  }
+  const height = cases.getBoundingClientRect().height;
+  cases.style.cssText = savedStyle;
+  if (height) shots.style.setProperty('--cases-panel-height', height + 'px');
+};
+window.addEventListener('resize', syncMobileConceptHeight, {passive:true});
+window.addEventListener('load', syncMobileConceptHeight, {once:true});
+document.fonts.ready.then(syncMobileConceptHeight);
+requestAnimationFrame(syncMobileConceptHeight);
 const activateWorkTab = (selected) => {
   workTabs.forEach((item) => {
     const active = item.dataset.workTab === selected;
@@ -437,6 +467,28 @@ const shotLightboxPagination = shotLightbox?.querySelector('.shot-lightbox__pagi
 const mobileShots = window.matchMedia('(max-width:720px), (hover:none)');
 let lightboxScreens = [];
 let lightboxScreenIndex = 0;
+const shotCards = [...document.querySelectorAll('.shot-card')];
+let lightboxCardIndex = 0;
+let lightboxGesture = null;
+const shotSlider = document.createElement('nav');
+shotSlider.className = 'shot-lightbox__slider';
+shotSlider.setAttribute('aria-label', 'UI концепты');
+const shotThumbnails = shotCards.map((card, index) => {
+  const source = card.querySelector('.shot-card__media > img');
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.setAttribute('aria-label', source.alt || ('Дизайн ' + (index + 1)));
+  const img = document.createElement('img');
+  img.src = source.src; img.alt = ''; img.draggable = false;
+  button.append(img);
+  button.addEventListener('click', () => openShot(card));
+  shotSlider.append(button);
+  return button;
+});
+shotLightbox?.querySelector('.shot-lightbox__frame')?.append(shotSlider);
+const changeShot = (direction) => {
+  if (shotCards.length) openShot(shotCards[(lightboxCardIndex + direction + shotCards.length) % shotCards.length]);
+};
 
 shotLightboxImage?.addEventListener('load', () => {
   if (!shotLightboxImage.naturalWidth || !shotLightboxImage.naturalHeight) return;
@@ -461,6 +513,16 @@ const setLightboxScreen = (index) => {
 
 const openShot = (card) => {
   if (!shotLightbox || !shotLightboxImage) return;
+  lightboxCardIndex = shotCards.indexOf(card);
+  shotThumbnails.forEach((button, index) => {
+    button.classList.toggle('is-active', index === lightboxCardIndex);
+    button.setAttribute('aria-pressed', String(index === lightboxCardIndex));
+  });
+  requestAnimationFrame(() => {
+    const active = shotThumbnails[lightboxCardIndex];
+    shotSlider.scrollTo({left:active.offsetLeft - (shotSlider.clientWidth - active.offsetWidth) / 2, behavior:'smooth'});
+  });
+  lightboxGesture = null;
   const images = [...card.querySelectorAll('[data-scenario-screen]')];
   if (!images.length) images.push(card.querySelector('.shot-card__media > img'));
   lightboxScreens = images.map((img) => ({src:img.src, alt:img.alt, ratio:(img.naturalWidth || 780) / (img.naturalHeight || 1688)}));
@@ -475,21 +537,29 @@ const openShot = (card) => {
     dots.append(dot);
   });
   setLightboxScreen(Math.max(0, images.findIndex((img) => img.classList.contains('is-active'))));
-  shotLightbox.showModal();
+  if (!shotLightbox.open) shotLightbox.showModal();
 };
 
-const chooseLightboxScreen = (event) => {
-  if (lightboxScreens.length < 2 || event.target.closest('button')) return;
-  const bounds = shotLightboxMedia.getBoundingClientRect();
-  const progress = Math.max(0, Math.min(.999, (event.clientX - bounds.left) / bounds.width));
-  setLightboxScreen(Math.floor(progress * lightboxScreens.length));
-};
-shotLightboxMedia?.addEventListener('pointermove', (event) => {
-  if (event.pointerType === 'mouse' || event.pointerType === 'pen') chooseLightboxScreen(event);
-});
 shotLightboxMedia?.addEventListener('pointerdown', (event) => {
-  if (event.pointerType === 'touch') chooseLightboxScreen(event);
+  if (!event.isPrimary || event.button !== 0 || event.target.closest('button')) return;
+  lightboxGesture = { id: event.pointerId, x: event.clientX, y: event.clientY };
+  shotLightboxMedia.setPointerCapture(event.pointerId);
 });
+shotLightboxMedia?.addEventListener('pointerup', (event) => {
+  if (!lightboxGesture || lightboxGesture.id !== event.pointerId) return;
+  const dx = event.clientX - lightboxGesture.x;
+  const dy = event.clientY - lightboxGesture.y;
+  lightboxGesture = null;
+  if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy) * 1.3) {
+    changeShot(dx < 0 ? 1 : -1);
+  } else if (Math.hypot(dx, dy) < 12 && lightboxScreens.length > 1) {
+    const bounds = shotLightboxMedia.getBoundingClientRect();
+    const direction = event.clientX < bounds.left + bounds.width / 2 ? -1 : 1;
+    setLightboxScreen((lightboxScreenIndex + direction + lightboxScreens.length) % lightboxScreens.length);
+  }
+});
+shotLightboxMedia?.addEventListener('pointercancel', () => { lightboxGesture = null; });
+shotLightbox?.addEventListener('close', () => { lightboxGesture = null; });
 shotLightbox?.addEventListener('keydown', (event) => {
   if (lightboxScreens.length < 2 || !['ArrowLeft','ArrowRight'].includes(event.key)) return;
   event.preventDefault();

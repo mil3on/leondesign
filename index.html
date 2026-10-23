@@ -31,8 +31,8 @@
     <style>
       .site-loader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#fff;color:#090909;transition:opacity .75s ease,visibility .75s ease}.site-loader__inner{position:relative;width:min(360px,92vw);aspect-ratio:1}.site-loader__orbit{position:absolute;inset:0;transform-origin:50% 50%}.site-loader__dot{position:absolute;top:50%;left:50%;width:var(--size);height:var(--size);margin:calc(var(--size)/-2);transform:translate(var(--x),var(--y));transition:transform .78s cubic-bezier(.4,0,.15,1)}.site-loader__dot i{display:block;width:100%;height:100%;border-radius:50%;background:#050505;animation:loader-dot-float var(--speed) ease-in-out var(--delay) infinite alternate}.site-loader__dot:nth-child(1){--size:9px;--x:-118px;--y:-80px;--speed:1.7s;--delay:-.5s}.site-loader__dot:nth-child(2){--size:7px;--x:-64px;--y:-116px;--speed:2.2s;--delay:-1.1s}.site-loader__dot:nth-child(3){--size:13px;--x:6px;--y:-78px;--speed:1.9s;--delay:-.2s}.site-loader__dot:nth-child(4){--size:16px;--x:112px;--y:-94px;--speed:2.4s;--delay:-1.6s}.site-loader__dot:nth-child(5){--size:12px;--x:92px;--y:17px;--speed:1.8s;--delay:-.8s}.site-loader__dot:nth-child(6){--size:11px;--x:93px;--y:104px;--speed:2.1s;--delay:-1.4s}.site-loader__dot:nth-child(7){--size:7px;--x:10px;--y:139px;--speed:1.6s;--delay:-.3s}.site-loader__dot:nth-child(8){--size:15px;--x:-91px;--y:113px;--speed:2.3s;--delay:-1.8s}.site-loader__dot:nth-child(9){--size:9px;--x:-137px;--y:30px;--speed:1.9s;--delay:-.9s}.site-loader__dot:nth-child(10){--size:7px;--x:-151px;--y:-17px;--speed:2.5s;--delay:-1.2s}.site-loader__copy{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center}.site-loader__label{font:400 clamp(20px,2.2vw,28px)/1.2 Manrope,Arial,sans-serif;transition:opacity .3s ease,transform .3s ease}.site-loader__value{font:800 clamp(25px,2.6vw,34px)/1 Machina,Manrope,Arial,sans-serif;letter-spacing:-.04em}.site-loader.is-complete .site-loader__copy{gap:0}.site-loader.is-complete .site-loader__label{position:absolute;opacity:0;transform:translateY(-5px)}.site-loader.is-complete .site-loader__orbit{animation:loader-orbit-spin 1.35s linear .72s infinite}.site-loader.is-complete .site-loader__dot:nth-child(1){transform:rotate(0deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(2){transform:rotate(36deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(3){transform:rotate(72deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(4){transform:rotate(108deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(5){transform:rotate(144deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(6){transform:rotate(180deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(7){transform:rotate(216deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(8){transform:rotate(252deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(9){transform:rotate(288deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot:nth-child(10){transform:rotate(324deg) translateY(-86px)}.site-loader.is-complete .site-loader__dot i{animation:none}.site-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}.js body.is-loading{overflow:hidden}@keyframes loader-dot-float{from{transform:translate(-8px,-5px)}to{transform:translate(9px,7px)}}@keyframes loader-orbit-spin{to{transform:rotate(360deg)}}@media(max-width:520px){.site-loader__inner{width:min(310px,92vw)}.site-loader.is-complete .site-loader__dot{--loader-radius:72px}.site-loader.is-complete .site-loader__dot:nth-child(n){transform:rotate(calc((var(--dot-index,1) - 1)*36deg)) translateY(-72px)}}@media(prefers-reduced-motion:reduce){.site-loader,.site-loader__dot{transition:none}.site-loader__dot i,.site-loader.is-complete .site-loader__orbit{animation:none}}
     </style>
-    <script defer src="./src/loader.js?v=4"></script>
-    <link rel="stylesheet" href="./src/style.css?v=89" />
+    <script defer src="./src/loader.js?v=8"></script>
+    <link rel="stylesheet" href="./src/style.css?v=96" />
     <title>Леонид Зуев — продуктовый дизайнер</title>
 
     <script defer src="./src/cookie-consent.js?v=1"></script>
@@ -114,11 +114,11 @@
           <div class="portfolio-content" id="portfolio-cases" role="tabpanel" aria-labelledby="portfolio-cases-tab" data-work-panel="cases">
           <div class="work-grid">
             <a class="work-card work-card--origin reveal" href="./origin-case/">
-              <div class="tags"><span>MVP</span><span>Product</span><span>B2C</span><span>Discovery</span></div><h3>Пет-проект | Origin</h3><p>Пространство для достижения целей и поддержания мотивации</p>
+              <div class="tags"><span>Mobile app</span><span>B2C</span><span>Discovery</span></div><h3>Пет-проект | Origin</h3><p>Пространство для достижения целей и поддержания мотивации</p>
               <img class="card-art card-art--portfolio card-art--origin" src="./public/work/cards/origin.webp?v=3" alt="Интерфейсы и персонажи лайф-трекера Origin" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--b2b reveal" href="./b2b-case/">
-              <div class="tags"><span>Mobile/desktop</span><span>B2B</span><span>SaaS</span></div><h3>Личный кабинет | ДОМ ТН</h3><p>Дэшборд для отслеживания и обработки заявок от клиентов</p>
+              <div class="tags"><span>Product</span><span>B2B/SaaS</span><span>Mobile/desktop</span></div><h3>Личный кабинет | ДОМ ТН</h3><p>Дэшборд для отслеживания и обработки заявок от клиентов</p>
               <img class="card-art card-art--portfolio card-art--b2b" src="./public/work/cards/b2b.webp" alt="Интерфейс кабинета менеджера" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--smu reveal" href="https://www.behance.net/gallery/255621599/UNIVERSITY-LANDING-DESIGN-SMTU-EdTech-UXUI-" target="_blank" rel="noopener">
@@ -126,17 +126,33 @@
               <img class="card-art card-art--portfolio card-art--smu" src="./public/work/cards/smtu.webp?v=3" alt="Макет сайта Санкт-Петербургского морского технического университета на ноутбуке" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--science reveal" href="https://www.behance.net/gallery/221766175/UXUI-redizajn-sajta-nauchnogo-konkursa" target="_blank" rel="noopener">
-              <span class="external-link-icons" aria-hidden="true"><img class="behance-icon" src="./public/icons/behance.png" alt="" /><img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" /></span><div class="tags"><span>Web</span><span>Mobile/desktop</span><span>B2C</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--portfolio card-art--science" src="./public/work/cards/nioktr.webp" alt="Мобильная версия сайта конкурса НИОКТР" loading="lazy" decoding="async" />
+              <span class="external-link-icons" aria-hidden="true"><img class="behance-icon" src="./public/icons/behance.png" alt="" /><img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" /></span><div class="tags"><span>Web</span><span>B2C</span><span>Mobile/desktop</span></div><h3>Сайт | ИТМО НИОКТР</h3><p>Редизайн сайта научного конкурса: от брифа заказчика до прототипа</p><img class="card-art card-art--portfolio card-art--science" src="./public/work/cards/nioktr.webp" alt="Мобильная версия сайта конкурса НИОКТР" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--dragon reveal" href="https://www.behance.net/gallery/247988945/DRAGONTRANS-Logistics-company-Website-design" target="_blank" rel="noopener">
               <span class="external-link-icons" aria-hidden="true"><img class="behance-icon" src="./public/icons/behance.png" alt="" /><img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" /></span><div class="tags"><span>Web</span><span>B2C</span><span>Mobile/desktop</span></div><h3>Сайт | Dragontrans</h3><p>Брендинг и сайт логистической компании с формами и калькулятором</p><img class="card-art card-art--portfolio card-art--dragon" src="./public/work/cards/dragontrans.webp" alt="Сайт Dragontrans на ноутбуке" loading="lazy" decoding="async" />
             </a>
             <a class="work-card work-card--book reveal" href="https://www.behance.net/gallery/218805071/servis-Book-at-home-UXUI-landing" target="_blank" rel="noopener">
-              <span class="external-link-icons" aria-hidden="true"><img class="behance-icon" src="./public/icons/behance.png" alt="" /><img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" /></span><div class="tags"><span>Landing</span><span>Desktop</span><span>B2C</span></div><h3>Лендинг | Book At Home</h3><p>Продуктовый концепт сервиса для подбора и аренды книг по подписке</p><img class="card-art card-art--portfolio card-art--book" src="./public/work/cards/book-at-home.webp" alt="Сайт Book At Home на ноутбуке" loading="lazy" decoding="async" />
+              <span class="external-link-icons" aria-hidden="true"><img class="behance-icon" src="./public/icons/behance.png" alt="" /><img class="external-arrow" src="./public/icons/arrow-top-right.svg" alt="" /></span><div class="tags"><span>Web</span><span>B2C</span><span>Desktop</span></div><h3>Лендинг | Book At Home</h3><p>Продуктовый концепт сервиса для подбора и аренды книг по подписке</p><img class="card-art card-art--portfolio card-art--book" src="./public/work/cards/book-at-home.webp" alt="Сайт Book At Home на ноутбуке" loading="lazy" decoding="async" />
             </a>
           </div>
           </div>
           <div class="portfolio-content shots-panel" id="portfolio-shots" role="tabpanel" aria-labelledby="portfolio-shots-tab" data-work-panel="shots" hidden>
+              <article class="shot-card shot-card--scenario" data-shot-scenario>
+                <figure class="shot-card__media">
+                  <img class="shot-scenario__screen is-active" data-scenario-screen src="./public/work/shots/hokk-flow-home.png" alt="Доставка еды — главная приложения доставки еды" decoding="async" aria-hidden="false" />
+                  <img class="shot-scenario__screen" data-scenario-screen src="./public/work/shots/hokk-flow-meal.png" alt="Доставка еды — выбор азиатского ланча" decoding="async" aria-hidden="true" />
+                  <img class="shot-scenario__screen" data-scenario-screen src="./public/work/shots/hokk-flow-cart.png" alt="Доставка еды — корзина и выбор доставки" decoding="async" aria-hidden="true" />
+                  <div class="shot-scenario__control">
+                    <span class="shot-scenario__badge"><img src="./public/icons/Play_circle.svg" width="24" height="24" alt="" aria-hidden="true" /><span>flow</span></span>
+                    <div class="shot-scenario__pagination" role="group" aria-label="Экраны сценария">
+                      <button class="is-active" type="button" data-scenario-dot="0" aria-label="Экран 1 из 3" aria-pressed="true"></button>
+                      <button type="button" data-scenario-dot="1" aria-label="Экран 2 из 3" aria-pressed="false"></button>
+                      <button type="button" data-scenario-dot="2" aria-label="Экран 3 из 3" aria-pressed="false"></button>
+                    </div>
+                  </div>
+                  <figcaption class="shot-card__overlay"><p>Доставка еды ·<br />Флоу выбора и заказа</p><button class="shot-scenario__open" type="button" aria-label="В сценарий" title="В сценарий" data-shot-src="./public/work/shots/hokk-flow-home.png" data-shot-alt="Доставка еды — главная приложения доставки еды"><img src="./public/icons/Play_circle.svg" width="24" height="24" alt="" aria-hidden="true" /></button></figcaption>
+                </figure>
+              </article>
               <article class="shot-card shot-card--scenario" data-shot-scenario>
                 <figure class="shot-card__media">
                   <img class="shot-scenario__screen is-active" data-scenario-screen src="./public/work/shots/cinema-scenario-movie.png" alt="Экран фильма Человек-паук: Нет пути домой" decoding="async" aria-hidden="false" />
@@ -157,7 +173,7 @@
                 <figure class="shot-card__media"><img src="./public/work/shots/music-player-lyrics-v2.png" alt="Экран музыкального плеера с текстом трека Фреон" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>Music app · Lyrics player</p><button type="button" data-shot-src="./public/work/shots/music-player-lyrics-v2.png" data-shot-alt="Экран музыкального плеера с текстом трека Фреон">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
               </article>
               <article class="shot-card">
-                <figure class="shot-card__media"><img src="./public/work/shots/coffee-main-screen-v3.png" alt="Главный экран приложения Coffe app" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>Coffe app · Main screen</p><button type="button" data-shot-src="./public/work/shots/coffee-main-screen-v3.png" data-shot-alt="Главный экран приложения Coffe app">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
+                <figure class="shot-card__media"><img src="./public/work/shots/coffee-main-screen-v4.png" alt="Главный экран приложения Coffe app" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>Coffe app · Main screen</p><button type="button" data-shot-src="./public/work/shots/coffee-main-screen-v4.png" data-shot-alt="Главный экран приложения Coffe app">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
               </article>
               <article class="shot-card">
                 <figure class="shot-card__media"><img src="./public/work/shots/ymarket-swiper-v2.png" alt="Игровой свайпер приложения YMarket" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>YMarket · Game concept</p><button type="button" data-shot-src="./public/work/shots/ymarket-swiper-v2.png" data-shot-alt="Игровой свайпер приложения YMarket">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
@@ -170,9 +186,6 @@
               </article>
               <article class="shot-card">
                 <figure class="shot-card__media"><img src="./public/work/shots/marketplace-product-page-v2.png" alt="Страница товара в мобильном маркетплейсе" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>Marketplace · Product page</p><button type="button" data-shot-src="./public/work/shots/marketplace-product-page-v2.png" data-shot-alt="Страница товара в мобильном маркетплейсе">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
-              </article>
-              <article class="shot-card">
-                <figure class="shot-card__media"><img src="./public/work/shots/running-analytics.png" alt="Экран аналитики приложения Running app" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>Running app · Analytics</p><button type="button" data-shot-src="./public/work/shots/running-analytics.png" data-shot-alt="Экран аналитики приложения Running app">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
               </article>
               <article class="shot-card">
                 <figure class="shot-card__media"><img src="./public/work/shots/manager-requests.png" alt="Экран заявок личного кабинета менеджера" loading="lazy" decoding="async" /><figcaption class="shot-card__overlay"><p>Manager account · Requests</p><button type="button" data-shot-src="./public/work/shots/manager-requests.png" data-shot-alt="Экран заявок личного кабинета менеджера">Рассмотреть <img class="shot-button__icon" src="./public/icons/shot-arrow-top-right.svg" alt="" aria-hidden="true" /></button></figcaption></figure>
@@ -232,6 +245,6 @@
     <footer><span>© Леонид Зуев, 2026</span></footer>
     <script src="./src/typography.js?v=1"></script>
   <script src="./src/audio.js?v=15"></script>
-    <script type="module" src="./src/main.js?v=58"></script>
+    <script type="module" src="./src/main.js?v=62"></script>
   </body>
 </html>
