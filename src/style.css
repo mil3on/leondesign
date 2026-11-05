@@ -560,6 +560,15 @@ html:has(.shot-lightbox[open]){overflow:hidden}
  .work-card h3{font-size:22px}
  .bag-hotspot::after{white-space:normal;width:136px;left:auto;right:0;top:calc(100% + 8px);transform:none}
 }
+/* Anchor the desktop drawer to the hero controls; clip content at the outer curve. */
+.about-drawer{position:absolute;padding:0;bottom:auto;height:var(--drawer-height,480px);max-height:calc(100dvh - 100px)}
+.drawer-surface{display:flex;flex-direction:column;min-height:0;height:100%;padding:14px 14px 0;overflow:hidden;border-radius:inherit}
+.drawer-surface>.drawer-panel.is-active{flex:1 1 0;min-height:0;overflow-y:auto;margin:0 -14px;padding-left:22px;padding-right:22px;padding-bottom:14px;scrollbar-gutter:auto}
+.drawer-surface>.drawer-panel--skills.is-active{padding-left:14px;padding-right:14px}
+.drawer-surface .skill-tags span{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+@media(max-width:760px){
+ .about-drawer{position:fixed;top:50%;bottom:auto;max-height:calc(100dvh - 140px)}
+}
 /* Touch layouts: undo the accumulated lift and leave room above the scene. */
 @media(max-width:760px){
  .planet-stage{transform:translateX(-50%);translate:0 0}

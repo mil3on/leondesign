@@ -307,16 +307,39 @@ const drawer = document.querySelector('#about-drawer');
 const backdrop = document.querySelector('#about-backdrop');
 const closeButton = document.querySelector('#about-close');
 const drawerTriggers = [...document.querySelectorAll('.js-about-open')];
+const drawerSurface = document.createElement('div');
+drawerSurface.className = 'drawer-surface';
+[...drawer.children].filter(el => el !== closeButton).forEach(el => drawerSurface.append(el));
+drawer.append(drawerSurface);
 let drawerReturnFocus = null;
+function measureDrawerHeight() {
+  const about = drawer.querySelector('[data-panel="about"]');
+  const copy = about.cloneNode(true);
+  copy.classList.add('is-active');
+  Object.assign(copy.style, {position:'absolute', visibility:'hidden', display:'block', height:'auto', maxHeight:'none', flex:'none', width:(drawer.clientWidth - 28) + 'px', overflow:'visible'});
+  drawerSurface.append(copy);
+  const tabs = drawer.querySelector('.drawer-tabs');
+  const tabsStyle = getComputedStyle(tabs);
+  const height = 30 + drawer.querySelector('.drawer-top').offsetHeight + tabs.offsetHeight + parseFloat(tabsStyle.marginBottom || 0) + copy.offsetHeight;
+  copy.remove();
+  drawer.style.setProperty('--drawer-height', Math.ceil(height) + 'px');
+}
 function syncDrawerViewport() {
   const mobile = matchMedia('(max-width:760px)').matches;
   const open = drawer.classList.contains('is-open');
   backdrop.hidden = !mobile || !open;
   drawer.setAttribute('aria-modal', String(mobile && open));
+  measureDrawerHeight();
   if (!mobile) {
+    const parent = drawer.offsetParent.getBoundingClientRect();
     const edge = document.querySelector('.portfolio-panel').getBoundingClientRect().right;
-    drawer.style.right = Math.max(0, document.documentElement.clientWidth - edge) + 'px';
-  } else drawer.style.removeProperty('right');
+    const controls = document.querySelector('.sound-controls').getBoundingClientRect();
+    drawer.style.right = Math.max(0, parent.right - edge) + 'px';
+    drawer.style.top = (controls.bottom - parent.top - drawer.offsetHeight) + 'px';
+  } else {
+    drawer.style.removeProperty('right');
+    drawer.style.removeProperty('top');
+  }
 }
 // Keep longer case descriptions clear of their illustrations at every width.
 const caseCopyObserver = new ResizeObserver(entries => {
@@ -327,6 +350,7 @@ const caseCopyObserver = new ResizeObserver(entries => {
 });
 document.querySelectorAll('.work-card > p').forEach(p => caseCopyObserver.observe(p));
 window.addEventListener('resize', syncDrawerViewport);
+document.fonts.ready.then(syncDrawerViewport);
 
 function setDrawer(open, trigger, restoreFocus = true) {
   if (open) drawerReturnFocus = trigger || document.activeElement;
@@ -335,7 +359,14 @@ function setDrawer(open, trigger, restoreFocus = true) {
   document.body.classList.toggle('about-open', open);
   drawerTriggers.forEach((button) => button.setAttribute('aria-expanded', String(open)));
   syncDrawerViewport();
-  if (open) setTimeout(() => closeButton.focus(), 40);
+  if (open) {
+    closeButton.focus({preventScroll:true});
+    if (!matchMedia('(max-width:760px)').matches) {
+      const parent = drawer.offsetParent.getBoundingClientRect();
+      const center = window.scrollY + parent.top + parseFloat(drawer.style.top) + drawer.offsetHeight / 2;
+      window.scrollTo({top:Math.max(0, center - window.innerHeight / 2), behavior:reduceMotion ? 'auto' : 'smooth'});
+    }
+  }
   else if (restoreFocus) drawerReturnFocus?.focus?.();
 }
 drawerTriggers.forEach((button) => button.addEventListener('click', (event) => {
