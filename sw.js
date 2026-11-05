@@ -1,9 +1,9 @@
-const CACHE_NAME = 'leonid-portfolio-v92';
+const CACHE_NAME = 'leonid-portfolio-v94';
 const SHELL = [
   './',
   './index.html',
-  './src/style.css?v=109',
-  './src/main.js?v=68',
+  './src/style.css?v=110',
+  './src/main.js?v=69',
   './src/audio.js?v=15',
   './src/typography.js?v=1',
   './src/loader.js?v=8',

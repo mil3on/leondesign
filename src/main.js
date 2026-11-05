@@ -299,7 +299,14 @@ animate();
 // Cases hotspot.
 hotspot.addEventListener('click', () => {
   activateWorkTab('cases');
-  document.querySelector('#portfolio')?.scrollIntoView({behavior:reduceMotion ? 'auto' : 'smooth', block:'start'});
+  requestAnimationFrame(() => {
+    const target = document.querySelector('#portfolio');
+    if (!target) return;
+    window.scrollTo({
+      top: window.scrollY + target.getBoundingClientRect().top,
+      behavior: reduceMotion ? 'instant' : 'smooth',
+    });
+  });
 });
 
 // About / skills drawer.

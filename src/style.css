@@ -592,7 +592,7 @@ html:has(.shot-lightbox[open]){overflow:hidden}
 }
 /* Lower the complete hero scene on desktop without changing its size. */
 @media(min-width:901px){
- .planet-stage{translate:0 70px}
+ .planet-stage{translate:0 20px}
 }
 /* Tablet widths: reveal the planet and retain the desktop 46px section gap. */
 @media(min-width:600px) and (max-width:900px){
