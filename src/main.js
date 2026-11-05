@@ -72,6 +72,7 @@ planetFill.lookAt(0, -2.4, 0);
 planetScene.add(planetFill);
 
 let planetMixer = null;
+let updatePlanetLayout = () => {};
 let trackedHand = null;
 const planetWorld = new THREE.Group();
 planetScene.add(planetWorld);
@@ -123,22 +124,20 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=3', import.meta.url).href, (gltf)
   const box = new THREE.Box3().setFromObject(model);
   const size = box.getSize(new THREE.Vector3());
   const center = box.getCenter(new THREE.Vector3());
-  const planetLayout = innerWidth <= 760
-    ? { size: 14.5, headX: 0, headY: 2.5 }
-    : innerWidth <= 900
-      ? { size: 14, headX: 0, headY: 2.85 }
-      : { size: 14, headX: 0, headY: 2.25 };
   model.position.sub(center);
-  normalized.scale.setScalar(planetLayout.size / Math.max(size.x, size.y, size.z));
   normalized.updateMatrixWorld(true);
-  if (head) {
-    const headPosition = new THREE.Vector3();
-    head.getWorldPosition(headPosition);
-    normalized.position.x += planetLayout.headX - headPosition.x;
-    normalized.position.y += planetLayout.headY - headPosition.y;
-  } else {
-    normalized.position.y = -2.7;
-  }
+  const referenceHead = head ? normalized.worldToLocal(head.getWorldPosition(new THREE.Vector3())) : null;
+  updatePlanetLayout = () => {
+    const layout = innerWidth <= 760
+      ? { size:14.5, headY:2.5 }
+      : innerWidth <= 900 ? { size:14, headY:2.85 } : { size:14, headY:2.25 };
+    const scale = layout.size / Math.max(size.x, size.y, size.z);
+    normalized.scale.setScalar(scale);
+    if (referenceHead) normalized.position.set(-referenceHead.x * scale, layout.headY - referenceHead.y * scale, 0);
+    else normalized.position.set(0, -2.7, 0);
+    normalized.updateMatrixWorld(true);
+  };
+  updatePlanetLayout();
   planetRenderer.render(planetScene, planetCamera);
   // Ждём не только загрузки GLB, но и фактической отрисовки первого кадра.
   // Второй animation frame гарантирует, что canvas успел попасть в композицию
@@ -162,6 +161,7 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=3', import.meta.url).href, (gltf)
 });
 
 function resizePlanet() {
+  updatePlanetLayout();
   const { width, height } = planetStage.getBoundingClientRect();
   if (!width || !height) return;
   planetRenderer.setSize(width, height, false);
@@ -297,22 +297,9 @@ function animate() {
 animate();
 
 // Cases hotspot.
-const casePeek = document.querySelector('#case-peek');
-const casePeekClose = document.querySelector('#case-peek-close');
-function setCases(open) {
-  casePeek.classList.toggle('is-open', open);
-  casePeek.setAttribute('aria-hidden', String(!open));
-  hotspot.setAttribute('aria-expanded', String(open));
-}
 hotspot.addEventListener('click', () => {
-  setCases(!casePeek.classList.contains('is-open'));
-});
-casePeekClose.addEventListener('click', () => {
-  setCases(false);
-  hotspot.focus();
-});
-document.addEventListener('click', (event) => {
-  if (!casePeek.contains(event.target) && !hotspot.contains(event.target)) setCases(false);
+  activateWorkTab('cases');
+  document.querySelector('#portfolio')?.scrollIntoView({behavior:reduceMotion ? 'auto' : 'smooth', block:'start'});
 });
 
 // About / skills drawer.
@@ -321,19 +308,38 @@ const backdrop = document.querySelector('#about-backdrop');
 const closeButton = document.querySelector('#about-close');
 const drawerTriggers = [...document.querySelectorAll('.js-about-open')];
 let drawerReturnFocus = null;
+function syncDrawerViewport() {
+  const mobile = matchMedia('(max-width:760px)').matches;
+  const open = drawer.classList.contains('is-open');
+  backdrop.hidden = !mobile || !open;
+  drawer.setAttribute('aria-modal', String(mobile && open));
+  if (!mobile) {
+    const edge = document.querySelector('.portfolio-panel').getBoundingClientRect().right;
+    drawer.style.right = Math.max(0, document.documentElement.clientWidth - edge) + 'px';
+  } else drawer.style.removeProperty('right');
+}
+// Keep longer case descriptions clear of their illustrations at every width.
+const caseCopyObserver = new ResizeObserver(entries => {
+  for (const {target} of entries) {
+    const card = target.closest('.work-card');
+    card.style.setProperty('--card-copy-bottom', (target.offsetTop + target.offsetHeight + 20) + 'px');
+  }
+});
+document.querySelectorAll('.work-card > p').forEach(p => caseCopyObserver.observe(p));
+window.addEventListener('resize', syncDrawerViewport);
+
 function setDrawer(open, trigger, restoreFocus = true) {
   if (open) drawerReturnFocus = trigger || document.activeElement;
   drawer.classList.toggle('is-open', open);
   drawer.setAttribute('aria-hidden', String(!open));
   document.body.classList.toggle('about-open', open);
   drawerTriggers.forEach((button) => button.setAttribute('aria-expanded', String(open)));
-  backdrop.hidden = true;
+  syncDrawerViewport();
   if (open) setTimeout(() => closeButton.focus(), 40);
   else if (restoreFocus) drawerReturnFocus?.focus?.();
 }
 drawerTriggers.forEach((button) => button.addEventListener('click', (event) => {
   event.stopPropagation();
-  setCases(false);
   const nextOpen = !drawer.classList.contains('is-open');
   setDrawer(nextOpen, button, nextOpen);
 }));
@@ -343,7 +349,7 @@ backdrop.addEventListener('click', () => setDrawer(false));
 document.addEventListener('click', (event) => {
   if (drawer.classList.contains('is-open') && !drawer.contains(event.target) && !event.target.closest('.js-about-open')) setDrawer(false, null, false);
 });
-document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setDrawer(false); setCases(false); } });
+document.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setDrawer(false); } });
 
 document.querySelectorAll('[data-tab]').forEach((tab) => tab.addEventListener('click', () => {
   document.querySelectorAll('[data-tab]').forEach((item) => {
@@ -472,23 +478,22 @@ let lightboxCardIndex = 0;
 let lightboxGesture = null;
 const shotSlider = document.createElement('nav');
 shotSlider.className = 'shot-lightbox__slider';
-shotSlider.setAttribute('aria-label', 'UI концепты');
-const shotThumbnails = shotCards.map((card, index) => {
-  const source = card.querySelector('.shot-card__media > img');
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.setAttribute('aria-label', source.alt || ('Дизайн ' + (index + 1)));
-  const img = document.createElement('img');
-  img.src = source.src; img.alt = ''; img.draggable = false;
-  button.append(img);
-  button.addEventListener('click', () => openShot(card));
-  shotSlider.append(button);
-  return button;
-});
+shotSlider.setAttribute('aria-label', 'Экраны флоу');
+let shotThumbnails = [];
 shotLightbox?.querySelector('.shot-lightbox__frame')?.append(shotSlider);
 const changeShot = (direction) => {
   if (shotCards.length) openShot(shotCards[(lightboxCardIndex + direction + shotCards.length) % shotCards.length]);
 };
+
+for (const direction of [-1, 1]) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'shot-lightbox__concept-arrow ' + (direction < 0 ? 'is-prev' : 'is-next');
+  button.setAttribute('aria-label', direction < 0 ? 'Предыдущий концепт' : 'Следующий концепт');
+  button.innerHTML = '<svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 1L9.58579 9.58579C10.3668 10.3668 10.3668 11.6332 9.58579 12.4142L1 21" stroke-width="2" stroke-linecap="round" stroke="white"/></svg>';
+  button.addEventListener('click', () => changeShot(direction));
+  shotLightbox?.querySelector('.shot-lightbox__frame')?.append(button);
+}
 
 shotLightboxImage?.addEventListener('load', () => {
   if (!shotLightboxImage.naturalWidth || !shotLightboxImage.naturalHeight) return;
@@ -504,6 +509,14 @@ const setLightboxScreen = (index) => {
   const screen = lightboxScreens[lightboxScreenIndex];
   shotLightboxImage.src = screen.src;
   shotLightboxImage.alt = screen.alt;
+  shotThumbnails.forEach((button, i) => {
+    button.classList.toggle('is-active', i === lightboxScreenIndex);
+    button.setAttribute('aria-pressed', String(i === lightboxScreenIndex));
+  });
+  requestAnimationFrame(() => {
+    const active = shotThumbnails[lightboxScreenIndex];
+    if (active) shotSlider.scrollTo({left:active.offsetLeft - (shotSlider.clientWidth - active.offsetWidth) / 2, behavior:reduceMotion ? 'auto' : 'smooth'});
+  });
   shotLightbox.style.setProperty('--shot-ratio', String(screen.ratio));
   shotLightboxPagination.querySelectorAll('button').forEach((dot, i) => {
     dot.classList.toggle('is-active', i === lightboxScreenIndex);
@@ -514,18 +527,24 @@ const setLightboxScreen = (index) => {
 const openShot = (card) => {
   if (!shotLightbox || !shotLightboxImage) return;
   lightboxCardIndex = shotCards.indexOf(card);
-  shotThumbnails.forEach((button, index) => {
-    button.classList.toggle('is-active', index === lightboxCardIndex);
-    button.setAttribute('aria-pressed', String(index === lightboxCardIndex));
-  });
-  requestAnimationFrame(() => {
-    const active = shotThumbnails[lightboxCardIndex];
-    shotSlider.scrollTo({left:active.offsetLeft - (shotSlider.clientWidth - active.offsetWidth) / 2, behavior:'smooth'});
-  });
   lightboxGesture = null;
   const images = [...card.querySelectorAll('[data-scenario-screen]')];
   if (!images.length) images.push(card.querySelector('.shot-card__media > img'));
   lightboxScreens = images.map((img) => ({src:img.src, alt:img.alt, ratio:(img.naturalWidth || 780) / (img.naturalHeight || 1688)}));
+  shotSlider.replaceChildren();
+  shotThumbnails = lightboxScreens.map((screen, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('aria-label', 'Экран ' + (index + 1) + ' из ' + lightboxScreens.length);
+    const image = document.createElement('img');
+    image.src = screen.src;
+    image.alt = '';
+    image.draggable = false;
+    button.append(image);
+    button.addEventListener('click', () => setLightboxScreen(index));
+    shotSlider.append(button);
+    return button;
+  });
   const dots = shotLightboxPagination.querySelector('.shot-scenario__pagination');
   dots.replaceChildren();
   shotLightboxPagination.hidden = images.length < 2;
@@ -610,16 +629,11 @@ document.querySelectorAll('[data-shot-scenario]').forEach((card) => {
 document.querySelectorAll('.shot-card').forEach((card) => {
   card.querySelector('[data-shot-src]')?.addEventListener('click', () => openShot(card));
   card.addEventListener('click', (event) => {
-    if (mobileShots.matches && !event.target.closest('button,a')) openShot(card);
+    if (!event.target.closest('button,a')) openShot(card);
   });
-  const updateCardFocus = () => {
-    if (mobileShots.matches) card.setAttribute('tabindex', '0');
-    else card.removeAttribute('tabindex');
-  };
-  updateCardFocus();
-  mobileShots.addEventListener('change', updateCardFocus);
+  card.setAttribute('tabindex', '0');
   card.addEventListener('keydown', (event) => {
-    if (mobileShots.matches && event.target === card && ['Enter',' '].includes(event.key)) {
+    if (event.target === card && ['Enter',' '].includes(event.key)) {
       event.preventDefault();
       openShot(card);
     }

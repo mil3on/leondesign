@@ -529,3 +529,102 @@ html:has(.shot-lightbox[open]){overflow:hidden}
   .card-art--portfolio{top:185px}
   .card-art--b2b{top:198px}
 }
+
+/* Keep the filmstrip within the screen width and reserve space for close. */
+.shot-lightbox{padding:24px 16px 100px}
+.shot-lightbox__close{top:calc(100% + 20px);right:0;width:44px;height:44px;background:rgba(255,255,255,.12)}
+.shot-lightbox__slider{left:0;transform:none;width:calc(100% - 56px);padding:4px 12px;scroll-padding-inline:12px;touch-action:pan-x;mask-image:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 12px),transparent);-webkit-mask-image:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 12px),transparent)}
+/* Clearer navigation, profile hierarchy and project titles. */
+.hero-copy h1>span{font-style:normal;font-synthesis:none;font-size:clamp(36px,4vw,57.6px)}
+.hero-specialization{max-width:680px;margin:16px auto 0;font-size:16px;line-height:1.45;color:#51534f}
+.about-drawer{position:fixed;top:110px;bottom:auto;left:auto;right:20px;height:auto;max-height:calc(100dvh - 130px)}
+.drawer-profile{padding:16px;gap:12px}
+.drawer-profile>div{min-width:0}
+.drawer-profile h2{font-size:19px;line-height:1.15}
+.drawer-profile p{font-size:13px;line-height:1.4}
+.drawer-avatar{flex:0 0 48px;width:48px;height:48px}
+.drawer-tabs button.is-active,.drawer-tabs button.is-active:hover{background:transparent;color:#fff;box-shadow:inset 0 0 0 1px #fff;font-weight:600}
+.drawer-panel.is-active{flex:0 1 auto;overflow-y:auto;scrollbar-gutter:auto}
+.drawer-panel[data-panel="about"]{padding-top:4px}
+.drawer-panel p{line-height:1.35;margin-bottom:12px}
+.drawer-panel p:last-child{margin-bottom:0}
+.drawer-panel--skills{padding-top:0}
+.work-card .tags span{background:rgba(255,255,255,.08);color:rgba(255,255,255,.78);border:1px solid rgba(255,255,255,.2);font-weight:500}
+.work-card h3{font-size:24px;line-height:1.15}
+.bag-hotspot::after{content:attr(data-hint);position:absolute;left:calc(100% + 12px);top:50%;transform:translateY(-50%);padding:10px 14px;border-radius:14px;background:rgba(30,40,37,.86);color:#fff;font:500 14px Manrope,sans-serif;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+.bag-hotspot:hover::after,.bag-hotspot:focus-visible::after{opacity:1}
+@media(max-width:760px){
+ .hero-copy h1>span{font-size:clamp(30px,9vw,43px)}
+ .hero-specialization{font-size:14px;max-width:360px}
+ .about-drawer{top:110px;right:14px;left:14px;width:auto;max-height:calc(100dvh - 126px)}
+ .work-card h3{font-size:22px}
+ .bag-hotspot::after{white-space:normal;width:136px;left:auto;right:0;top:calc(100% + 8px);transform:none}
+}
+/* Touch layouts: undo the accumulated lift and leave room above the scene. */
+@media(max-width:760px){
+ .planet-stage{transform:translateX(-50%);translate:0 0}
+}
+@media(min-width:761px) and (max-width:900px){
+ .planet-stage{translate:0 150px}
+}
+/* Concept navigation stays outside the screen; the filmstrip selects flow screens. */
+.shot-lightbox{padding-inline:60px}
+.shot-lightbox__concept-arrow{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:44px;height:48px;padding:0;border:0;border-radius:0;background:transparent;cursor:pointer;color:#fff}
+.shot-lightbox__concept-arrow.is-prev{right:calc(100% + 8px)}
+.shot-lightbox__concept-arrow.is-next{left:calc(100% + 8px)}
+.shot-lightbox__concept-arrow.is-prev svg{transform:rotate(180deg)}
+.shot-lightbox__concept-arrow:hover{background:transparent;opacity:.75}
+.shot-lightbox__concept-arrow:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(max-width:480px){
+ .shot-lightbox{padding-inline:48px}
+ .shot-lightbox__concept-arrow{width:40px}
+ .shot-lightbox__concept-arrow.is-prev{right:calc(100% + 4px)}
+ .shot-lightbox__concept-arrow.is-next{left:calc(100% + 4px)}
+}
+/* Lower the complete hero scene on desktop without changing its size. */
+@media(min-width:901px){
+ .planet-stage{translate:0 70px}
+}
+/* Tablet widths: reveal the planet and retain the desktop 46px section gap. */
+@media(min-width:600px) and (max-width:900px){
+ .sound-controls{top:700px;width:max-content;max-width:calc(100% - 32px);padding:0;flex-direction:row;align-items:center}
+ .sound-player,.designer-pill{flex:0 0 auto;min-height:54px}
+ .sound-copy strong,.sound-copy small,.designer-copy strong,.designer-copy small{white-space:nowrap}
+ .portfolio-panel{top:800px}
+}
+@media(min-width:600px) and (max-width:760px){
+ .sound-controls{top:838px}
+ .sound-player,.designer-pill{min-height:62px}
+ .portfolio-panel{top:946px}
+}
+/* Refined profile proportions and mobile labels. */
+.hero-copy h1>span{font-size:clamp(32px,3.5vw,50px)}
+.drawer-top{border-radius:24px}
+.drawer-profile{padding:12px}
+.drawer-avatar{border-radius:12px}
+@media(max-width:760px){
+ .hero-copy h1>span{font-size:clamp(28px,8vw,38px)}
+ .sound-copy strong,.designer-copy strong,.profile-chip strong{font-size:16px}
+ .designer-copy strong{white-space:normal}
+}
+/* Review: compact cards and responsive profile popup. */
+.work-card{padding:16px}
+.work-card h3{margin-top:14px}
+.about-drawer{top:auto;bottom:20px;right:max(20px,calc((100% - 1400px)/2));max-height:calc(100dvh - 90px);z-index:1002}
+.drawer-top{border-radius:999px}
+.drawer-profile{padding:8px;gap:8px}
+.drawer-profile p{margin:4px 0 0}
+.drawer-avatar{border-radius:50%;object-fit:cover}
+.bag-hotspot::after{padding:8px 12px;border-radius:999px;background:#111;color:#fff;font-size:12px;line-height:1.3;box-shadow:0 4px 16px #0002}
+.work-card .card-art--portfolio{top:max(220px,var(--card-copy-bottom,220px))}
+@media(max-width:760px){
+ .about-drawer{top:50%;bottom:auto;left:14px;right:14px;width:auto;max-height:calc(100dvh - 140px);transform:translateY(calc(-50% + 14px)) scale(.98)}
+ .about-drawer.is-open{transform:translateY(-50%)}
+ .drawer-backdrop:not([hidden]){display:block!important;position:fixed;inset:0;z-index:1001;background:rgba(12,20,18,.35);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body.about-open{overflow:hidden}
+.drawer-profile h2{font-size:17px}
+}
+/* Lift the mobile hero scene without changing desktop positioning. */
+@media(max-width:760px){
+ .planet-stage{translate:0 -30px}
+}

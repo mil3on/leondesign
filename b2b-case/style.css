@@ -1,9 +1,8 @@
-@import url("../origin-case/style.css?v=37");
+@import url("../origin-case/style.css?v=39");
 
 :root{--blue:#eb0015;--blue-dark:#a90010;--success:#239447;--success-soft:#e7f5eb}
 .b2b-page{overflow-x:clip}
 .scroll-progress span{background:#eb0015}
-.case-switcher a.active{background:#eb0015}
 .hero-card{background:linear-gradient(to top,rgba(235,0,21,.38) 0%,rgba(235,0,21,.14) 38%,rgba(235,0,21,0) 100%),#171719;border:0;outline:0}
 .hero-card:after{display:none}
 .hero-copy{color:#fff}.hero-copy .eyebrow,.hero-copy .hero-lead{color:rgba(255,255,255,.68)}

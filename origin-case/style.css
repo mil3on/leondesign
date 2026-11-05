@@ -74,6 +74,16 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
   .hero-media{height:430px}
   .hero-media:before{background:linear-gradient(180deg,rgba(254,83,20,.22),transparent 30%)}
 }
+/* Standalone text tabs: only the current case has a soft background. */
+.topbar .case-switcher{height:auto;min-height:44px;padding:0;gap:8px;background:transparent;border:0;border-radius:0;box-shadow:none}
+.topbar .case-switcher a{padding:12px 16px;border-radius:14px;color:#858582;background:transparent;font-size:14px;font-weight:500;white-space:nowrap;text-decoration:none}
+.topbar .case-switcher a.active{background:#ecece8;color:#242624;font-weight:700;border-radius:999px}
+.topbar .case-switcher a:not(.active):hover{background:#f1f1ee;color:#242624}
+.topbar .case-switcher a:focus-visible{outline:2px solid #555;outline-offset:3px}
+@media(max-width:760px){
+ .topbar .case-switcher{gap:4px}
+ .topbar .case-switcher a{padding:10px 8px;font-size:12px;border-radius:12px}
+}
 @media(max-width:620px){
   .section-head h2{font-size:34px}
   .hero-media{height:340px}
