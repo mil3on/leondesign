@@ -195,3 +195,29 @@
 .idea-card{background:rgba(0,0,0,.32)}
 .search-pill{background:rgba(0,0,0,.32)}
 .cards{left:0;width:390px;padding-left:30px;padding-right:30px;scroll-padding-left:30px;box-sizing:border-box}
+
+/* Keep the card strip inside the same horizontal bounds as the search field. */
+.cards{left:15px;width:358px;padding:0;scroll-padding-left:0;scroll-padding-right:0}
+.cards .idea-card{flex:none}
+
+/* Screen changes fade in without moving vertically. */
+.screen.enter{animation:screenFade .32s ease both}
+@keyframes screenFade{from{opacity:0}to{opacity:1}}
+
+/* Center Kiki in the visible area above either sheet height. */
+.screen.editing .mascot{left:119px;top:176px;transform:scale(.77);isolation:isolate}
+.screen.editing:has(.sheet.morph.open.expanded) .mascot{top:106px}
+.screen.editing .mascot::before{content:"";position:absolute;left:-29px;top:-18px;width:250px;height:230px;z-index:-1;border-radius:50%;background:radial-gradient(ellipse at center,#ff981b83 0%,#d05b1547 40%,transparent 72%);filter:blur(28px);pointer-events:none}
+
+/* Video controls use the same dark circular treatment and sit at the right. */
+.film-poster-frame .film-trailer{pointer-events:auto}
+.film-poster-frame .trailer-toggle,.film-poster-frame .trailer-expand,.film-poster-frame .trailer-sound{bottom:12px;width:44px;height:44px;border:0;border-radius:50%;background:#1d1d1f;backdrop-filter:none;z-index:5}
+.film-poster-frame .trailer-toggle{left:auto;right:12px}
+.film-poster-frame.trailer-playing .trailer-toggle{opacity:0;pointer-events:none}
+.film-poster-frame .trailer-expand{position:absolute;right:64px;display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity .35s ease}
+.film-poster-frame.trailer-playing .trailer-expand{opacity:1;pointer-events:auto}
+.film-poster-frame .trailer-expand img,.film-poster-frame .trailer-sound img,.film-poster-frame .trailer-toggle img{position:static;width:26px;height:26px;object-fit:contain;display:block}
+.reason-chips span{border-radius:999px}
+.film-poster-frame.trailer-inline-fullscreen{position:absolute;inset:0;width:390px;height:845px;border-radius:0;z-index:80;box-shadow:none}
+.film-poster-frame.trailer-inline-fullscreen .film-trailer{transform:none;object-fit:contain;background:#000}
+.film-poster-frame.trailer-inline-fullscreen .trailer-expand img{transform:rotate(180deg)}

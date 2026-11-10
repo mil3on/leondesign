@@ -18,18 +18,25 @@ search=function(){return originalSearch()
 ideas=function(){return `<div class="cards"><button class="idea-card" data-action="idea" data-value="Популярные зарубежные фильмы 2026 года"><span class="card-title">Популярные зарубежные фильмы 2026 года</span><img class="card-art card-art-year" src="${A('card-2026.png')}" alt=""></button><button class="idea-card" data-action="idea" data-value="Лучшие роли Роберта Паттинсона"><span class="card-title">Лучшие роли<br>Роберта<br>Паттинсона</span><img class="card-art card-art-people" src="${A('card-pattinson.png')}" alt=""></button><button class="idea-card" data-action="idea" data-value="Глубокий драматичный сериал"><span class="card-title">Глубокий драматичный сериал</span><img class="card-art card-art-series" src="${A('card-series.png')}" alt=""></button></div>`};
 const originalChat=chat;
 chat=function(){return originalChat().replace('class="chat-copy"','class="chat-copy" data-phase="0"')};
+let chatPhraseStarted=false,chatPhraseTimer;
 startPhrases=function(){
-  phrase=0;
   const box=app.querySelector('.chat-copy');if(!box)return;
-  box.dataset.phase='0';
-  const iv=setInterval(()=>{
-    if(page!=='chat'){clearInterval(iv);return}
-    if(phrase>=2){clearInterval(iv);return}
+  box.dataset.phase=String(phrase);
+  box.querySelectorAll('[data-phrase]').forEach((el,i)=>el.className=i===phrase?'current':i<phrase?'past':'future');
+  if(chatPhraseStarted)return;
+  chatPhraseStarted=true;
+  chatPhraseTimer=setInterval(()=>{
+    if(page!=='chat'||phrase>=2){clearInterval(chatPhraseTimer);chatPhraseTimer=null;return}
     phrase++;
     box.dataset.phase=String(phrase);
     box.querySelectorAll('[data-phrase]').forEach((el,i)=>el.className=i===phrase?'current':i<phrase?'past':'future');
   },3200);
 };
+app.addEventListener('click',e=>{
+  if(page==='search'&&e.target.closest('[data-action="chat"]')){
+    clearInterval(chatPhraseTimer);chatPhraseTimer=null;chatPhraseStarted=false;
+  }
+},true);
 filters[0][1].push('Приключения','Детектив','Мелодрама','Анимация','Ужасы');
 filters[1][1].push('2024','2023','90-е','80-е');
 filters[2][1].push('Тёплая','Напряжённая','Волшебная','Спокойная');
@@ -50,7 +57,7 @@ const originalFilm=film;
 film=function(){return originalFilm()
   .replace('<b>8.7</b>　',`<b>8.7</b><img class="film-rating-right" src="${A('17bcb.svg')}" alt="">　`)
   .replace('<div class="film-poster-frame">','<div class="film-poster-stage"><div class="film-poster-glow" aria-hidden="true"><i class="poster-glow-blue"></i><i class="poster-glow-teal"></i><i class="poster-glow-white"></i></div><div class="film-poster-frame">')
-  .replace('alt="Постер фильма Начало"></div><div class="film-details">',`alt="Постер фильма Начало"><video class="film-trailer" id="filmTrailer" src="${A('inception-trailer.mp4')}" playsinline preload="metadata" aria-label="Трейлер фильма Начало"></video><button class="trailer-toggle" data-action="trailer-toggle" aria-label="Остановить трейлер" title="Остановить трейлер"><img src="${A('trailer-stop.svg')}" alt=""></button><button class="trailer-sound" data-action="trailer-sound" aria-label="Выключить звук" title="Выключить звук"><img src="${A('trailer-sound-on.svg')}" alt=""></button></div></div><div class="film-details">`)
+  .replace('alt="Постер фильма Начало"></div><div class="film-details">',`alt="Постер фильма Начало"><video class="film-trailer" id="filmTrailer" src="${A('inception-trailer.mp4')}" playsinline preload="metadata" aria-label="Трейлер фильма Начало" data-action="trailer-toggle"></video><button class="trailer-toggle" data-action="trailer-toggle" aria-label="Остановить трейлер" title="Остановить трейлер"><img src="${A('trailer-stop.svg')}" alt=""></button><button class="trailer-expand" data-action="trailer-expand" aria-label="Развернуть трейлер" title="Развернуть трейлер"><img src="${A('trailer-expand.svg')}" alt=""></button><button class="trailer-sound" data-action="trailer-sound" aria-label="Выключить звук" title="Выключить звук"><img src="${A('trailer-sound-on.svg')}" alt=""></button></div></div><div class="film-details">`)
   .replace('<button class="iconbtn save" data-action="save" aria-label="Сохранить"></button>',`<button class="iconbtn save ${filmSaved?'phase-active':'phase-default'}" data-action="save" aria-label="Сохранить" aria-pressed="${filmSaved}"><img class="save-icon save-default" src="${A('b2fef.svg')}" alt=""><img class="save-icon save-between" src="${A('7052a.svg')}" alt=""><img class="save-icon save-active" src="${A('74bcb.svg')}" alt=""></button>`)};
 filmContent=function(){return activeTab==='why'?`<div class="film-section"><p class="why-intro">Фильм <b>«Начало»</b> отлично подходит под ваш запрос</p><div class="reason-chips"><span>напряжённый сюжет <img src="${A('6fd2b.svg')}" alt=""></span><span>4 премии «Оскар» <img src="${A('6fd2b.svg')}" alt=""></span><span>звёздный актёрский состав <img src="${A('6fd2b.svg')}" alt=""></span></div><div class="feature-images"><img src="${A('feature-leo.png')}" alt="Леонардо Ди Каприо в главной роли"><img src="${A('feature-cast.png')}" alt="Актёрский состав"><img src="${A('feature-awards.png')}" alt="Четыре премии Оскар"><img src="${A('feature-trailer.png')}" alt="Фантастический триллер 2010 года"></div><div class="from-kiki"><div class="from-kiki-title"><span>От <em>Кики</em></span><img src="${A('f1ea1.svg')}" alt=""></div><p>Если любите истории, в которых приходится сомневаться в реальности происходящего, этот фильм стоит добавить в список.</p><p>Но фильм требует внимания к деталям и может показаться сложным, если хочется лёгкого просмотра.</p></div></div>`:`<div class="film-section about-content"><div class="about-strip strip-one"><img src="${A('32fa3.png')}" alt="Описание фильма"></div><div class="about-strip strip-two"><img src="${A('00674.png')}" alt="Рейтинг и актёры"></div><div class="about-strip strip-three"><img src="${A('4fbc1.png')}" alt="Команда и рецензии"></div><div class="about-strip strip-four"><img src="${A('4b25d.png')}" alt="Дополнительная информация"></div></div>`};
 const originalStartLoading=startLoading;
@@ -85,7 +92,23 @@ bindHorizontal=function(){
   });
 };
 const originalRender=render;
-let trailerTimer;
+let trailerTimer,inlineFullscreenFrame=null;
+function expandTrailerInline(frame){
+  if(page!=='film'||!frame.isConnected)return;
+  const button=frame.querySelector('.trailer-expand');
+  frame.classList.add('trailer-inline-fullscreen');
+  app.append(frame);
+  button.setAttribute('aria-label','Свернуть трейлер');button.title='Свернуть трейлер';
+  inlineFullscreenFrame=frame;
+}
+function collapseTrailerInline(){
+  const frame=inlineFullscreenFrame;if(!frame)return;
+  frame.classList.remove('trailer-inline-fullscreen');
+  app.querySelector('.film-poster-stage')?.append(frame);
+  const button=frame.querySelector('.trailer-expand');
+  button.setAttribute('aria-label','Развернуть трейлер');button.title='Развернуть трейлер';
+  inlineFullscreenFrame=null;
+}
 function startTrailer(){
   const video=app.querySelector('#filmTrailer'),frame=video?.closest('.film-poster-frame');
   if(!video||page!=='film')return;
@@ -103,6 +126,7 @@ function startTrailer(){
 }
 render=function(animate=true){
   clearTimeout(trailerTimer);
+  inlineFullscreenFrame=null;
   originalRender(animate);
   if(page==='edit'){
     const s=app.querySelector('.sheet');
@@ -153,6 +177,7 @@ function attachSheet(bind=true){
 function openMorph(value){
   if(value)query=value;
   const screen=app.querySelector('.screen');const pill=screen?.querySelector('.search-pill');if(!pill)return;
+  clearInterval(chatPhraseTimer);chatPhraseTimer=null;
   sheetOrigin='chat';page='edit';advanced=false;screen.classList.add('editing');
   const sheet=document.createElement('div');sheet.className='sheet morph';
   sheet.innerHTML=`<div class="morph-preview"><span>Например, добрый фильм на вечер</span><img src="${A('27542.svg')}" alt=""></div><div class="sheet-inner">${sheetContent()}</div>`;pill.replaceWith(sheet);screen.scrollTop=0;
@@ -224,20 +249,41 @@ app.addEventListener('click',e=>{
     if(video.paused)video.play().catch(()=>{});
     return;
   }
+  if(action==='trailer-expand'&&page==='film'){
+    e.stopImmediatePropagation();
+    if(inlineFullscreenFrame){collapseTrailerInline();return}
+    const frame=b.closest('.film-poster-frame'),video=frame?.querySelector('#filmTrailer');if(!video)return;
+    video.controls=true;
+    if(video.requestFullscreen)video.requestFullscreen().catch(()=>{video.controls=false;expandTrailerInline(frame)});
+    else if(video.webkitEnterFullscreen)video.webkitEnterFullscreen();
+    else{video.controls=false;expandTrailerInline(frame)}
+    if(video.paused)video.play().catch(()=>{});
+    return;
+  }
   if(action==='trailer-toggle'&&page==='film'){
     e.stopImmediatePropagation();
     const frame=b.closest('.film-poster-frame'),video=frame?.querySelector('#filmTrailer');if(!video)return;
+    const toggle=frame.querySelector('.trailer-toggle');
     if(frame.classList.contains('trailer-playing')){
       video.pause();video.currentTime=0;frame.classList.remove('trailer-playing');frame.classList.add('trailer-stopped');
-      b.setAttribute('aria-label','Включить трейлер');b.title='Включить трейлер';b.querySelector('img').src=A('trailer-play.svg');
+      toggle.setAttribute('aria-label','Включить трейлер');toggle.title='Включить трейлер';toggle.querySelector('img').src=A('trailer-play.svg');
     }else{
       video.currentTime=0;video.play().then(()=>{
         frame.classList.remove('trailer-stopped');frame.classList.add('trailer-playing');
-        b.setAttribute('aria-label','Остановить трейлер');b.title='Остановить трейлер';b.querySelector('img').src=A('trailer-stop.svg');
+        toggle.setAttribute('aria-label','Остановить трейлер');toggle.title='Остановить трейлер';toggle.querySelector('img').src=A('trailer-stop.svg');
       }).catch(()=>{});
     }
+    return;
   }
 },true);
+document.addEventListener('fullscreenchange',()=>{
+  if(!document.fullscreenElement){
+    const video=app.querySelector('#filmTrailer');if(video)video.controls=false;
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&inlineFullscreenFrame){e.stopPropagation();collapseTrailerInline()}
+});
 app.addEventListener('input',e=>{if(e.target.id==='rating')updateRating(e.target.value)},true);
 
 let lookTimer;

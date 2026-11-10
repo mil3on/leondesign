@@ -4,7 +4,7 @@ const closeButton = document.getElementById('close-scenario');
 const mobileFrame = document.getElementById('mobile-scenario');
 
 function openScenario() {
-  mobileFrame.src = '../kiki-prototype/index.html?v=3';
+  mobileFrame.src = '../kiki-prototype/index.html?v=5';
   overlay.hidden = false;
   document.body.style.overflow = 'hidden';
   closeButton.focus();
