@@ -194,10 +194,8 @@
 .sheet .tag:not(.on){background:rgba(255,255,255,.11);color:rgba(255,255,255,.78)}
 .idea-card{background:rgba(0,0,0,.32)}
 .search-pill{background:rgba(0,0,0,.32)}
-.cards{left:0;width:390px;padding-left:30px;padding-right:30px;scroll-padding-left:30px;box-sizing:border-box}
-
-/* Keep the card strip inside the same horizontal bounds as the search field. */
-.cards{left:15px;width:358px;padding:0;scroll-padding-left:0;scroll-padding-right:0}
+/* Cards can pass beyond the search field, then stop at its edges. */
+.cards{left:0;width:390px;box-sizing:border-box;padding:0 17px 0 15px;scroll-padding-left:15px;scroll-padding-right:17px}
 .cards .idea-card{flex:none}
 
 /* Screen changes fade in without moving vertically. */
