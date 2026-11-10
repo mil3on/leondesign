@@ -767,13 +767,13 @@ body.about-open{overflow:hidden}
   .portfolio-tabs button{scroll-snap-align:start}
   .concept-copy{padding:16px}
   .concept-copy h3 .concept-kiki-icon{width:32px;height:32px}
-  .concept-art{inset:auto -20px -120px 20px;justify-content:center}
-  .concept-illustration{width:min(120%,520px);max-width:none;flex:none}
+  .concept-art{inset:auto -40px -120px 20px;justify-content:center}
+  .concept-illustration{width:min(150%,520px);max-width:none;flex:none}
 }
 @media(max-width:440px){
   .portfolio-tabs{flex-wrap:nowrap;column-gap:16px;row-gap:0}
   .concept-card{min-height:560px}
-  .concept-illustration{width:150%}
+  .concept-illustration{width:120%}
 }
 
 /* Keep the tags at the top and anchor the concept title and description below. */
