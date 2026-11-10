@@ -128,3 +128,5 @@
 @media(max-width:620px){
   .mobile-gallery{margin-top:28px;border-radius:20px}
 }
+
+.back-link{transition:opacity .2s ease}.back-link:hover{opacity:.58}.back-link .nav-arrow{display:block;width:20px;height:20px;flex:none;filter:brightness(0)}.back-link .nav-arrow--back{transform:rotate(135deg)}

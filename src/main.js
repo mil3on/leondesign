@@ -428,20 +428,25 @@ const workPanels = [...document.querySelectorAll('[data-work-panel]')];
 const syncMobileConceptHeight = () => {
   const cases = document.querySelector('[data-work-panel="cases"]');
   const shots = document.querySelector('[data-work-panel="shots"]');
-  if (!cases || !shots || !portfolioPanel) return;
-  if (!matchMedia('(max-width:760px)').matches) {
-    shots.style.removeProperty('--cases-panel-height');
-    return;
-  }
+  const concepts = document.querySelector('[data-work-panel="concepts"]');
+  if (!cases || !shots || !concepts || !portfolioPanel) return;
   const savedStyle = cases.style.cssText;
-  if (cases.hidden) {
+  const wasHidden = cases.hidden;
+  if (wasHidden) {
     const panelStyle = getComputedStyle(portfolioPanel);
     const width = portfolioPanel.clientWidth - parseFloat(panelStyle.paddingLeft) - parseFloat(panelStyle.paddingRight);
+    cases.hidden = false;
     Object.assign(cases.style, {display:'block', position:'absolute', visibility:'hidden', pointerEvents:'none', width:width + 'px'});
   }
-  const height = cases.getBoundingClientRect().height;
+  const measuredHeight = cases.getBoundingClientRect().height;
   cases.style.cssText = savedStyle;
-  if (height) shots.style.setProperty('--cases-panel-height', height + 'px');
+  cases.hidden = wasHidden;
+  const columns = matchMedia('(max-width:640px)').matches ? 1 : matchMedia('(max-width:900px)').matches ? 2 : 3;
+  const count = cases.querySelectorAll('.work-card').length;
+  const rows = Math.ceil(count / columns);
+  const theoreticalHeight = rows * 492 + Math.max(0, rows - 1) * (columns === 1 ? 12 : 16);
+  const height = Math.max(measuredHeight, theoreticalHeight);
+  if (height) [shots,concepts].forEach(panel => panel.style.setProperty('--cases-panel-height', height + 'px'));
 };
 window.addEventListener('resize', syncMobileConceptHeight, {passive:true});
 window.addEventListener('load', syncMobileConceptHeight, {once:true});
@@ -456,11 +461,12 @@ const activateWorkTab = (selected) => {
   workPanels.forEach((panel) => {
     panel.hidden = panel.dataset.workPanel !== selected;
   });
+  syncMobileConceptHeight();
   requestAnimationFrame(syncPortfolioClearance);
 };
 workTabs.forEach((tab) => tab.addEventListener('click', () => activateWorkTab(tab.dataset.workTab)));
-if (window.location.hash === '#shots') {
-  activateWorkTab('shots');
+if (window.location.hash === '#shots' || window.location.hash === '#concepts') {
+  activateWorkTab(window.location.hash === '#concepts' ? 'concepts' : 'shots');
   requestAnimationFrame(() => portfolioPanel?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
 }
 requestAnimationFrame(syncPortfolioClearance);
@@ -500,6 +506,24 @@ if (canTiltPortfolioArt) {
       card.style.setProperty('--art-shift-x', '0px');
       card.style.setProperty('--art-shift-y', '0px');
       card.style.setProperty('--art-scale', '1');
+    });
+  });
+  document.querySelectorAll('.concept-card').forEach((card) => {
+    if (!card.querySelector('.concept-illustration')) return;
+    card.addEventListener('pointermove', (event) => {
+      const bounds = card.getBoundingClientRect();
+      const x = ((event.clientX - bounds.left) / bounds.width - .5) * 2;
+      const y = ((event.clientY - bounds.top) / bounds.height - .5) * 2;
+      card.classList.add('is-parallax-active');
+      card.style.setProperty('--concept-shift-x', `${(x * 7).toFixed(2)}px`);
+      card.style.setProperty('--concept-shift-y', `${(y * 5).toFixed(2)}px`);
+      card.style.setProperty('--concept-scale', '1.012');
+    });
+    card.addEventListener('pointerleave', () => {
+      card.classList.remove('is-parallax-active');
+      card.style.removeProperty('--concept-shift-x');
+      card.style.removeProperty('--concept-shift-y');
+      card.style.removeProperty('--concept-scale');
     });
   });
 }

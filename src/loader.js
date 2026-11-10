@@ -103,4 +103,7 @@
     update(100, 'Не удалось загрузить мир');
     window.setTimeout(finish, 900);
   }, { once: true });
+
+  // Keep the portfolio usable if the 3D module never reports ready or error.
+  window.setTimeout(finish, 8000);
 })();

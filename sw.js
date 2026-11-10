@@ -1,12 +1,12 @@
-const CACHE_NAME = 'leonid-portfolio-v94';
+const CACHE_NAME = 'leonid-portfolio-v103';
 const SHELL = [
   './',
   './index.html',
-  './src/style.css?v=110',
-  './src/main.js?v=69',
+  './src/style.css?v=129',
+  './src/main.js?v=70',
   './src/audio.js?v=15',
   './src/typography.js?v=1',
-  './src/loader.js?v=8',
+  './src/loader.js?v=9',
   './src/cookie-consent.js?v=1',
   './public/sky-reference.webp',
   './public/fonts/PPNeueMachina-Ultrabold.otf',
@@ -38,7 +38,14 @@ self.addEventListener('fetch', (event) => {
           if (response.ok) caches.open(CACHE_NAME).then((cache) => cache.put(request, response.clone()));
           return response;
         })
-        .catch(() => caches.match(request).then((cached) => cached || caches.match('./index.html'))),
+        .catch(() => caches.match(request).then((cached) => {
+          if (cached) return cached;
+          if (url.pathname === '/' || url.pathname === '/index.html') return caches.match('./index.html');
+          return new Response('Страница временно недоступна. Проверьте подключение и обновите её.', {
+            status: 503,
+            headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+          });
+        })),
     );
     return;
   }

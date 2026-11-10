@@ -1026,6 +1026,11 @@ h1,h2,h3,.brand-lockup,.impact-card strong,.statement,.result-copy h3{font-famil
 .final-section .case-contact-link img{width:24px;height:24px}
 .final-section .case-contact-link:hover{background:rgba(255,255,255,.62);color:var(--ink);transform:none}
 
+.back-link{transition:opacity .2s ease}
+.back-link:hover{opacity:.58}
+.back-link .nav-arrow{display:block;width:20px;height:20px;flex:none;filter:brightness(0)}
+.back-link .nav-arrow--back{transform:rotate(135deg)}
+
 @media(max-width:620px){
   .final-section{gap:18px}
   .final-section .section-head{margin-bottom:30px}

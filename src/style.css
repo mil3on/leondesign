@@ -637,3 +637,150 @@ body.about-open{overflow:hidden}
 @media(max-width:760px){
  .planet-stage{translate:0 -30px}
 }
+
+/* Kiki concept in the second portfolio tab. */
+.portfolio-panel{scroll-margin-top:95px}
+.concepts-panel{min-height:492px}
+.concept-card{position:relative;display:block;min-height:492px;border:1px solid rgba(255,255,255,.16);border-radius:24px;color:#fff;text-decoration:none;overflow:hidden;isolation:isolate;background:radial-gradient(ellipse at 67% 88%,#a82c00 0%,#411707 39%,#080808 77%);transition:border-color .25s ease,transform .25s ease}
+.concept-card:hover{border-color:#f8873b;transform:translateY(-3px)}
+.concept-card:before{content:"";position:absolute;inset:auto 0 -90px 42%;height:360px;background:radial-gradient(ellipse,#ff82125c,transparent 68%);filter:blur(30px);pointer-events:none}
+.concept-copy{position:relative;z-index:2;max-width:52%;padding:35px}
+.concept-copy .tags span{background:#ffffff1c;border:1px solid #ffffff40;color:#fff}
+.concept-copy h3{font:800 clamp(64px,7vw,118px)/1 Machina,Manrope,sans-serif;letter-spacing:-.08em;margin:72px 0 22px}
+.concept-copy h3 span{color:#f97912;font:500 .35em/1 Manrope,sans-serif;vertical-align:top;letter-spacing:0}
+.concept-copy p{max-width:460px;font-size:clamp(17px,2vw,26px);font-weight:600;line-height:1.28;letter-spacing:-.03em}
+.concept-link{display:inline-flex;gap:18px;align-items:center;margin-top:32px;padding:13px 17px;border-radius:999px;background:#fff;color:#141414;font-size:14px;font-weight:800}
+.concept-art{position:absolute;inset:0 0 0 44%;display:flex;align-items:flex-end;justify-content:center;overflow:hidden;pointer-events:none}
+.concept-poster{position:absolute;bottom:-30px;width:30%;height:75%;object-fit:cover;border-radius:12px;box-shadow:0 14px 40px #000b}
+.concept-poster--left{left:3%;transform:rotate(-12deg) translateY(50px);opacity:.72}
+.concept-poster--main{left:35%;width:35%;height:91%;z-index:2;transform:rotate(2deg)}
+.concept-poster--right{right:0;transform:rotate(12deg) translateY(58px);opacity:.75}
+@media(max-width:760px){.portfolio-tabs{justify-content:space-between;gap:7px}.portfolio-tabs button{font-size:clamp(13px,3.5vw,17px);letter-spacing:-.045em;white-space:nowrap}.concept-card{min-height:560px}.concept-copy{max-width:none;padding:25px}.concept-copy h3{font-size:65px;margin:24px 0 12px}.concept-copy p{font-size:18px;max-width:300px}.concept-link{margin-top:16px}.concept-art{inset:210px 0 0}.concept-poster{height:82%;width:34%}.concept-poster--left{left:2%}.concept-poster--main{left:33%;width:38%;height:99%}.concept-poster--right{right:0}}
+@media(max-width:760px){.concept-card{min-height:650px}.concept-art{inset:350px 0 0}}
+
+/* Kiki card refinements. */
+@font-face{font-family:YandexDisplay;src:url('../public/fonts/YandexSansDisplay-Bold.ttf') format('truetype');font-display:swap;font-weight:700}
+.portfolio-tabs{justify-content:flex-start;gap:28px}
+.concept-card{min-height:430px;background:#070707}
+.concept-card:before{display:none}
+.concept-copy{max-width:62%;padding:30px;z-index:2}
+.concept-copy h3{display:flex;align-items:center;gap:13px;margin:34px 0 13px;font:700 clamp(58px,6vw,92px)/1 YandexDisplay,Manrope,sans-serif;letter-spacing:.015em}
+.concept-copy h3 .concept-wordmark{display:inline-block;color:#fff;font:inherit;letter-spacing:inherit}
+.concept-copy h3 .concept-kiki-icon{display:block;width:.31em;height:.31em;object-fit:contain;flex:none}
+.concept-copy p{font-size:clamp(17px,1.65vw,23px);max-width:460px}
+.concept-art{inset:auto 0 0;height:64%;display:block;overflow:hidden;mask-image:linear-gradient(to bottom,transparent 0%,#000 20%);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 20%)}
+.concept-illustration{display:block;width:100%;height:100%;object-fit:cover;object-position:center 46%}
+@media(max-width:760px){
+  .portfolio-tabs{justify-content:flex-start;gap:16px}
+  .concept-card{min-height:480px}
+  .concept-copy{max-width:none;padding:24px}
+  .concept-copy h3{font-size:68px;margin:25px 0 13px;gap:9px}
+  .concept-copy p{font-size:18px;max-width:360px}
+  .concept-art{inset:auto 0 0;height:58%}
+}
+@media(max-width:410px){.portfolio-tabs{gap:10px}.portfolio-tabs button{font-size:13px}.concept-card{min-height:470px}.concept-copy h3{font-size:58px}.concept-copy p{font-size:16px}}
+
+/* Keep all three work tabs on the same stage. */
+.concepts-panel,.shots-panel{min-height:var(--cases-panel-height,492px)}
+.concept-card{min-height:492px;background:#070707;border-color:rgba(255,255,255,.2);transition:background .25s ease,border-color .25s ease}
+.concept-card:hover{background:#1a1a1a;border-color:rgba(255,255,255,.28);transform:none}
+.concept-copy{max-width:48%;padding:24px}
+.concept-copy .tags span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.78);font-weight:500}
+.concept-copy h3{margin:48px 0 18px;gap:14px}
+.concept-copy h3 .concept-kiki-icon{width:.37em;height:.43em;align-self:center}
+.concept-art{inset:0 0 0 42%;height:100%;display:flex;align-items:center;justify-content:flex-end;overflow:visible;mask-image:none;-webkit-mask-image:none}
+.concept-illustration{width:100%;height:100%;object-fit:contain;object-position:right center;transform:translate(var(--concept-shift-x,0px),var(--concept-shift-y,0px)) scale(var(--concept-scale,1));transition:transform .35s ease}
+.concept-card.is-parallax-active .concept-illustration{transition:none}
+@media(max-width:760px){
+  .concept-card{min-height:492px}
+  .concept-copy{max-width:none;padding:24px}
+  .concept-copy h3{margin:25px 0 13px;gap:11px}
+  .concept-art{inset:auto 0 0;height:48%;justify-content:center}
+  .concept-illustration{object-position:center bottom}
+}
+@media(max-width:410px){.concept-card{min-height:492px}}
+
+/* Updated concept artwork: anchored to the card's lower edge. */
+.concept-card{min-height:430px}
+.concept-art{inset:0 0 -22px 43%;height:auto;align-items:flex-end;justify-content:flex-end;overflow:visible}
+.concept-illustration{width:min(100%,500px);height:auto;max-height:none;object-fit:contain;object-position:right bottom}
+@media(max-width:760px){
+  .concept-card{min-height:450px}
+  .concept-art{inset:auto -4px -14px 0;height:auto;justify-content:flex-end}
+  .concept-illustration{width:min(82%,330px);height:auto;object-position:right bottom}
+}
+@media(max-width:410px){.concept-card{min-height:450px}}
+
+/* Short concept tile with artwork deliberately cropped at the lower edge. */
+.concept-card{min-height:270px}
+.concept-art{inset:5px 0 auto 43%;height:auto;align-items:flex-start}
+.concept-illustration{width:min(100%,480px)}
+@media(max-width:760px){
+  .concept-card{min-height:310px}
+  .concept-art{inset:206px -4px auto 0;justify-content:flex-end}
+  .concept-illustration{width:min(77%,310px)}
+}
+@media(max-width:410px){.concept-card{min-height:310px}}
+
+/* Stack the concept artwork below its copy at phone and tablet widths. */
+@media(max-width:760px){
+  .world{overflow:clip}
+  .portfolio-tabs{display:flex;align-items:center;flex-wrap:nowrap;gap:18px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none}
+  .portfolio-tabs::-webkit-scrollbar{display:none}
+  .portfolio-tabs button{flex:none;font-size:clamp(24px,3.6vw,29px);line-height:1.15;white-space:nowrap}
+  .concept-card{min-height:650px}
+  .concept-copy{max-width:none}
+  .concept-art{inset:auto 0 -18px 0;height:auto;display:flex;align-items:flex-end;justify-content:center}
+  .concept-illustration{width:min(78%,480px);height:auto;object-position:center bottom}
+}
+@media(max-width:599px){
+  .concept-card{min-height:610px}
+  .concept-illustration{width:min(88%,440px)}
+}
+@media(max-width:440px){
+  .portfolio-tabs{flex-wrap:wrap;column-gap:18px;row-gap:9px}
+  .concept-card{min-height:520px}
+  .concept-illustration{width:min(100%,350px)}
+}
+
+/* Two-column concept shelf and the glow already used in the Kiki flow. */
+@media(min-width:761px){
+  .concept-card{min-height:270px}
+  .concept-copy{max-width:58%;padding:16px}
+  .concept-copy h3{margin:24px 0 10px;font-size:32px;line-height:1.05;letter-spacing:.025em}
+  .concept-copy p{max-width:250px;font-size:14px;line-height:1.35;letter-spacing:0}
+  .concept-art{inset:16px -60px auto 43%;height:auto;align-items:flex-start;justify-content:flex-end}
+  .concept-illustration{width:min(115%,455px);height:auto;max-width:none;flex:none}
+}
+@media(min-width:1100px){
+  .concepts-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;align-content:start}
+  .concept-card{min-height:clamp(270px,24vw,320px)}
+}
+.concept-art::before{display:none}
+.concept-card--kiki::after{content:"";position:absolute;z-index:0;inset:4% -3% -10% 40%;background:radial-gradient(ellipse 72% 72% at 55% 57%,rgba(255,184,58,.45) 0%,rgba(251,104,0,.28) 38%,transparent 82%);filter:blur(28px);pointer-events:none}
+.concept-illustration{position:relative;z-index:1;mix-blend-mode:normal}
+.concept-copy .tags{flex-wrap:nowrap;white-space:nowrap}
+.concept-copy .tags span{padding-inline:11px}
+.concept-copy h3 .concept-kiki-icon{width:24px;height:24px;align-self:center;transform:translateY(1px)}
+@media(max-width:760px){
+  .portfolio-tabs{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity}
+  .portfolio-tabs button{scroll-snap-align:start}
+  .concept-copy{padding:16px}
+  .concept-copy h3 .concept-kiki-icon{width:32px;height:32px}
+  .concept-art{inset:auto -20px -120px 20px;justify-content:center}
+  .concept-illustration{width:min(120%,520px);max-width:none;flex:none}
+}
+@media(max-width:440px){
+  .portfolio-tabs{flex-wrap:nowrap;column-gap:16px;row-gap:0}
+  .concept-card{min-height:560px}
+  .concept-illustration{width:150%}
+}
+
+/* Keep the tags at the top and anchor the concept title and description below. */
+@media(min-width:761px){
+  .concept-card--kiki .concept-copy{position:absolute;inset:0 auto 0 0;width:58%;max-width:none;display:flex;flex-direction:column;align-items:flex-start;padding:16px}
+  .concept-card--kiki .concept-copy h3{margin:auto 0 10px}
+  .concept-card--kiki .concept-copy p{margin:0}
+}
+
+.button--plain:hover{opacity:.58;color:inherit;background:transparent}.button--plain:hover .button-icon{opacity:1}
