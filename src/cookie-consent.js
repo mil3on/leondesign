@@ -1,4 +1,5 @@
 (() => {
+  const cookieIsEnglish = document.documentElement.lang === 'en';
   const STORAGE_KEY = 'leonid-cookie-consent-v1';
   const METRIKA_ID = 113367855;
 
@@ -62,7 +63,13 @@
     notice.className = 'cookie-notice';
     notice.setAttribute('role', 'dialog');
     notice.setAttribute('aria-labelledby', 'cookie-notice-title');
-    notice.innerHTML = `
+    notice.innerHTML = cookieIsEnglish ? `
+      <div class="cookie-notice__copy">
+        <strong id="cookie-notice-title">I use cookies</strong>
+        <p>I use anonymous metrics to understand how the portfolio performs</p>
+      </div>
+      <button type="button">Okay</button>
+    ` : `
       <div class="cookie-notice__copy">
         <strong id="cookie-notice-title">Собираю куки</strong>
         <p>Интересны метрики, хочу знать чуть больше</p>

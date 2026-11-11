@@ -1,4 +1,5 @@
 (() => {
+  const loaderIsEnglish = document.documentElement.lang === 'en';
   const loader = document.querySelector('#site-loader');
   if (!loader) return;
 
@@ -92,15 +93,15 @@
   };
 
   document.addEventListener('DOMContentLoaded', () => {
-    update(18, 'Загружаю мир…');
+    update(18, loaderIsEnglish ? 'Loading the world…' : 'Загружаю мир…');
   });
   window.addEventListener('portfolio:planet-progress', (event) => {
     const modelProgress = Number(event.detail?.progress) || 0;
-    update(22 + modelProgress * .72, 'Загружаю мир…');
+    update(22 + modelProgress * .72, loaderIsEnglish ? 'Loading the world…' : 'Загружаю мир…');
   });
   window.addEventListener('portfolio:planet-ready', finish, { once: true });
   window.addEventListener('portfolio:planet-error', () => {
-    update(100, 'Не удалось загрузить мир');
+    update(100, loaderIsEnglish ? 'Could not load the world' : 'Не удалось загрузить мир');
     window.setTimeout(finish, 900);
   }, { once: true });
 

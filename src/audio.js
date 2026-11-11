@@ -1,4 +1,5 @@
 (() => {
+  const audioIsEnglish = document.documentElement.lang === 'en';
   const buttons = [...document.querySelectorAll('[data-audio-toggle]')];
   const nextButtons = [...document.querySelectorAll('[data-audio-next]')];
   const volumeInputs = [...document.querySelectorAll('[data-audio-volume]')];
@@ -64,21 +65,21 @@
 
     buttons.forEach((button) => {
       button.setAttribute('aria-pressed', String(isPlaying));
-      button.setAttribute('aria-label', isPlaying ? `Поставить ${track.title} на паузу` : `Включить ${track.title}`);
+      button.setAttribute('aria-label', isPlaying ? (audioIsEnglish ? `Pause ${track.title}` : `Поставить ${track.title} на паузу`) : (audioIsEnglish ? `Play ${track.title}` : `Включить ${track.title}`));
     });
     document.querySelectorAll('[data-track-title], .case-sound-toggle small').forEach((label) => {
       label.textContent = track.title;
     });
     document.querySelectorAll('[data-track-cover]').forEach((cover) => {
       cover.src = trackUrl(track.cover);
-      cover.alt = `Обложка трека ${track.title}`;
+      cover.alt = audioIsEnglish ? `${track.title} cover art` : `Обложка трека ${track.title}`;
     });
     document.querySelectorAll('[data-audio-state-icon]').forEach((icon) => {
       icon.src = new URL(stateIcon, iconBaseUrl).href;
     });
     playerContainers.forEach((player) => {
       player.classList.toggle('is-playing', isPlaying);
-      player.setAttribute('aria-label', isPlaying ? `Поставить ${track.title} на паузу` : `Включить ${track.title}`);
+      player.setAttribute('aria-label', isPlaying ? (audioIsEnglish ? `Pause ${track.title}` : `Поставить ${track.title} на паузу`) : (audioIsEnglish ? `Play ${track.title}` : `Включить ${track.title}`));
     });
   }
 
@@ -225,7 +226,7 @@
   });
 
   if (window.location.protocol === 'file:') {
-    const message = 'Откройте сайт через ОТКРЫТЬ_САЙТ.bat';
+    const message = audioIsEnglish ? 'Open the site through ОТКРЫТЬ_САЙТ.bat' : 'Откройте сайт через ОТКРЫТЬ_САЙТ.bat';
     document.querySelectorAll('.planet-loader, .model-loader').forEach((loader) => {
       loader.textContent = message;
     });

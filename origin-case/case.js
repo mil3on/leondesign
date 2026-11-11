@@ -68,7 +68,7 @@ function setCurrentSection() {
   });
   const index = Math.max(0, sections.indexOf(current));
   activeNumber.textContent = String(index + 1).padStart(2, '0');
-  activeLabel.textContent = current?.dataset.label || 'Коротко';
+  activeLabel.textContent = current?.dataset.label || (document.documentElement.lang === 'en' ? 'Overview' : 'Коротко');
   menuLinks.forEach((link) => link.classList.toggle('active', link.getAttribute('href') === `#${current.id}`));
 }
 
@@ -118,8 +118,8 @@ document.querySelectorAll('[data-zoom]').forEach((frame) => {
   inspect.href = image.currentSrc || image.src;
   inspect.target = '_blank';
   inspect.rel = 'noopener';
-  inspect.textContent = 'Рассмотреть';
-  inspect.setAttribute('aria-label', `Рассмотреть изображение: ${image.alt}`);
+  inspect.textContent = document.documentElement.lang === 'en' ? 'View image' : 'Рассмотреть';
+  inspect.setAttribute('aria-label', document.documentElement.lang === 'en' ? `View image: ${image.alt}` : `Рассмотреть изображение: ${image.alt}`);
   inspect.addEventListener('click', (event) => event.stopPropagation());
   frame.append(inspect);
   frame.addEventListener('click', () => {

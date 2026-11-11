@@ -152,10 +152,10 @@ gltfLoader.load(new URL('../public/FINAL.glb?v=3', import.meta.url).href, (gltf)
 }, (event) => {
   if (!event.total) return;
   const progress = Math.min(99, Math.max(0, Math.round(event.loaded / event.total * 100)));
-  planetLoader.textContent = `Загружаю планету… ${progress}%`;
+  planetLoader.textContent = document.documentElement.lang === 'en' ? `Loading the planet… ${progress}%` : `Загружаю планету… ${progress}%`;
   window.dispatchEvent(new CustomEvent('portfolio:planet-progress', { detail: { progress } }));
 }, (error) => {
-  planetLoader.textContent = 'Планета временно недоступна';
+  planetLoader.textContent = document.documentElement.lang === 'en' ? 'The planet is temporarily unavailable' : 'Планета временно недоступна';
   window.dispatchEvent(new CustomEvent('portfolio:planet-error'));
   console.error('Не удалось загрузить планету', error);
 });
@@ -246,9 +246,9 @@ function loadLeonModel() {
     if (!event.total) return;
     const label = leonStage.querySelector('.model-loader');
     const progress = Math.min(99, Math.max(0, Math.round(event.loaded / event.total * 100)));
-    label.textContent = `Загружаю 3D… ${progress}%`;
+    label.textContent = document.documentElement.lang === 'en' ? `Loading 3D… ${progress}%` : `Загружаю 3D… ${progress}%`;
   }, (error) => {
-    leonStage.querySelector('.model-loader').textContent = '3D временно недоступен';
+    leonStage.querySelector('.model-loader').textContent = document.documentElement.lang === 'en' ? '3D is temporarily unavailable' : '3D временно недоступен';
     console.error('Не удалось загрузить Official Leon', error);
   });
 }
@@ -540,7 +540,7 @@ let lightboxCardIndex = 0;
 let lightboxGesture = null;
 const shotSlider = document.createElement('nav');
 shotSlider.className = 'shot-lightbox__slider';
-shotSlider.setAttribute('aria-label', 'Экраны флоу');
+shotSlider.setAttribute('aria-label', document.documentElement.lang === 'en' ? 'Flow screens' : 'Экраны флоу');
 let shotThumbnails = [];
 shotLightbox?.querySelector('.shot-lightbox__frame')?.append(shotSlider);
 const changeShot = (direction) => {
@@ -551,7 +551,7 @@ for (const direction of [-1, 1]) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'shot-lightbox__concept-arrow ' + (direction < 0 ? 'is-prev' : 'is-next');
-  button.setAttribute('aria-label', direction < 0 ? 'Предыдущий концепт' : 'Следующий концепт');
+  button.setAttribute('aria-label', direction < 0 ? (document.documentElement.lang === 'en' ? 'Previous concept' : 'Предыдущий концепт') : (document.documentElement.lang === 'en' ? 'Next concept' : 'Следующий концепт'));
   button.innerHTML = '<svg width="12" height="22" viewBox="0 0 12 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 1L9.58579 9.58579C10.3668 10.3668 10.3668 11.6332 9.58579 12.4142L1 21" stroke-width="2" stroke-linecap="round" stroke="white"/></svg>';
   button.addEventListener('click', () => changeShot(direction));
   shotLightbox?.querySelector('.shot-lightbox__frame')?.append(button);
@@ -597,7 +597,7 @@ const openShot = (card) => {
   shotThumbnails = lightboxScreens.map((screen, index) => {
     const button = document.createElement('button');
     button.type = 'button';
-    button.setAttribute('aria-label', 'Экран ' + (index + 1) + ' из ' + lightboxScreens.length);
+    button.setAttribute('aria-label', document.documentElement.lang === 'en' ? `Screen ${index + 1} of ${lightboxScreens.length}` : 'Экран ' + (index + 1) + ' из ' + lightboxScreens.length);
     const image = document.createElement('img');
     image.src = screen.src;
     image.alt = '';
@@ -613,7 +613,7 @@ const openShot = (card) => {
   if (images.length > 1) images.forEach((_, index) => {
     const dot = document.createElement('button');
     dot.type = 'button';
-    dot.setAttribute('aria-label', `Экран ${index + 1} из ${images.length}`);
+    dot.setAttribute('aria-label', document.documentElement.lang === 'en' ? `Screen ${index + 1} of ${images.length}` : `Экран ${index + 1} из ${images.length}`);
     dot.addEventListener('click', () => setLightboxScreen(index));
     dots.append(dot);
   });
