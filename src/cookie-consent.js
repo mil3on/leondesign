@@ -18,6 +18,7 @@
     window.ym(METRIKA_ID, 'init', {
       ssr: true,
       webvisor: true,
+      childIframe: true,
       clickmap: true,
       ecommerce: 'dataLayer',
       referrer: document.referrer,

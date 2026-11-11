@@ -1,4 +1,4 @@
-const CACHE_NAME = 'leonid-portfolio-v104';
+const CACHE_NAME = 'leonid-portfolio-v105';
 const SHELL = [
   './',
   './index.html',
@@ -7,7 +7,7 @@ const SHELL = [
   './src/audio.js?v=15',
   './src/typography.js?v=1',
   './src/loader.js?v=9',
-  './src/cookie-consent.js?v=1',
+  './src/cookie-consent.js?v=2',
   './public/sky-reference.webp',
   './public/fonts/PPNeueMachina-Ultrabold.otf',
   './public/fonts/UraBumBumSP.otf',
